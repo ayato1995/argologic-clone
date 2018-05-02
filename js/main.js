@@ -1,25 +1,25 @@
 enchant();
 
-function toMove(core, player) {
+function toMove(core, player, map) {
   if (core.input.left) {
     player.x -= 4;
+    if (map.hitTest(player.x + 8, player.y)) player.x += 4;
     player.frame = 9;
-    player.tick++;
   }
   if (core.input.right) {
     player.x += 4;
+    if (map.hitTest(player.x + 20, player.y)) player.x -= 4;
     player.frame = 18;
-    player.tick++;
   }
   if (core.input.up) {
     player.y -= 4;
+    if (map.hitTest(player.x + 8, player.y)) player.y += 4;
     player.frame = 27;
-    player.tick++;
   }
   if (core.input.down) {
     player.y += 4;
+    if (map.hitTest(player.x + 8, player.y + 8)) player.y -= 4;
     player.frame = 0;
-    player.tick++;
   }
 }
 
@@ -31,17 +31,26 @@ function toButtonMove(e, player) {
 window.onload = function() {
   core = new Core(320, 320);
   core.fps = 60;
-  core.preload("../img/chara5.png");
+  core.preload("../img/chara5.png", "../img/map0.gif");
 
   core.onload = function() {
     var player = new Sprite(32, 32);
     player.image = core.assets["../img/chara5.png"];
-    player.x = 320 / 2;
-    player.y = 320 / 2;
+    player.x = 56;
+    player.y = 132;
+
+    var backgroundMap = new Map(16, 16);
+    backgroundMap.image = core.assets["../img/map0.gif"];
+    backgroundMap.loadData(stage_map1_0, stage_map1_1);
+    backgroundMap.collisionData = stage_map1_col;
+    console.log(backgroundMap.image);
+
+    core.rootScene.addChild(backgroundMap);
     core.rootScene.addChild(player);
 
     player.addEventListener("enterframe", function(e) {
-      toMove(core, player);
+      toMove(core, player, backgroundMap);
+      // console.log(player.x + "    " + player.y);
     });
 
     player.addEventListener("touchmove", function(e) {
