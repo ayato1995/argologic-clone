@@ -23,27 +23,26 @@ window.onload = function() {
     core.rootScene.addChild(player);
 
     player.addEventListener("enterframe", function(e) {
-      toMove(core, player, backgroundMap);
-      // console.log(player.x + "   " + player.y);
-    });
-
-    player.addEventListener("touchmove", function(e) {
-      toButtonMove(e, player);
+      if (core.input.up)
+        player.toUp(core, backgroundMap);
+      else if (core.input.down)
+        player.toDown(core, backgroundMap);
+      else if (core.input.right)
+        player.toRight(core, backgroundMap);
+      else if (core.input.left)
+        player.toLeft(core, backgroundMap);
     });
 
     core.rootScene.addEventListener("enterframe", function(e) {
       if (player.intersect(goal)) {
-        console.log("");
         core.replaceScene(core.field())
       }
     });
-
   }
 
   core.field = function() {
     var scene = new Scene();
     scene.backgroundColor = "yellow";
-    console.log(scene.backgroundColor);
 
     return scene;
   }
