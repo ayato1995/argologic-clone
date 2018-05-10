@@ -12,6 +12,8 @@ window.onload = function() {
     backgroundMap.loadData(stage_map1_0, stage_map1_1);
     backgroundMap.collisionData = stage_map1_col;
     //block_list = [];
+    var flag = 0;
+    var up2;
 
     /* goal initialize */
     var goal = new Goal(240, 144, backgroundMap);
@@ -45,8 +47,18 @@ window.onload = function() {
     });
 
     up.addEventListener("touchstart", function(e) {
-      var up2 = new Block(400, 10, "up");
+      up2 = new Block(400, 10, "up");
       core.rootScene.addChild(up2);
+      flag++;
+    });
+
+    core.rootScene.addEventListener("enterframe", function() {
+      if (flag > 0) {
+        up2.addEventListener("touchstart", function(e) {
+          this.remove(core);
+          flag = 0;
+        });
+      }
     });
   }
 
