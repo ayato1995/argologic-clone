@@ -11,7 +11,7 @@
     var y = this.y;
     while (y - this.y < 16) {
       this.y -= 4;
-      if (map.hitTest(this.x + 8, this.y)) {
+      if (map.hitTest(this.x + 8, this.y - 3)) {
         this.y += 4;
         break;
       }

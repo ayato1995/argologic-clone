@@ -1,7 +1,7 @@
 enchant();
 
 window.onload = function() {
-  core = new Core(320, 320);
+  core = new Core(480, 320);
   core.fps = 60;
   core.preload("../img/chara5.png", "../img/map0.gif", "../img/goal.png");
 
@@ -11,6 +11,7 @@ window.onload = function() {
     backgroundMap.image = core.assets["../img/map0.gif"];
     backgroundMap.loadData(stage_map1_0, stage_map1_1);
     backgroundMap.collisionData = stage_map1_col;
+    //block_list = [];
 
     /* goal initialize */
     var goal = new Goal(240, 144, backgroundMap);
@@ -18,9 +19,13 @@ window.onload = function() {
     /* player initialize */
     var player = new Player(56, 132, backgroundMap);
 
+    /* block initialize */
+    var up = new Block(330, 10, "up");
+
     core.rootScene.addChild(backgroundMap);
     core.rootScene.addChild(goal);
     core.rootScene.addChild(player);
+    core.rootScene.addChild(up);
 
     player.addEventListener("enterframe", function(e) {
       if (core.input.up)
@@ -38,6 +43,11 @@ window.onload = function() {
         core.replaceScene(core.field())
       }
     });
+
+    up.addEventListener("touchstart", function(e) {
+      var up2 = new Block(400, 10, "up");
+      core.rootScene.addChild(up2);
+    });
   }
 
   core.field = function() {
@@ -48,4 +58,5 @@ window.onload = function() {
   }
 
   core.start();
+  //core.debug();
 };
