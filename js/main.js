@@ -11,9 +11,7 @@ window.onload = function() {
     backgroundMap.image = core.assets["../img/map0.gif"];
     backgroundMap.loadData(stage_map1_0, stage_map1_1);
     backgroundMap.collisionData = stage_map1_col;
-    //block_list = [];
-    var flag = 0;
-    var up2;
+    block_list = [];
 
     /* goal initialize */
     var goal = new Goal(240, 144, backgroundMap);
@@ -23,11 +21,17 @@ window.onload = function() {
 
     /* block initialize */
     var up = new Block(330, 10, "up");
+    var down = new Block(330, 25, "down");
+    var left = new Block(330, 40, "left");
+    var right = new Block(330, 55, "right");
 
     core.rootScene.addChild(backgroundMap);
     core.rootScene.addChild(goal);
     core.rootScene.addChild(player);
     core.rootScene.addChild(up);
+    core.rootScene.addChild(down);
+    core.rootScene.addChild(left);
+    core.rootScene.addChild(right);
 
     player.addEventListener("enterframe", function(e) {
       if (core.input.up)
@@ -47,16 +51,30 @@ window.onload = function() {
     });
 
     up.addEventListener("touchstart", function(e) {
-      up2 = new Block(400, 10, "up");
-      core.rootScene.addChild(up2);
-      flag++;
+      block_list.push(new Block(400, 10 * block_list.length, "up"));
+      core.rootScene.addChild(block_list[block_list.length - 1]);
+    });
+
+    down.addEventListener("touchstart", function(e) {
+      block_list.push(new Block(400, 10 * block_list.length, "down"));
+      core.rootScene.addChild(block_list[block_list.length -1]);
+    });
+
+    left.addEventListener("touchstart", function(e) {
+      block_list.push(new Block(400, 10 * block_list.length, "left"));
+      core.rootScene.addChild(block_list[block_list.length - 1]);
+    });
+
+    right.addEventListener("touchstart", function(e) {
+      block_list.push(new Block(400, block_list.length * 10, "right"));
+      core.rootScene.addChild(block_list[block_list.length - 1]);
     });
 
     core.rootScene.addEventListener("enterframe", function() {
-      if (flag > 0) {
-        up2.addEventListener("touchstart", function(e) {
+      for (var i = 0; i < block_list.length; i++) {
+        block_list[i].addEventListener("touchstart", function(e) {
           this.remove(core);
-          flag = 0;
+          block_list.splice(i, 1);
         });
       }
     });
