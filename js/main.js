@@ -66,59 +66,42 @@ window.onload = function() {
       if (e.x > 400 && e.x < 470 && e.y > 10 && e.y < 210) {
         this.moveBlock(block_list);
         block_list.push(new Block(405, block_list.length * 15 + 15, "up"));
+        register_eventListenr(block_list);
         core.rootScene.addChild(block_list[block_list.length - 1]);
         console.log(block_list.length);
-        this.x = 330;
-        this.y = 10;
-      } else {
-        this.x = 330;
-        this.y = 10;
       }
+      this.x = 330;
+      this.y = 10;
     });
 
     player.left.addEventListener("touchend", function(e) {
       if (e.x > 400 && e.x < 470 && e.y > 10 && e.y < 210) {
         this.moveBlock(block_list);
         block_list.push(new Block(405, block_list.length * 15 + 15, "left"));
+        register_eventListenr(block_list);
         core.rootScene.addChild(block_list[block_list.length - 1]);
         console.log(block_list.length);
-        this.x = 330;
-        this.y = 25;
-      } else {
-        this.x = 330;
-        this.y = 25;
       }
+      this.x = 330;
+      this.y = 25;
     });
 
     player.right.addEventListener("touchend", function(e) {
       if (e.x > 400 && e.x < 470 && e.y > 10 && e.y < 210) {
         this.moveBlock(block_list);
         block_list.push(new Block(405, block_list.length * 15 + 15, "right"));
+        register_eventListenr(block_list);
         core.rootScene.addChild(block_list[block_list.length - 1]);
         console.log(block_list.length);
-        this.x = 330;
-        this.y = 40;
-      } else {
-        this.x = 330;
-        this.y = 40;
       }
+      this.x = 330;
+      this.y = 40;
     });
 
     core.rootScene.addEventListener("enterframe", function(e) {
       if (player.intersect(goal)) {
         core.replaceScene(core.field())
       }
-    });
-
-    core.rootScene.addEventListener("enterframe", function() {
-      for (var i = 0; i < block_list.length; i++) {
-        block_list[i].addEventListener("touchstart", function(e) {
-          block_list.splice(i, 1);
-          this.remove(core);
-          //block_list[i] = null;
-        });
-      }
-      //console.log(block_list);
     });
   }
 
@@ -127,6 +110,23 @@ window.onload = function() {
     scene.backgroundColor = "yellow";
 
     return scene;
+  }
+
+  block_remove = function(array, block) {
+    for (var i = 0; i < array.length; i++) {
+      if (array[i] == block) {
+        array.splice(i, 1);
+      }
+    }
+  }
+
+  register_eventListenr = function(array) {
+    for (var i = 0; i < array.length; i++) {
+      array[i].addEventListener("touchstart", function(e) {
+        this.remove(core);
+        block_remove(array, this);
+      });
+    }
   }
 
   core.start();
