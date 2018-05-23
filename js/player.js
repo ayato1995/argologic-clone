@@ -5,6 +5,9 @@
     this.frame = 27;
     this.x = x;
     this.y = y;
+    this.up = new Block(330, 10, "up");
+    this.left = new Block(330, 25, "left");
+    this.right = new Block(330, 40, "right");
   },
 
   toUp: function(core, map) {
@@ -50,4 +53,5 @@
       }
     }
   }
+
 })
