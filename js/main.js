@@ -66,9 +66,8 @@ window.onload = function() {
       if (e.x > 400 && e.x < 470 && e.y > 10 && e.y < 210) {
         this.moveBlock(block_list);
         block_list.push(new Block(405, block_list.length * 15 + 15, "up"));
-        register_eventListenr(block_list);
+        register_delete_block_eventListenr(block_list);
         core.rootScene.addChild(block_list[block_list.length - 1]);
-        console.log(block_list.length);
       }
       this.x = 330;
       this.y = 10;
@@ -78,9 +77,8 @@ window.onload = function() {
       if (e.x > 400 && e.x < 470 && e.y > 10 && e.y < 210) {
         this.moveBlock(block_list);
         block_list.push(new Block(405, block_list.length * 15 + 15, "left"));
-        register_eventListenr(block_list);
+        register_delete_block_eventListenr(block_list);
         core.rootScene.addChild(block_list[block_list.length - 1]);
-        console.log(block_list.length);
       }
       this.x = 330;
       this.y = 25;
@@ -90,9 +88,8 @@ window.onload = function() {
       if (e.x > 400 && e.x < 470 && e.y > 10 && e.y < 210) {
         this.moveBlock(block_list);
         block_list.push(new Block(405, block_list.length * 15 + 15, "right"));
-        register_eventListenr(block_list);
+        register_delete_block_eventListenr(block_list);
         core.rootScene.addChild(block_list[block_list.length - 1]);
-        console.log(block_list.length);
       }
       this.x = 330;
       this.y = 40;
@@ -118,9 +115,12 @@ window.onload = function() {
         array.splice(i, 1);
       }
     }
+    for (var i = 0; i < array.length; i++) {
+      array[i].moveBlock(i);
+    }
   }
 
-  register_eventListenr = function(array) {
+  register_delete_block_eventListenr = function(array) {
     for (var i = 0; i < array.length; i++) {
       array[i].addEventListener("touchstart", function(e) {
         this.remove(core);
