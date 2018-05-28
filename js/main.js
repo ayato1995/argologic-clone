@@ -24,9 +24,12 @@ window.onload = function() {
     stack_frame.backgroundColor = "gray";
     stack_frame.x = 400
     stack_frame.y = 10
+    /*
     var up = new Block(330, 10, "up");
     var left = new Block(330, 40, "left");
     var right = new Block(330, 55, "right");
+    */
+    var play = new Block(330, 300, "play");
 
     core.rootScene.addChild(backgroundMap);
     core.rootScene.addChild(stack_frame);
@@ -35,7 +38,16 @@ window.onload = function() {
     core.rootScene.addChild(player.up);
     core.rootScene.addChild(player.left);
     core.rootScene.addChild(player.right);
+    core.rootScene.addChild(player.leftRotate);
+    core.rootScene.addChild(player.rightRotate);
+    core.rootScene.addChild(play);
 
+    play.addEventListener("touchstart", function(e) {
+      if(block_list.length != 0) {
+      	this.execution(block_list, player, core, backgroundMap);
+      }
+      block_list = [];
+    })
     player.addEventListener("enterframe", function(e) {
       if (core.input.up)
         player.toUp(core, backgroundMap);
@@ -60,7 +72,17 @@ window.onload = function() {
     player.right.addEventListener("touchmove", function(e) {
       this.x = e.x;
       this.y = e.y;
-    })
+    });
+
+    player.leftRotate.addEventListener("touchmove", function(e) {
+      this.x = e.x;
+      this.y = e.y;
+    });
+
+    player.rightRotate.addEventListener("touchmove", function(e) {
+      this.x = e.x;
+      this.y = e.y;
+    });
 
     player.up.addEventListener("touchend", function(e) {
       if (e.x > 400 && e.x < 470 && e.y > 10 && e.y < 210) {
@@ -95,6 +117,27 @@ window.onload = function() {
       this.y = 40;
     });
 
+    player.leftRotate.addEventListener("touchend", function(e) {
+      if (e.x > 400 && e.x < 470 && e.y > 10 && e.y < 210) {
+        this.moveBlock(block_list);
+        block_list.push(new Block(405, block_list.length * 15 + 15, "leftRotate"));
+        register_delete_block_eventListenr(block_list);
+        core.rootScene.addChild(block_list[block_list.length - 1]);
+      }
+      this.x = 330;
+      this.y = 55;
+    });
+
+    player.rightRotate.addEventListener("touchend", function(e) {
+      if (e.x > 400 && e.x < 470 && e.y > 10 && e.y < 210) {
+        this.moveBlock(block_list);
+        block_list.push(new Block(405, block_list.length * 15 + 15, "rightRotate"));
+        register_delete_block_eventListenr(block_list);
+        core.rootScene.addChild(block_list[block_list.length - 1]);
+      }
+      this.x = 330;
+      this.y = 70;
+    });
     core.rootScene.addEventListener("enterframe", function(e) {
       if (player.intersect(goal)) {
         core.replaceScene(core.field())

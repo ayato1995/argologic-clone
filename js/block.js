@@ -13,12 +13,18 @@ var Block = enchant.Class.create(enchant.Sprite, {
       color = "green";
     } else if (type == "right") {
       color = "yellow";
+    } else if (type == "leftRotate") {
+      color = "aquamarine";
+    } else if (type == "rightRotate") {
+      color = "gold";
     } else if (type == "for") {
       color = "blue";
     } else if (type == "if") {
       color = "orange";
     } else if (type == "function") {
       color = "chartreuse green";
+    } else if (type == "play") {
+      color = "darkturquoise";
     }
 
     this.backgroundColor = color;
@@ -29,19 +35,26 @@ var Block = enchant.Class.create(enchant.Sprite, {
     core.rootScene.removeChild(this);
   },
 
-  execution: function(block, player) {
-    for (var b in block) {
-      switch (b.type) {
+  execution: function(block, player, core, backgroundMap) {
+    for (i = 0; i < block.length; i++) {
+      switch (block[i].type) {
         case "up":
-          player.up();
+          player.toUp(core, backgroundMap);
           break;
         case "left":
-          player.left();
+          player.toLeft(core, backgroundMap);
           break;
         case "right":
-          player.right();
+          player.toRight(core, backgroundMap);
+          break;
+        case "leftRotate":
+          player.toLeftRotate(core, backgroundMap);
+          break;
+        case "rightRotate":
+          player.toRightRotate(core, backgroundMap);
           break;
       }
+      block[i].remove(core);
     }
   },
 

@@ -2,12 +2,14 @@
   initialize: function(x, y, map) {
     enchant.Sprite.call(this, 32, 32);
     this.image = core.assets["../img/chara5.png"];
-    this.frame = 27;
+    this.frame = 28;
     this.x = x;
     this.y = y;
     this.up = new Block(330, 10, "up");
     this.left = new Block(330, 25, "left");
     this.right = new Block(330, 40, "right");
+    this.leftRotate = new Block(330, 55, "leftRotate");
+    this.rightRotate = new Block(330, 70, "rightRotate");
   },
 
   toUp: function(core, map) {
@@ -52,6 +54,40 @@
         break;
       }
     }
-  }
+  },
+
+  toRightRotate: function() {
+  	switch(this.frame) {
+  	case 1:
+  	  this.frame = 10;
+  	  break;
+  	case 10:
+  	  this.frame = 28;
+  	  break;
+  	case 19:
+  	  this.frame = 1;
+  	  break;
+  	case 28:
+  	  this.frame = 19
+  	  break;
+  	}
+  },
+
+  toLeftRotate: function() {
+  	switch(this.frame) {
+  	case 1:
+  	  this.frame = 19;
+  	  break;
+  	case 10:
+  	  this.frame = 1;
+  	  break;
+  	case 19:
+  	  this.frame = 28;
+  	  break;
+  	case 28:
+  	  this.frame = 10;
+  	  break;
+  	}
+  },
 
 })
