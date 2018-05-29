@@ -24,11 +24,6 @@ window.onload = function() {
     stack_frame.backgroundColor = "gray";
     stack_frame.x = 400
     stack_frame.y = 10
-    /*
-    var up = new Block(330, 10, "up");
-    var left = new Block(330, 40, "left");
-    var right = new Block(330, 55, "right");
-    */
     var play = new Block(330, 300, "play");
 
     core.rootScene.addChild(backgroundMap);
@@ -44,10 +39,11 @@ window.onload = function() {
 
     play.addEventListener("touchstart", function(e) {
       if(block_list.length != 0) {
-      	this.execution(block_list, player, core, backgroundMap);
+      	this.play(block_list, player, core, backgroundMap);
       }
       block_list = [];
-    })
+    });
+    
     player.addEventListener("enterframe", function(e) {
       if (core.input.up)
         player.toUp(core, backgroundMap);

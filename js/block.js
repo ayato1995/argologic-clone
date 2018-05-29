@@ -35,26 +35,36 @@ var Block = enchant.Class.create(enchant.Sprite, {
     core.rootScene.removeChild(this);
   },
 
-  execution: function(block, player, core, backgroundMap) {
+  play: function(block, player, core, backgroundMap) {
+    var b;
     for (i = 0; i < block.length; i++) {
-      switch (block[i].type) {
-        case "up":
-          player.toUp(core, backgroundMap);
-          break;
-        case "left":
-          player.toLeft(core, backgroundMap);
-          break;
-        case "right":
-          player.toRight(core, backgroundMap);
-          break;
-        case "leftRotate":
-          player.toLeftRotate(core, backgroundMap);
-          break;
-        case "rightRotate":
-          player.toRightRotate(core, backgroundMap);
-          break;
-      }
+      time = i * 1000;
+      b = block[i];
+      console.log(b);
+      setTimeout(this.execution, time, b, player, core, backgroundMap);
+    }
+    for (i = 0; i < block.length; i++) {
       block[i].remove(core);
+    }
+  },
+
+  execution: function(block, player, core, backgroundMap) {
+    switch(block.type) {
+    case "up":
+      player.toUp(core, backgroundMap);
+      break;
+    case "left":
+      player.toLeft(core, backgroundMap);
+      break;
+    case "right":
+      player.toRight(core, backgroundMap);
+      break;
+    case "leftRotate":
+      player.toLeftRotate(core, backgroundMap);
+      break;
+    case "rightRotate":
+      player.toRightRotate(core, backgroundMap);
+      break;
     }
   },
 
