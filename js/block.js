@@ -35,17 +35,19 @@ var Block = enchant.Class.create(enchant.Sprite, {
     core.rootScene.removeChild(this);
   },
 
-  play: function(block, player, core, backgroundMap) {
-    var b;
+  play: function(block, player, core, backgroundMap, goal) {
+    var time;
     for (i = 0; i < block.length; i++) {
       time = i * 1000;
-      b = block[i];
-      console.log(b);
-      setTimeout(this.execution, time, b, player, core, backgroundMap);
+      setTimeout(this.execution, time, block[i], player, core, backgroundMap);
     }
-    for (i = 0; i < block.length; i++) {
-      block[i].remove(core);
-    }
+    setTimeout(function() {
+      if (player.intersect(goal)) {
+        core.replaceScene(core.field(true));
+      } else {
+        core.replaceScene(core.field(false));
+      }
+    }, i * 1000);
   },
 
   execution: function(block, player, core, backgroundMap) {
@@ -66,6 +68,7 @@ var Block = enchant.Class.create(enchant.Sprite, {
       player.toRightRotate(core, backgroundMap);
       break;
     }
+    block.remove(core);
   },
 
   moveBlock: function(n) {

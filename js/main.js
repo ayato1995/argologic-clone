@@ -3,7 +3,7 @@ enchant();
 window.onload = function() {
   core = new Core(480, 320);
   core.fps = 60;
-  core.preload("../img/chara5.png", "../img/map0.gif", "../img/goal.png");
+  core.preload("../img/chara5.png", "../img/map0.gif", "../img/goal.png", "../img/clear.png", "../img/end.png");
 
   core.onload = function() {
     /* map initialize */
@@ -39,7 +39,7 @@ window.onload = function() {
 
     play.addEventListener("touchstart", function(e) {
       if(block_list.length != 0) {
-      	this.play(block_list, player, core, backgroundMap);
+      	this.play(block_list, player, core, backgroundMap, goal);
       }
       block_list = [];
     });
@@ -134,17 +134,24 @@ window.onload = function() {
       this.x = 330;
       this.y = 70;
     });
+    /*
     core.rootScene.addEventListener("enterframe", function(e) {
       if (player.intersect(goal)) {
         core.replaceScene(core.field())
       }
-    });
+    });*/
   }
 
-  core.field = function() {
+  core.field = function(clear) {
     var scene = new Scene();
-    scene.backgroundColor = "yellow";
-
+    var game_set_image = new Sprite(189, 97);
+    if (clear)
+      game_set_image = core.assets["../img/clear.png"];
+    else
+      game_set_image = core.assets["../img/end.png"];
+    game_set_image.x = core.width / 2;
+    game_set_image.y = core.height / 2;
+    scene.addChild(game_set_image);
     return scene;
   }
 
