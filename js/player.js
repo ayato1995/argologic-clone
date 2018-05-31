@@ -10,6 +10,8 @@
     this.right = new Block(330, 40, "right");
     this.leftRotate = new Block(330, 55, "leftRotate");
     this.rightRotate = new Block(330, 70, "rightRotate");
+    this.func = new Block(330, 85, "function");
+    this.func_block_list = [];
   },
 
   toUp: function(core, map) {
