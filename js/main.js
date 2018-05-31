@@ -46,7 +46,7 @@ window.onload = function() {
     play.addEventListener("touchstart", function(e) {
       if(block_list.length != 0) {
       	var time = this.play(block_list, player, core, backgroundMap, goal, 0);
-        console.log(time);
+        // console.log(time);
         setTimeout(function() {
           if (player.intersect(goal)) {
             core.replaceScene(core.field(true));

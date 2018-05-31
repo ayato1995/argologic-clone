@@ -36,15 +36,17 @@ var Block = enchant.Class.create(enchant.Sprite, {
 
   play: function(block, player, core, backgroundMap, goal, t) {
     var time = t;
-    for (i = 0; i < block.length; i++) {
-      console.log(block[i].type + " : " + time);
+    // console.log(block);
+    for (var i = 0; i < block.length; i++) {
+      // console.log(block[i].type + " : " + time);
       if (block[i].type == "function") {
-        time += this.play(player.func_block_list, player, core, backgroundMap, goal, time);
+        time = this.play(player.func_block_list, player, core, backgroundMap, goal, time);
       } else {
         setTimeout(this.execution, time, block[i], player, core, backgroundMap);
         time += 1000;
       }
     }
+    // console.log("play_end" + time);
     return time;
   },
 
