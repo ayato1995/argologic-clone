@@ -36,8 +36,6 @@ window.onload = function() {
     core.rootScene.addChild(goal);
     core.rootScene.addChild(player);
     core.rootScene.addChild(player.up);
-    core.rootScene.addChild(player.left);
-    core.rootScene.addChild(player.right);
     core.rootScene.addChild(player.leftRotate);
     core.rootScene.addChild(player.rightRotate);
     core.rootScene.addChild(player.func);
@@ -77,16 +75,6 @@ window.onload = function() {
       this.y = e.y;
     });
 
-    player.left.addEventListener("touchmove", function(e) {
-      this.x = e.x;
-      this.y = e.y;
-    });
-
-    player.right.addEventListener("touchmove", function(e) {
-      this.x = e.x;
-      this.y = e.y;
-    });
-
     player.leftRotate.addEventListener("touchmove", function(e) {
       this.x = e.x;
       this.y = e.y;
@@ -119,39 +107,6 @@ window.onload = function() {
       this.y = 10;
     });
 
-    player.left.addEventListener("touchend", function(e) {
-      if (e.x > 400 && e.x < 470 && e.y > 10 && e.y < 210) {
-        this.moveBlock(block_list);
-        block_list.push(new Block(405, block_list.length * 15 + 15, "left"));
-        register_delete_block_eventListenr(block_list);
-        core.rootScene.addChild(block_list[block_list.length - 1]);
-      }
-      if (e.x > 480 && e.x < 550 && e.y > 10 && e.y < 210) {
-        this.moveBlock(player.func_block_list);
-        player.func_block_list.push(new Block(485, player.func_block_list.length * 15 + 15, "left"));
-        register_delete_block_eventListenr(player.func_block_list);
-        core.rootScene.addChild(player.func_block_list[player.func_block_list.length - 1]);
-      }
-      this.x = 330;
-      this.y = 25;
-    });
-
-    player.right.addEventListener("touchend", function(e) {
-      if (e.x > 400 && e.x < 470 && e.y > 10 && e.y < 210) {
-        this.moveBlock(block_list);
-        block_list.push(new Block(405, block_list.length * 15 + 15, "right"));
-        register_delete_block_eventListenr(block_list);
-        core.rootScene.addChild(block_list[block_list.length - 1]);
-      }
-      if (e.x > 480 && e.x < 550 && e.y > 10 && e.y < 210) {
-        this.moveBlock(player.func_block_list);
-        player.func_block_list.push(new Block(485, player.func_block_list.length * 15 + 15, "right"));
-        register_delete_block_eventListenr(player.func_block_list);
-        core.rootScene.addChild(player.func_block_list[player.func_block_list.length - 1]);
-      }
-      this.x = 330;
-      this.y = 40;
-    });
 
     player.leftRotate.addEventListener("touchend", function(e) {
       if (e.x > 400 && e.x < 470 && e.y > 10 && e.y < 210) {
@@ -167,7 +122,7 @@ window.onload = function() {
         core.rootScene.addChild(player.func_block_list[player.func_block_list.length - 1]);
       }
       this.x = 330;
-      this.y = 55;
+      this.y = 25;
     });
 
     player.rightRotate.addEventListener("touchend", function(e) {
@@ -184,7 +139,7 @@ window.onload = function() {
         core.rootScene.addChild(player.func_block_list[player.func_block_list.length - 1]);
       }
       this.x = 330;
-      this.y = 70;
+      this.y = 40;
     });
 
     player.func.addEventListener("touchend", function(e) {
@@ -201,7 +156,7 @@ window.onload = function() {
         core.rootScene.addChild(player.func_block_list[player.func_block_list.length - 1]);
       }
       this.x = 330;
-      this.y = 85;
+      this.y = 55;
     });
     /*
     core.rootScene.addEventListener("enterframe", function(e) {
@@ -216,7 +171,7 @@ window.onload = function() {
     var game_set_image = new Sprite(189, 97);
     if (clear)
       game_set_image = core.assets["../img/clear.png"];
-    else
+    else 
       game_set_image = core.assets["../img/end.png"];
     scene.addChild(game_set_image);
     return scene;

@@ -9,10 +9,6 @@ var Block = enchant.Class.create(enchant.Sprite, {
 
     if (type == "up") {
       color = "red";
-    } else if (type == "left") {
-      color = "green";
-    } else if (type == "right") {
-      color = "yellow";
     } else if (type == "leftRotate") {
       color = "aquamarine";
     } else if (type == "rightRotate") {
@@ -54,12 +50,6 @@ var Block = enchant.Class.create(enchant.Sprite, {
     switch(block.type) {
     case "up":
       player.toUp(core, backgroundMap);
-      break;
-    case "left":
-      player.toLeft(core, backgroundMap);
-      break;
-    case "right":
-      player.toRight(core, backgroundMap);
       break;
     case "leftRotate":
       player.toLeftRotate(core, backgroundMap);
