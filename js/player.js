@@ -9,6 +9,8 @@
     this.leftRotate = new Block(330, 25, "leftRotate");
     this.rightRotate = new Block(330, 40, "rightRotate");
     this.func = new Block(330, 55, "function");
+    this.forStart = new Block(330, 70, "forStart");
+    this.forEnd = new Block(330, 85, "forEnd");
     this.func_block_list = [];
   },
 
