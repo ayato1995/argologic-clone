@@ -90,6 +90,7 @@ var Block = enchant.Class.create(enchant.Sprite, {
           }
           i++;
         } while (forStack.length > 0);
+        i--;
         time = this.forExecution(loop_list, 0, player, core, backgroundMap, time)[0];
       } else {
         setTimeout(this.execution, time, block[i], player, core, backgroundMap);
@@ -120,7 +121,6 @@ var Block = enchant.Class.create(enchant.Sprite, {
           j++;
         } else {
           var req = [time, k];
-          console.log(req);
           return req;
         }
       } else {
