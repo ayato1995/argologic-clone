@@ -90,7 +90,7 @@ var Block = enchant.Class.create(enchant.Sprite, {
           }
           i++;
         } while (forStack.length > 0);
-        time = this.forExecution(loop_list, 0, player, core, backgroundMap, time);
+        time = this.forExecution(loop_list, 0, player, core, backgroundMap, time)[0];
       } else {
         setTimeout(this.execution, time, block[i], player, core, backgroundMap);
         time += 1000;
@@ -111,14 +111,17 @@ var Block = enchant.Class.create(enchant.Sprite, {
     while (true) {
       k++;
       if (block[k].type == "forStart") {
-        time = this.forExecution(block, k, player, core, backgroundMap, time);
+        var req = this.forExecution(block, k, player, core, backgroundMap, time);
+        time = req[0];
+        k = req[1];
       } else if (block[k].type == "forEnd") {
         if (j < loop) {
           k = i;
           j++;
         } else {
-          console.log(time);
-          return time;
+          var req = [time, k];
+          console.log(req);
+          return req;
         }
       } else {
       console.log(block[k].type);
@@ -148,9 +151,28 @@ var Block = enchant.Class.create(enchant.Sprite, {
       */
     }
   },
+
+  forAnalyzer: function(block_list, i) {
+  	var for_blocks = [];
+  	for (; i < block_list.length; i++) {
+  	  if (block[i].type == "forStart")
+  	    for_blocks.push(forAnalyzer(block_list, i));
+  	  else if (block_list[i].type == "forEnd")
+  	  	return for_blocks;
+  	  else
+  	  	for_blocks.push(block_list[i]);
+  	}
+  },
   
   moveBlock: function(n) {
     this.x = 405;
     this.y = n * 15 + 15;
+  },
+
+  checkForStart: function(block_list) {
+  	for (var i = 0; i < block_list.length; i++) {
+  	  if (block_list[i].type == "forStart") return true;
+  	}
+  	return false;
   }
 });
