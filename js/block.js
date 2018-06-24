@@ -144,11 +144,6 @@ var Block = enchant.Class.create(enchant.Sprite, {
     case "rightRotate":
       player.toRightRotate(core, backgroundMap);
       break;
-      /*
-    case "function":
-      console.log("function");
-      break;
-      */
     }
   },
 
@@ -165,7 +160,7 @@ var Block = enchant.Class.create(enchant.Sprite, {
   },
   
   moveBlock: function(n) {
-    this.x = 405;
+    // this.x = 405;
     this.y = n * 15 + 15;
   },
 
