@@ -45,6 +45,7 @@ window.onload = function() {
     core.rootScene.addChild(player.func.label);
     core.rootScene.addChild(player.forStart);
     core.rootScene.addChild(player.forStart.label);
+    core.rootScene.addChild(player.forStart.loopCounter);
     core.rootScene.addChild(player.forEnd);
     core.rootScene.addChild(player.forEnd.label);
     core.rootScene.addChild(play);
@@ -114,6 +115,8 @@ window.onload = function() {
       this.y = e.y;
       this.label.x = this.x;
       this.label.y = this.y;
+      this.loopCounter.x = this.x + this.width - 15;
+      this.loopCounter.y = this.y
     });
 
     player.forEnd.addEventListener("touchmove", function(e) {
@@ -213,20 +216,62 @@ window.onload = function() {
         this.moveBlock(block_list);
         block_list.push(new Block(405, block_list.length * 15 + 15, "forStart"));
         register_delete_block_eventListenr(block_list);
+        block_list[block_list.length - 1].loop_cnt = this.loop_cnt;
         core.rootScene.addChild(block_list[block_list.length - 1]);
         core.rootScene.addChild(block_list[block_list.length - 1].label);
+        core.rootScene.addChild(block_list[block_list.length - 1].loopCounter);
+        block_list[block_list.length - 1].loopCounter.text = this.loop_cnt + "回";
+        register_loopCounter_eventListenr(block_list);
+        /*
+        block_list[block_list.length - 1].loopCounter.addEventListener("touchstart", function() {
+          if (block_list[block_list.length - 1].loop_cnt < 10) {
+            block_list[block_list.length - 1].loop_cnt++;
+          } else {
+            block_list[block_list.length - 1].loop_cnt = 0;
+          }
+          this.text = block_list[block_list.length - 1].loop_cnt + "回";
+        })
+        */
       }
       if (e.x > 480 && e.x < 550 && e.y > 10 && e.y < 210) {
         this.moveBlock(player.func_block_list);
         player.func_block_list.push(new Block(485, player.func_block_list.length * 15 + 15, "forStart"));
         register_delete_block_eventListenr(player.func_block_list);
+        player.func_block_list[player.func_block_list.length - 1].loop_cnt = this.loop_cnt;
         core.rootScene.addChild(player.func_block_list[player.func_block_list.length - 1]);
         core.rootScene.addChild(player.func_block_list[player.func_block_list.length - 1].label);
+        core.rootScene.addChild(player.func_block_list[player.func_block_list.length - 1].loopCounter);
+        player.func_block_list[player.func_block_list.length - 1].loopCounter.text = this.loop_cnt + "回";
+        register_loopCounter_eventListenr(player.func_block_list);
+        /*
+        player.func_block_list[player.func_block_list.length - 1].loopCounter.addEventListener("touchstart", function() {
+          if (player.func_block_list[player.func_block_list.length - 1].loop_cnt < 10) {
+            player.func_block_list[player.func_block_list.length - 1].loop_cnt++;
+          } else {
+            player.func_block_list[player.func_block_list.length - 1].loop_cnt = 0;
+          }
+          this.text = player.func_block_list[player.func_block_list.length - 1].loop_cnt + "回";
+        })
+        */
       }
       this.x = 330;
       this.y = 70;
       this.label.x = this.x;
       this.label.y = this.y;
+      this.loopCounter.x = this.x + this.width - 15;
+      this.loopCounter.y = this.y;
+    });
+
+    player.forStart.loopCounter.addEventListener("touchend", function(e) {
+      if (player.forStart.loop_cnt < 10) {
+        player.forStart.loop_cnt++;
+        // console.log(player.loop_cnt++);
+      } else {
+        player.forStart.loop_cnt = 0;
+        // console.log("aaa " +player.loop_cnt);
+      }
+      player.forStart.loopCounter.text = player.forStart.loop_cnt + "回";
+      console.log(player.forStart.loop_cnt);
     });
 
     player.forEnd.addEventListener("touchend", function(e) {
@@ -249,7 +294,6 @@ window.onload = function() {
       this.label.x = this.x;
       this.label.y = this.y;
     });
-
   }
 
   core.field = function(clear) {
@@ -283,6 +327,19 @@ window.onload = function() {
     }
   }
 
+  register_loopCounter_eventListenr = function(array) {
+    for (var i = 0; i < array.length; i++) {
+      array[i].loopCounter.addEventListener("touchstart", function() {
+        if (this.loop_cnt < 10) {
+          this.loop_cnt++;
+        } else {
+          this.loop_cnt = 0;
+        }
+        this.loopCounter.text = this.loop_cnt + "回";
+      }.bind(array[i]));
+    }
+  }
+
   core.start();
-  //core.debug();
+  // core.debug();
 };

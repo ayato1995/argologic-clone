@@ -24,11 +24,10 @@ var Block = enchant.Class.create(enchant.Sprite, {
       string = "関数";
       color = "darkslategray";
     } else if (type == "forStart") {
-      string = "繰り返し始まり";
+      string = "ループ s";
       color = "coral";
-      this.loop_cnt = 3;
     } else if (type == "forEnd") {
-      string = "繰り返し終わり";
+      string = "ループ e";
       color = "tomato";
     } else if (type == "play") {
       string = "実行";
@@ -39,13 +38,19 @@ var Block = enchant.Class.create(enchant.Sprite, {
     this.label = new Label(string);
     this.label.x = this.x;
     this.label.y = this.y;
-    this.label.font = "10px 'MSゴシック'";
+    this.label.font = "6px 'MSゴシック'";
+    console.log(this.loop_cnt);
+    this.loopCounter = new Label(this.loop_cnt + "回");
+    this.loopCounter.x = this.x + this.width - 15;
+    this.loopCounter.y = this.y;
+    this.loopCounter.font = "6px 'MSゴシック'";
     this.backgroundColor = color;
   },
 
   remove: function(core) {
     core.rootScene.removeChild(this);
     core.rootScene.removeChild(this.label);
+    core.rootScene.removeChild(this.loopCounter);
   },
 
   play: function(block, player, core, backgroundMap, goal, t) {
@@ -86,6 +91,7 @@ var Block = enchant.Class.create(enchant.Sprite, {
     }
     var loop = block[i].loop_cnt;
     var k = i;
+    console.log(block[i].type);
     console.log("loop :" + loop);
     var j = 1;
     while (true) {
@@ -140,6 +146,8 @@ var Block = enchant.Class.create(enchant.Sprite, {
   
   moveBlock: function(n) {
     this.y = n * 15 + 15;
+    this.label.y = this.y;
+    this.loopCounter.y = this.y;
   },
 
   checkForStart: function(block_list) {
