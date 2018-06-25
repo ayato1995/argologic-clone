@@ -3,33 +3,43 @@ var Block = enchant.Class.create(enchant.Sprite, {
   initialize: function(x, y, type) {
     enchant.Sprite.call(this, 60, 10);
     this.type = type;
-    label = new Label(this.type);
     this.x = x;
     this.y = y;
     this.loop_cnt = 0;
+    var string = null;
 
     if (type == "up") {
+      string = "前進";
       color = "red";
     } else if (type == "leftRotate") {
+      string = "左に向く";
       color = "aquamarine";
     } else if (type == "rightRotate") {
+      string = "右に向く";
       color = "gold";
-    } else if (type == "for") {
-      color = "blue";
     } else if (type == "if") {
+      string = "もしも";
       color = "orange";
     } else if (type == "function") {
+      string = "関数";
       color = "darkslategray";
     } else if (type == "forStart") {
+      string = "繰り返し始まり";
       color = "coral";
       this.loop_cnt = 3;
     } else if (type == "forEnd") {
+      string = "繰り返し終わり";
       color = "tomato";
     } else if (type == "play") {
+      string = "実行";
       color = "darkturquoise";
     }
     // console.log(this.loop_cnt);
 
+    this.label = new Label(string);
+    this.label.x = this.x;
+    this.label.y = this.y;
+    this.label.font = "10px 'MSゴシック'";
     this.backgroundColor = color;
   },
 

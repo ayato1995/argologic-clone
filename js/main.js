@@ -36,12 +36,19 @@ window.onload = function() {
     core.rootScene.addChild(goal);
     core.rootScene.addChild(player);
     core.rootScene.addChild(player.up);
+    core.rootScene.addChild(player.up.label);
     core.rootScene.addChild(player.leftRotate);
+    core.rootScene.addChild(player.leftRotate.label);
     core.rootScene.addChild(player.rightRotate);
+    core.rootScene.addChild(player.rightRotate.label);
     core.rootScene.addChild(player.func);
+    core.rootScene.addChild(player.func.label);
     core.rootScene.addChild(player.forStart);
+    core.rootScene.addChild(player.forStart.label);
     core.rootScene.addChild(player.forEnd);
+    core.rootScene.addChild(player.forEnd.label);
     core.rootScene.addChild(play);
+    core.rootScene.addChild(play.label);
 
     play.addEventListener("touchstart", function(e) {
       if(block_list.length != 0) {
