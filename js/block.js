@@ -45,6 +45,7 @@ var Block = enchant.Class.create(enchant.Sprite, {
 
   remove: function(core) {
     core.rootScene.removeChild(this);
+    core.rootScene.removeChild(this.label);
   },
 
   play: function(block, player, core, backgroundMap, goal, t) {

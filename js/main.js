@@ -84,31 +84,43 @@ window.onload = function() {
     player.up.addEventListener("touchmove", function(e) {
       this.x = e.x;
       this.y = e.y;
+      this.label.x = this.x;
+      this.label.y = this.y;
     });
 
     player.leftRotate.addEventListener("touchmove", function(e) {
       this.x = e.x;
       this.y = e.y;
+      this.label.x = this.x;
+      this.label.y = this.y;
     });
 
     player.rightRotate.addEventListener("touchmove", function(e) {
       this.x = e.x;
       this.y = e.y;
+      this.label.x = this.x;
+      this.label.y = this.y;
     });
 
     player.func.addEventListener("touchmove", function(e) {
       this.x = e.x;
       this.y = e.y;
+      this.label.x = this.x;
+      this.label.y = this.y;
     });
 
     player.forStart.addEventListener("touchmove", function(e) {
       this.x = e.x;
       this.y = e.y;
+      this.label.x = this.x;
+      this.label.y = this.y;
     });
 
     player.forEnd.addEventListener("touchmove", function(e) {
       this.x = e.x;
       this.y = e.y;
+      this.label.x = this.x;
+      this.label.y = this.y;
     });
 
     player.up.addEventListener("touchend", function(e) {
@@ -117,15 +129,19 @@ window.onload = function() {
         block_list.push(new Block(405, block_list.length * 15 + 15, "up"));
         register_delete_block_eventListenr(block_list);
         core.rootScene.addChild(block_list[block_list.length - 1]);
+        core.rootScene.addChild(block_list[block_list.length - 1].label);
       }
       if (e.x > 480 && e.x < 550 && e.y > 10 && e.y < 210) {
         this.moveBlock(player.func_block_list);
         player.func_block_list.push(new Block(485, player.func_block_list.length * 15 + 15, "up"));
         register_delete_block_eventListenr(player.func_block_list);
         core.rootScene.addChild(player.func_block_list[player.func_block_list.length - 1]);
+        core.rootScene.addChild(player.func_block_list[player.func_block_list.length - 1].label);
       }
       this.x = 330;
       this.y = 10;
+      this.label.x = this.x;
+      this.label.y = this.y;
     });
 
 
@@ -135,15 +151,19 @@ window.onload = function() {
         block_list.push(new Block(405, block_list.length * 15 + 15, "leftRotate"));
         register_delete_block_eventListenr(block_list);
         core.rootScene.addChild(block_list[block_list.length - 1]);
+        core.rootScene.addChild(block_list[block_list.length - 1].label);
       }
       if (e.x > 480 && e.x < 550 && e.y > 10 && e.y < 210) {
         this.moveBlock(player.func_block_list);
         player.func_block_list.push(new Block(485, player.func_block_list.length * 15 + 15, "leftRotate"));
         register_delete_block_eventListenr(player.func_block_list);
         core.rootScene.addChild(player.func_block_list[player.func_block_list.length - 1]);
+        core.rootScene.addChild(player.func_block_list[player.func_block_list.length - 1].label);
       }
       this.x = 330;
       this.y = 25;
+      this.label.x = this.x;
+      this.label.y = this.y;
     });
 
     player.rightRotate.addEventListener("touchend", function(e) {
@@ -152,15 +172,19 @@ window.onload = function() {
         block_list.push(new Block(405, block_list.length * 15 + 15, "rightRotate"));
         register_delete_block_eventListenr(block_list);
         core.rootScene.addChild(block_list[block_list.length - 1]);
+        core.rootScene.addChild(block_list[block_list.length - 1].label);
       }
       if (e.x > 480 && e.x < 550 && e.y > 10 && e.y < 210) {
         this.moveBlock(player.func_block_list);
         player.func_block_list.push(new Block(485, player.func_block_list.length * 15 + 15, "rightRotate"));
         register_delete_block_eventListenr(player.func_block_list);
         core.rootScene.addChild(player.func_block_list[player.func_block_list.length - 1]);
+        core.rootScene.addChild(player.func_block_list[player.func_block_list.length - 1].label);
       }
       this.x = 330;
       this.y = 40;
+      this.label.x = this.x;
+      this.label.y = this.y;
     });
 
     player.func.addEventListener("touchend", function(e) {
@@ -169,15 +193,19 @@ window.onload = function() {
         block_list.push(new Block(405, block_list.length * 15 + 15, "function"));
         register_delete_block_eventListenr(block_list);
         core.rootScene.addChild(block_list[block_list.length - 1]);
+        core.rootScene.addChild(block_list[block_list.length - 1].label);
       }
       if (e.x > 480 && e.x < 550 && e.y > 10 && e.y < 210) {
         this.moveBlock(player.func_block_list);
         player.func_block_list.push(new Block(485, player.func_block_list.length * 15 + 15, "function"));
         register_delete_block_eventListenr(player.func_block_list);
         core.rootScene.addChild(player.func_block_list[player.func_block_list.length - 1]);
+        core.rootScene.addChild(player.func_block_list[player.func_block_list.length - 1].label);
       }
       this.x = 330;
       this.y = 55;
+      this.label.x = this.x;
+      this.label.y = this.y;
     });
 
     player.forStart.addEventListener("touchend", function(e) {
@@ -186,15 +214,19 @@ window.onload = function() {
         block_list.push(new Block(405, block_list.length * 15 + 15, "forStart"));
         register_delete_block_eventListenr(block_list);
         core.rootScene.addChild(block_list[block_list.length - 1]);
+        core.rootScene.addChild(block_list[block_list.length - 1].label);
       }
       if (e.x > 480 && e.x < 550 && e.y > 10 && e.y < 210) {
         this.moveBlock(player.func_block_list);
         player.func_block_list.push(new Block(485, player.func_block_list.length * 15 + 15, "forStart"));
         register_delete_block_eventListenr(player.func_block_list);
         core.rootScene.addChild(player.func_block_list[player.func_block_list.length - 1]);
+        core.rootScene.addChild(player.func_block_list[player.func_block_list.length - 1].label);
       }
       this.x = 330;
       this.y = 70;
+      this.label.x = this.x;
+      this.label.y = this.y;
     });
 
     player.forEnd.addEventListener("touchend", function(e) {
@@ -203,15 +235,19 @@ window.onload = function() {
         block_list.push(new Block(405, block_list.length * 15 + 15, "forEnd"));
         register_delete_block_eventListenr(block_list);
         core.rootScene.addChild(block_list[block_list.length - 1]);
+        core.rootScene.addChild(block_list[block_list.length - 1].label);
       }
       if (e.x > 480 && e.x < 550 && e.y > 10 && e.y < 210 && this.checkForStart(player.func_block_list)) {
         this.moveBlock(player.func_block_list);
         player.func_block_list.push(new Block(485, player.func_block_list.length * 15 + 15, "forEnd"));
         register_delete_block_eventListenr(player.func_block_list);
         core.rootScene.addChild(player.func_block_list[player.func_block_list.length - 1]);
+        core.rootScene.addChild(player.func_block_list[player.func_block_list.length - 1].label);
       }
       this.x = 330;
       this.y = 85;
+      this.label.x = this.x;
+      this.label.y = this.y;
     });
 
   }
