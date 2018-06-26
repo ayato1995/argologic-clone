@@ -29,6 +29,10 @@ window.onload = function() {
     func_frame.x = 480;
     func_frame.y = 10;
     var play = new Block(330, 300, "play");
+    var exeCopy = new Block(330, 285, "exeCopy");
+    var funcCopy = new Block(330, 270, "funcCopy");
+    var select = new Block(330, 255, "select");
+    var selectFlag = false;
 
     core.rootScene.addChild(backgroundMap);
     core.rootScene.addChild(stack_frame);
@@ -50,6 +54,12 @@ window.onload = function() {
     core.rootScene.addChild(player.forEnd.label);
     core.rootScene.addChild(play);
     core.rootScene.addChild(play.label);
+    core.rootScene.addChild(exeCopy);
+    core.rootScene.addChild(exeCopy.label);
+    core.rootScene.addChild(funcCopy);
+    core.rootScene.addChild(funcCopy.label);
+    core.rootScene.addChild(select);
+    // core.rootScene.addChild(select.label);
 
     play.addEventListener("touchstart", function(e) {
       if(block_list.length != 0) {
@@ -69,6 +79,64 @@ window.onload = function() {
 
     });
     
+    select.addEventListener("touchstart", function(e) {
+      if (selectFlag) {
+        selectFlag = false;
+      } else {
+        selectFlag = true;
+      }
+      player.copy_list.push(new Block(330, 25, "forStart"));
+      player.copy_list.push(new Block(330, 25, "leftRotate"));
+      player.copy_list.push(new Block(330, 25, "leftRotate"));
+      console.log(selectFlag);
+    });
+
+    exeCopy.addEventListener("touchstart", function(e) {
+      if (player.copy_list.length != 0) {
+        for (var i = 0; i < player.copy_list.length; i++) {
+          console.log(i);
+          block_list.push(player.copy_list[i]);
+          console.log(block_list[block_list.length - 1].x);
+          block_list[block_list.length - 1].x = 405;
+          block_list[block_list.length - 1].label.x = 405;
+          block_list[block_list.length - 1].y = (block_list.length - 1) * 15 + 15;
+          block_list[block_list.length - 1].label.y = (block_list.length - 1) * 15 + 15;
+          core.rootScene.addChild(block_list[block_list.length - 1]);
+          core.rootScene.addChild(block_list[block_list.length - 1].label);
+          if (block_list[block_list.length - 1].type == "forStart") {
+            block_list[block_list.length -1].loopCounter.x = block_list[block_list.length - 1].x + this.width - 15;
+            block_list[block_list.length -1].loopCounter.y = block_list[block_list.length - 1].y;
+            core.rootScene.addChild(block_list[block_list.length - 1].loopCounter);
+          }
+        }
+        console.log(block_list);
+        console.log("exeCopy");
+      }
+    });
+
+    funcCopy.addEventListener("touchstart", function(e) {
+      if (player.copy_list.length != 0) {
+        for (var i = 0; i < player.copy_list.length; i++) {
+          console.log(i);
+          player.func_block_list.push(player.copy_list[i]);
+          console.log(player.func_block_list[player.func_block_list.length - 1].x);
+          player.func_block_list[player.func_block_list.length - 1].x = 485;
+          player.func_block_list[player.func_block_list.length - 1].label.x = 485;
+          player.func_block_list[player.func_block_list.length - 1].y = (player.func_block_list.length - 1) * 15 + 15;
+          player.func_block_list[player.func_block_list.length - 1].label.y = (player.func_block_list.length - 1) * 15 + 15;
+          core.rootScene.addChild(player.func_block_list[player.func_block_list.length - 1]);
+          core.rootScene.addChild(player.func_block_list[player.func_block_list.length - 1].label);
+          if (player.func_block_list[player.func_block_list.length - 1].type == "forStart") {
+            player.func_block_list[player.func_block_list.length -1].loopCounter.x = player.func_block_list[player.func_block_list.length - 1].x + this.width - 15;
+            player.func_block_list[player.func_block_list.length -1].loopCounter.y = player.func_block_list[player.func_block_list.length - 1].y;
+            core.rootScene.addChild(player.func_block_list[player.func_block_list.length - 1].loopCounter);
+          }
+        }
+        console.log(player.func_block_list);
+        console.log("funcCopy");
+      }
+    });
+
     /*
     player.addEventListener("enterframe", function(e) {
       if (core.input.up)
@@ -222,16 +290,6 @@ window.onload = function() {
         core.rootScene.addChild(block_list[block_list.length - 1].loopCounter);
         block_list[block_list.length - 1].loopCounter.text = this.loop_cnt + "回";
         register_loopCounter_eventListenr(block_list);
-        /*
-        block_list[block_list.length - 1].loopCounter.addEventListener("touchstart", function() {
-          if (block_list[block_list.length - 1].loop_cnt < 10) {
-            block_list[block_list.length - 1].loop_cnt++;
-          } else {
-            block_list[block_list.length - 1].loop_cnt = 0;
-          }
-          this.text = block_list[block_list.length - 1].loop_cnt + "回";
-        })
-        */
       }
       if (e.x > 480 && e.x < 550 && e.y > 10 && e.y < 210) {
         this.moveBlock(player.func_block_list);
@@ -243,16 +301,6 @@ window.onload = function() {
         core.rootScene.addChild(player.func_block_list[player.func_block_list.length - 1].loopCounter);
         player.func_block_list[player.func_block_list.length - 1].loopCounter.text = this.loop_cnt + "回";
         register_loopCounter_eventListenr(player.func_block_list);
-        /*
-        player.func_block_list[player.func_block_list.length - 1].loopCounter.addEventListener("touchstart", function() {
-          if (player.func_block_list[player.func_block_list.length - 1].loop_cnt < 10) {
-            player.func_block_list[player.func_block_list.length - 1].loop_cnt++;
-          } else {
-            player.func_block_list[player.func_block_list.length - 1].loop_cnt = 0;
-          }
-          this.text = player.func_block_list[player.func_block_list.length - 1].loop_cnt + "回";
-        })
-        */
       }
       this.x = 330;
       this.y = 70;

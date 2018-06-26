@@ -12,6 +12,8 @@
     this.forStart = new Block(330, 70, "forStart");
     this.forEnd = new Block(330, 85, "forEnd");
     this.func_block_list = [];
+    this.copy_list = [];
+    this.maxCopy = 3;
   },
 
   toUp: function(core, map) {
@@ -103,5 +105,12 @@
   	  break;
   	}
   },
+
+  copyListSize: function() {
+    if (this.copy_list.lenght < maxCopy) {
+      return true;
+    }
+    return false;
+  }
 
 })

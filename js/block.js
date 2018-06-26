@@ -7,30 +7,42 @@ var Block = enchant.Class.create(enchant.Sprite, {
     this.y = y;
     this.loop_cnt = 0;
     var string = null;
+    var color = "aquamarine";
 
     if (type == "up") {
       string = "前進";
-      color = "red";
+      // color = "red";
     } else if (type == "leftRotate") {
       string = "左に向く";
-      color = "aquamarine";
+      // color = "aquamarine";
     } else if (type == "rightRotate") {
       string = "右に向く";
-      color = "gold";
+      // color = "gold";
     } else if (type == "if") {
       string = "もしも";
-      color = "orange";
+      // color = "orange";
     } else if (type == "function") {
       string = "関数";
-      color = "darkslategray";
+      // color = "darkslategray";
     } else if (type == "forStart") {
       string = "ループ s";
-      color = "coral";
+      // color = "coral";
     } else if (type == "forEnd") {
       string = "ループ e";
-      color = "tomato";
+      // color = "tomato";
     } else if (type == "play") {
       string = "実行";
+      color = "darkturquoise";
+    } else if (type == "exeCopy") {
+      // string = "実行フレームにコピー";
+      string = "exe";
+      color = "darkturquoise";
+    } else if (type == "funcCopy") {
+      // string = "関数フレームにコピー";
+      string = "func";
+      color = "darkturquoise"
+    } else if (type == "select") {
+      string = "ブロックの選択";
       color = "darkturquoise";
     }
     // console.log(this.loop_cnt);
@@ -39,7 +51,6 @@ var Block = enchant.Class.create(enchant.Sprite, {
     this.label.x = this.x;
     this.label.y = this.y;
     this.label.font = "6px 'MSゴシック'";
-    console.log(this.loop_cnt);
     this.loopCounter = new Label(this.loop_cnt + "回");
     this.loopCounter.x = this.x + this.width - 15;
     this.loopCounter.y = this.y;
