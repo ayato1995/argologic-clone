@@ -85,7 +85,9 @@ window.onload = function() {
       } else {
         selectFlag = true;
       }
-      player.copy_list.push(new Block(330, 25, "forStart"));
+      /* デバッグデータ */
+      // player.copy_list.push(new Block(330, 25, "forStart"));
+      player.copy_list.push(new Block(330, 25, "leftRotate"));
       player.copy_list.push(new Block(330, 25, "leftRotate"));
       player.copy_list.push(new Block(330, 25, "leftRotate"));
       console.log(selectFlag);
@@ -95,17 +97,14 @@ window.onload = function() {
       if (player.copy_list.length != 0) {
         for (var i = 0; i < player.copy_list.length; i++) {
           console.log(i);
-          block_list.push(player.copy_list[i]);
+          block_list.push(new Block(405, block_list.length * 15 + 15, player.copy_list[i].type));
           console.log(block_list[block_list.length - 1].x);
-          block_list[block_list.length - 1].x = 405;
-          block_list[block_list.length - 1].label.x = 405;
-          block_list[block_list.length - 1].y = (block_list.length - 1) * 15 + 15;
-          block_list[block_list.length - 1].label.y = (block_list.length - 1) * 15 + 15;
+          register_delete_block_eventListenr(block_list);
+          register_loopCounter_eventListenr(block_list);
           core.rootScene.addChild(block_list[block_list.length - 1]);
           core.rootScene.addChild(block_list[block_list.length - 1].label);
           if (block_list[block_list.length - 1].type == "forStart") {
-            block_list[block_list.length -1].loopCounter.x = block_list[block_list.length - 1].x + this.width - 15;
-            block_list[block_list.length -1].loopCounter.y = block_list[block_list.length - 1].y;
+            block_list[block_list.lenght -1].loop_cnt = player.copy_list[i].loop_cnt;
             core.rootScene.addChild(block_list[block_list.length - 1].loopCounter);
           }
         }
@@ -118,17 +117,14 @@ window.onload = function() {
       if (player.copy_list.length != 0) {
         for (var i = 0; i < player.copy_list.length; i++) {
           console.log(i);
-          player.func_block_list.push(player.copy_list[i]);
+          player.func_block_list.push(new Block(485, player.func_block_list.length * 15 + 15, player.copy_list[i].type));
           console.log(player.func_block_list[player.func_block_list.length - 1].x);
-          player.func_block_list[player.func_block_list.length - 1].x = 485;
-          player.func_block_list[player.func_block_list.length - 1].label.x = 485;
-          player.func_block_list[player.func_block_list.length - 1].y = (player.func_block_list.length - 1) * 15 + 15;
-          player.func_block_list[player.func_block_list.length - 1].label.y = (player.func_block_list.length - 1) * 15 + 15;
+          register_delete_block_eventListenr(player.func_block_list);
+          register_loopCounter_eventListenr(player.func_block_list);
           core.rootScene.addChild(player.func_block_list[player.func_block_list.length - 1]);
           core.rootScene.addChild(player.func_block_list[player.func_block_list.length - 1].label);
           if (player.func_block_list[player.func_block_list.length - 1].type == "forStart") {
-            player.func_block_list[player.func_block_list.length -1].loopCounter.x = player.func_block_list[player.func_block_list.length - 1].x + this.width - 15;
-            player.func_block_list[player.func_block_list.length -1].loopCounter.y = player.func_block_list[player.func_block_list.length - 1].y;
+            player.func_block_list[player.func_block_list.length - 1].loop_cnt = player.copy_list[i].loop_cnt;
             core.rootScene.addChild(player.func_block_list[player.func_block_list.length - 1].loopCounter);
           }
         }
