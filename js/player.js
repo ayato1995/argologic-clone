@@ -111,6 +111,17 @@
       return true;
     }
     return false;
+  },
+
+
+  searchCopyBlock: function(block) {
+    for (var i = 0; i < copy_list.length; i++) {
+      if (copy_list[i] == block) {
+        copy_list.splice(i, copy_list.length - i);
+        return;
+      }
+    }
   }
+
 
 })

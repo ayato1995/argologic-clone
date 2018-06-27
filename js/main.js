@@ -1,6 +1,7 @@
 enchant();
 
 window.onload = function() {
+  var selectFlag = false;
   core = new Core(560, 320);
   core.fps = 60;
   core.preload("../img/chara5.png", "../img/map0.gif", "../img/goal.png", "../img/clear.png", "../img/end.png");
@@ -32,7 +33,6 @@ window.onload = function() {
     var exeCopy = new Block(330, 285, "exeCopy");
     var funcCopy = new Block(330, 270, "funcCopy");
     var select = new Block(330, 255, "select");
-    var selectFlag = false;
 
     core.rootScene.addChild(backgroundMap);
     core.rootScene.addChild(stack_frame);
@@ -64,7 +64,6 @@ window.onload = function() {
     play.addEventListener("touchstart", function(e) {
       if(block_list.length != 0) {
       	var time = this.play(block_list, player, core, backgroundMap, goal, 0);
-        // console.log(time);
         setTimeout(function() {
           if (player.intersect(goal)) {
             core.replaceScene(core.field(true));
@@ -82,33 +81,36 @@ window.onload = function() {
     select.addEventListener("touchstart", function(e) {
       if (selectFlag) {
         selectFlag = false;
+        reset_block_color(block_list);
+        reset_block_color(player.func_block_list);
       } else {
         selectFlag = true;
       }
       /* デバッグデータ */
+      /*
       // player.copy_list.push(new Block(330, 25, "forStart"));
       player.copy_list.push(new Block(330, 25, "leftRotate"));
       player.copy_list.push(new Block(330, 25, "leftRotate"));
       player.copy_list.push(new Block(330, 25, "leftRotate"));
+      */
       console.log(selectFlag);
     });
 
     exeCopy.addEventListener("touchstart", function(e) {
       if (player.copy_list.length != 0) {
         for (var i = 0; i < player.copy_list.length; i++) {
-          console.log(i);
           block_list.push(new Block(405, block_list.length * 15 + 15, player.copy_list[i].type));
-          console.log(block_list[block_list.length - 1].x);
-          register_delete_block_eventListenr(block_list);
-          register_loopCounter_eventListenr(block_list);
+          register_block_eventListener(block_list[block_list.length - 1], block_list);
           core.rootScene.addChild(block_list[block_list.length - 1]);
           core.rootScene.addChild(block_list[block_list.length - 1].label);
           if (block_list[block_list.length - 1].type == "forStart") {
+            register_loopCounter_eventListener(block_list[block_list - 1]);
             block_list[block_list.lenght -1].loop_cnt = player.copy_list[i].loop_cnt;
             core.rootScene.addChild(block_list[block_list.length - 1].loopCounter);
           }
         }
-        console.log(block_list);
+        // console.log(block_list);
+        console.log(player.copy_list);
         console.log("exeCopy");
       }
     });
@@ -116,19 +118,18 @@ window.onload = function() {
     funcCopy.addEventListener("touchstart", function(e) {
       if (player.copy_list.length != 0) {
         for (var i = 0; i < player.copy_list.length; i++) {
-          console.log(i);
           player.func_block_list.push(new Block(485, player.func_block_list.length * 15 + 15, player.copy_list[i].type));
-          console.log(player.func_block_list[player.func_block_list.length - 1].x);
-          register_delete_block_eventListenr(player.func_block_list);
-          register_loopCounter_eventListenr(player.func_block_list);
+          register_block_eventListener(player.func_block_list[player.func_block_list.length - 1], player.func_block_list);
           core.rootScene.addChild(player.func_block_list[player.func_block_list.length - 1]);
           core.rootScene.addChild(player.func_block_list[player.func_block_list.length - 1].label);
           if (player.func_block_list[player.func_block_list.length - 1].type == "forStart") {
+            register_loopCounter_eventListener(player.func_block_list[player.func_block_list.length - 1]);
             player.func_block_list[player.func_block_list.length - 1].loop_cnt = player.copy_list[i].loop_cnt;
             core.rootScene.addChild(player.func_block_list[player.func_block_list.length - 1].loopCounter);
           }
         }
-        console.log(player.func_block_list);
+        // console.log(player.func_block_list);
+        console.log(player.copy_list);
         console.log("funcCopy");
       }
     });
@@ -194,14 +195,14 @@ window.onload = function() {
       if (e.x > 400 && e.x < 470 && e.y > 10 && e.y < 210) {
         this.moveBlock(block_list);
         block_list.push(new Block(405, block_list.length * 15 + 15, "up"));
-        register_delete_block_eventListenr(block_list);
+        register_block_eventListener(block_list[block_list.length - 1], block_list);
         core.rootScene.addChild(block_list[block_list.length - 1]);
         core.rootScene.addChild(block_list[block_list.length - 1].label);
       }
       if (e.x > 480 && e.x < 550 && e.y > 10 && e.y < 210) {
         this.moveBlock(player.func_block_list);
         player.func_block_list.push(new Block(485, player.func_block_list.length * 15 + 15, "up"));
-        register_delete_block_eventListenr(player.func_block_list);
+        register_block_eventListener(player.func_block_list[player.func_block_list.length - 1], player.func_block_list);
         core.rootScene.addChild(player.func_block_list[player.func_block_list.length - 1]);
         core.rootScene.addChild(player.func_block_list[player.func_block_list.length - 1].label);
       }
@@ -216,14 +217,14 @@ window.onload = function() {
       if (e.x > 400 && e.x < 470 && e.y > 10 && e.y < 210) {
         this.moveBlock(block_list);
         block_list.push(new Block(405, block_list.length * 15 + 15, "leftRotate"));
-        register_delete_block_eventListenr(block_list);
+        register_block_eventListener(block_list[block_list.length - 1], block_list);
         core.rootScene.addChild(block_list[block_list.length - 1]);
         core.rootScene.addChild(block_list[block_list.length - 1].label);
       }
       if (e.x > 480 && e.x < 550 && e.y > 10 && e.y < 210) {
         this.moveBlock(player.func_block_list);
         player.func_block_list.push(new Block(485, player.func_block_list.length * 15 + 15, "leftRotate"));
-        register_delete_block_eventListenr(player.func_block_list);
+        register_block_eventListener(player.func_block_list[player.func_block_list.length - 1], player.func_block_list);
         core.rootScene.addChild(player.func_block_list[player.func_block_list.length - 1]);
         core.rootScene.addChild(player.func_block_list[player.func_block_list.length - 1].label);
       }
@@ -237,14 +238,14 @@ window.onload = function() {
       if (e.x > 400 && e.x < 470 && e.y > 10 && e.y < 210) {
         this.moveBlock(block_list);
         block_list.push(new Block(405, block_list.length * 15 + 15, "rightRotate"));
-        register_delete_block_eventListenr(block_list);
+        register_block_eventListener(block_list[block_list.length - 1], block_list);
         core.rootScene.addChild(block_list[block_list.length - 1]);
         core.rootScene.addChild(block_list[block_list.length - 1].label);
       }
       if (e.x > 480 && e.x < 550 && e.y > 10 && e.y < 210) {
         this.moveBlock(player.func_block_list);
         player.func_block_list.push(new Block(485, player.func_block_list.length * 15 + 15, "rightRotate"));
-        register_delete_block_eventListenr(player.func_block_list);
+        register_block_eventListener(player.func_block_list[player.func_block_list.length - 1], player.func_block_list);
         core.rootScene.addChild(player.func_block_list[player.func_block_list.length - 1]);
         core.rootScene.addChild(player.func_block_list[player.func_block_list.length - 1].label);
       }
@@ -258,14 +259,14 @@ window.onload = function() {
       if (e.x > 400 && e.x < 470 && e.y > 10 && e.y < 210) {
         this.moveBlock(block_list);
         block_list.push(new Block(405, block_list.length * 15 + 15, "function"));
-        register_delete_block_eventListenr(block_list);
+        register_block_eventListener(block_list[block_list.length - 1], block_list);
         core.rootScene.addChild(block_list[block_list.length - 1]);
         core.rootScene.addChild(block_list[block_list.length - 1].label);
       }
       if (e.x > 480 && e.x < 550 && e.y > 10 && e.y < 210) {
         this.moveBlock(player.func_block_list);
         player.func_block_list.push(new Block(485, player.func_block_list.length * 15 + 15, "function"));
-        register_delete_block_eventListenr(player.func_block_list);
+        register_block_eventListener(player.func_block_list[player.func_block_list.length - 1], player.func_block_list);
         core.rootScene.addChild(player.func_block_list[player.func_block_list.length - 1]);
         core.rootScene.addChild(player.func_block_list[player.func_block_list.length - 1].label);
       }
@@ -279,24 +280,24 @@ window.onload = function() {
       if (e.x > 400 && e.x < 470 && e.y > 10 && e.y < 210) {
         this.moveBlock(block_list);
         block_list.push(new Block(405, block_list.length * 15 + 15, "forStart"));
-        register_delete_block_eventListenr(block_list);
+        register_block_eventListener(block_list[block_list.length - 1], block_list);
         block_list[block_list.length - 1].loop_cnt = this.loop_cnt;
         core.rootScene.addChild(block_list[block_list.length - 1]);
         core.rootScene.addChild(block_list[block_list.length - 1].label);
         core.rootScene.addChild(block_list[block_list.length - 1].loopCounter);
         block_list[block_list.length - 1].loopCounter.text = this.loop_cnt + "回";
-        register_loopCounter_eventListenr(block_list);
+        register_loopCounter_eventListener(block_list[block_list.length - 1]);
       }
       if (e.x > 480 && e.x < 550 && e.y > 10 && e.y < 210) {
         this.moveBlock(player.func_block_list);
         player.func_block_list.push(new Block(485, player.func_block_list.length * 15 + 15, "forStart"));
-        register_delete_block_eventListenr(player.func_block_list);
+        register_block_eventListener(player.func_block_list[player.func_block_list.length - 1], player.func_block_list);
         player.func_block_list[player.func_block_list.length - 1].loop_cnt = this.loop_cnt;
         core.rootScene.addChild(player.func_block_list[player.func_block_list.length - 1]);
         core.rootScene.addChild(player.func_block_list[player.func_block_list.length - 1].label);
         core.rootScene.addChild(player.func_block_list[player.func_block_list.length - 1].loopCounter);
         player.func_block_list[player.func_block_list.length - 1].loopCounter.text = this.loop_cnt + "回";
-        register_loopCounter_eventListenr(player.func_block_list);
+        register_loopCounter_eventListener(player.func_block_list[player.func_block_list.length - 1]);
       }
       this.x = 330;
       this.y = 70;
@@ -309,27 +310,25 @@ window.onload = function() {
     player.forStart.loopCounter.addEventListener("touchend", function(e) {
       if (player.forStart.loop_cnt < 10) {
         player.forStart.loop_cnt++;
-        // console.log(player.loop_cnt++);
       } else {
         player.forStart.loop_cnt = 0;
-        // console.log("aaa " +player.loop_cnt);
       }
       player.forStart.loopCounter.text = player.forStart.loop_cnt + "回";
-      console.log(player.forStart.loop_cnt);
+      // console.log(player.forStart.loop_cnt);
     });
 
     player.forEnd.addEventListener("touchend", function(e) {
       if (e.x > 400 && e.x < 470 && e.y > 10 && e.y < 210 && this.checkForStart(block_list)) {
         this.moveBlock(block_list);
         block_list.push(new Block(405, block_list.length * 15 + 15, "forEnd"));
-        register_delete_block_eventListenr(block_list);
+        register_block_eventListener(block_list[block_list.length - 1], block_list);
         core.rootScene.addChild(block_list[block_list.length - 1]);
         core.rootScene.addChild(block_list[block_list.length - 1].label);
       }
       if (e.x > 480 && e.x < 550 && e.y > 10 && e.y < 210 && this.checkForStart(player.func_block_list)) {
         this.moveBlock(player.func_block_list);
         player.func_block_list.push(new Block(485, player.func_block_list.length * 15 + 15, "forEnd"));
-        register_delete_block_eventListenr(player.func_block_list);
+        register_block_eventListener(player.func_block_list[player.func_block_list.length - 1], player.func_block_list);
         core.rootScene.addChild(player.func_block_list[player.func_block_list.length - 1]);
         core.rootScene.addChild(player.func_block_list[player.func_block_list.length - 1].label);
       }
@@ -362,25 +361,70 @@ window.onload = function() {
     }
   }
 
-  register_delete_block_eventListenr = function(array) {
+/*
+  register_delete_block_eventListener = function(array, player) {
     for (var i = 0; i < array.length; i++) {
       array[i].addEventListener("touchstart", function(e) {
-        this.remove(core);
-        block_remove(array, this);
+        if (selectFlag) {
+          // console.log(array.length);
+          console.log(i);
+          // if (player.copy_list.length < 3 && !this.select) {
+          if (!this.select) {
+            player.copy_list.push(this);
+            console.log(this.type);
+            this.select = true;
+            this.backgroundColor = "yellow";
+            console.log(this.select);
+            console.log(this.backgroundColor);
+          } else if (this.select) {
+            this.select = false;
+            this.backgroundColor = "aquamarine";
+            console.log(this.type);
+            console.log(this.select);
+            console.log(this.backgroundColor);
+          } 
+        } else {
+          this.remove(core);
+          block_remove(array, this);
+        }
       });
     }
   }
+  */
 
-  register_loopCounter_eventListenr = function(array) {
+  register_block_eventListener = function(block, array) {
+    block.addEventListener("touchstart", function() {
+      this.remove(core);
+      block_remove(array, this);
+    });
+  }
+
+  register_loopCounter_eventListener = function(block) {
+    /*
     for (var i = 0; i < array.length; i++) {
-      array[i].loopCounter.addEventListener("touchstart", function() {
+      block.loopCounter.addEventListener("touchstart", function(e) {
         if (this.loop_cnt < 10) {
           this.loop_cnt++;
         } else {
           this.loop_cnt = 0;
         }
         this.loopCounter.text = this.loop_cnt + "回";
-      }.bind(array[i]));
+      }.bind(block));
+    }
+    */
+    block.loopCounter.addEventListener("touchstart", function() {
+      if (this.loop_cnt < 10) {
+        this.loop_cnt++;
+      } else {
+        this.loop_cnt = 0;
+      }
+      this.loopCounter.text = this.loop_cnt + "回";
+    }.bind(block));
+  }
+
+  reset_block_color = function(array) {
+    for (var i = 0; i < array.length; i++) {
+      array[i].backgroundColor = "aquamarine";
     }
   }
 

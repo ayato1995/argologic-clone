@@ -6,6 +6,7 @@ var Block = enchant.Class.create(enchant.Sprite, {
     this.x = x;
     this.y = y;
     this.loop_cnt = 0;
+    this.select = false;
     var string = null;
     var color = "aquamarine";
 
