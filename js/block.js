@@ -68,7 +68,6 @@ var Block = enchant.Class.create(enchant.Sprite, {
     var stackCounter = 0;
 
     for (var i = 0; i < block.length; i++) {
-      console.log(block[i].type);
       if (block[i].type == "function") {
         time = this.play(player.func_h, player, core, backgroundMap, time);
       } else if (block[i].type == "forStart") {
@@ -118,11 +117,12 @@ var Block = enchant.Class.create(enchant.Sprite, {
           return req;
         }
       } else {
-        if (block[k].type == "function")
+        if (block[k].type == "function") {
           time = this.play(player.func_h, player, core, backgroundMap, time);
-        else 
+        } else {
           setTimeout(this.execution, time, block[k], player, core, backgroundMap);
-        time += 1000;
+          time += 1000;
+        }
       }
     }
 

@@ -63,11 +63,17 @@ window.onload = function() {
       if(block_list.length != 0) {
       	var time = this.play(block_list, player, core, backgroundMap, 0);
         setTimeout(function() {
+          /*
           if (player.intersect(goal)) {
             core.replaceScene(core.field(true));
           } else {
             core.replaceScene(core.field(false));
           }
+          */
+          if (player.within(goal, 16))
+            core.replaceScene(core.field(true));
+          else
+            core.replaceScene(core.field(false));
           for (i = 0; i < block_list.length; i++)
             block_list[i].remove(core);
         }, time);

@@ -46,7 +46,7 @@
     while (y - this.y < 16) {
       this.y -= 4;
     }
-    this.decisionMap(map, core, this.x + 8, this.y - 3);
+    this.decisionMap(map, core, this.x + 16, this.y + 16);
   },
 
   moveDown: function(core, map) {
@@ -54,7 +54,7 @@
   	while(this.y - y < 16) {
   		this.y += 4;
   	}
-  	this.decisionMap(map, core, this.x + 8, this.y + 8);
+  	this.decisionMap(map, core, this.x + 16, this.y + 16);
   },
 
   moveLeft: function(core, map) {
@@ -62,7 +62,7 @@
   	while (x - this.x < 16) {
   		this.x -= 4;
   	}
-  	this.decisionMap(map, core, this.x + 8, this.y);
+  	this.decisionMap(map, core, this.x + 16, this.y + 16);
   },
 
   moveRight: function(core, map) {
@@ -70,15 +70,13 @@
   	while(this.x - x < 16) {
   		this.x += 4;
   	}
-  	this.decisionMap(map, core, this.x + 20, this.y);
+  	this.decisionMap(map, core, this.x + 16, this.y + 16);
   },
 
   decisionMap: function(map, core, x, y) {
-    //console.log("x " + x + " y " + y);
   	if (map.hitTest(x, y)) {
   		core.rootScene.removeChild(this);
   		core.replaceScene(core.field(false));
-      //console.log("x " + x + " y " + y);
   	}
   },
 
