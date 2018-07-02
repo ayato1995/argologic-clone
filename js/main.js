@@ -11,17 +11,16 @@ window.onload = function() {
 
   core.onload = function() {
     /* map initialize */
-    var backgroundMap = new Map(16, 16);
-    backgroundMap.image = core.assets["../img/map0.gif"];
-    backgroundMap.loadData(stage_map1_0, stage_map1_1);
-    backgroundMap.collisionData = stage_map1_col;
+    // var backgroundMap = addMap1(core.assets["../img/map0.gif"]);
+    var backgroundMap = addMap2(core.assets["../img/map0.gif"]);
     var block_list = [];
 
     /* goal initialize */
-    var goal = new Goal(240, 144, backgroundMap);
+    var goal = new Goal(backgroundMap.goalX, backgroundMap.goalY, core.assets["../img/goal.png"]);
 
     /* player initialize */
-    var player = new Player(56, 132, backgroundMap);
+    //var player = new Player(56, 132, backgroundMap);
+    var player = new Player(backgroundMap.initializeX, backgroundMap.initializeY, backgroundMap.direction);
 
     /* block initialize */
     var stack_frame = new Sprite(70, 200);
@@ -62,7 +61,7 @@ window.onload = function() {
 
     play.addEventListener("touchstart", function(e) {
       if(block_list.length != 0) {
-      	var time = this.play(block_list, player, core, backgroundMap, goal, 0);
+      	var time = this.play(block_list, player, core, backgroundMap, 0);
         setTimeout(function() {
           if (player.intersect(goal)) {
             core.replaceScene(core.field(true));

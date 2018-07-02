@@ -1,8 +1,8 @@
 ﻿
 var Goal = enchant.Class.create(enchant.Sprite, {
-  initialize: function(x, y, map) {
+  initialize: function(x, y, img) {
     enchant.Sprite.call(this, 16, 16);
-    this.image = core.assets["../img/goal.png"];
+    this.image = img;
     this.x = x;
     this.y = y;  
   }

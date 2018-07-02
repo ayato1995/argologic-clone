@@ -1,8 +1,13 @@
 ﻿var Player = enchant.Class.create(enchant.Sprite, {
-  initialize: function(x, y, map) {
+  initialize: function(x, y, direction) {
     enchant.Sprite.call(this, 32, 32);
     this.image = core.assets["../img/chara5.png"];
-    this.frame = 28;
+    var dire = 1;
+    if (direction == "up") dire = 28;
+    else if (direction == "down") dire = 1;
+    else if (direction == "left") dire = 10;
+    else if (direction == "right") dire = 19;
+    this.frame = dire;
     this.x = x;
     this.y = y;
     this.up = new Block(330, 10, "up");
@@ -69,9 +74,11 @@
   },
 
   decisionMap: function(map, core, x, y) {
+    //console.log("x " + x + " y " + y);
   	if (map.hitTest(x, y)) {
   		core.rootScene.removeChild(this);
   		core.replaceScene(core.field(false));
+      //console.log("x " + x + " y " + y);
   	}
   },
 

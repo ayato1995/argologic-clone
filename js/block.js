@@ -62,14 +62,15 @@ var Block = enchant.Class.create(enchant.Sprite, {
     //core.rootScene.removeChild(this.loopCounter);
   },
 
-  play: function(block, player, core, backgroundMap, goal, t) {
+  play: function(block, player, core, backgroundMap, t) {
     var time = t;
     var forStack = [];
     var stackCounter = 0;
 
     for (var i = 0; i < block.length; i++) {
+      console.log(block[i].type);
       if (block[i].type == "function") {
-        time = this.play(player.func_h, player, core, backgroundMap, goal, time);
+        time = this.play(player.func_h, player, core, backgroundMap, time);
       } else if (block[i].type == "forStart") {
         var loop_list = [];
         do {
@@ -100,7 +101,6 @@ var Block = enchant.Class.create(enchant.Sprite, {
     }
     var loop = block[i].loop_cnt;
     var k = i;
-    console.log(block[i].type);
     console.log("loop :" + loop);
     var j = 1;
     while (true) {
@@ -118,8 +118,10 @@ var Block = enchant.Class.create(enchant.Sprite, {
           return req;
         }
       } else {
-      console.log(block[k].type);
-        setTimeout(this.execution, time, block[k], player, core, backgroundMap);
+        if (block[k].type == "function")
+          time = this.play(player.func_h, player, core, backgroundMap, time);
+        else 
+          setTimeout(this.execution, time, block[k], player, core, backgroundMap);
         time += 1000;
       }
     }
@@ -154,7 +156,7 @@ var Block = enchant.Class.create(enchant.Sprite, {
   },
   
   moveBlock: function(n) {
-    this.y = n * 15 + 15;
+    this.y = n * 20 + 15;
     this.label.y = this.y;
     this.loopCounter.y = this.y;
   },
