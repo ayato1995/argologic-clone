@@ -6,12 +6,15 @@
     this.x = x;
     this.y = y;
     this.up = new Block(330, 10, "up");
-    this.leftRotate = new Block(330, 25, "leftRotate");
-    this.rightRotate = new Block(330, 40, "rightRotate");
-    this.func = new Block(330, 55, "function");
-    this.forStart = new Block(330, 70, "forStart");
-    this.forEnd = new Block(330, 85, "forEnd");
-    this.func_block_list = [];
+    this.leftRotate = new Block(330, 30, "leftRotate");
+    this.rightRotate = new Block(330, 50, "rightRotate");
+    this.func = new Block(330, 70, "function");
+    this.forStart = new Block(330, 90, "forStart");
+    this.forEnd = new Block(330, 110, "forEnd");
+    this.func_h = [];
+    this.func_c = [];
+    this.func_s = [];
+    this.func_D = [];
     this.copy_list = [];
     this.maxCopy = 3;
   },

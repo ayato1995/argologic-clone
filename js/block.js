@@ -1,24 +1,22 @@
 ﻿
 var Block = enchant.Class.create(enchant.Sprite, {
   initialize: function(x, y, type) {
-    enchant.Sprite.call(this, 60, 10);
+    // enchant.Sprite.call(this, 60, 10);
+    enchant.Sprite.call(this, 16, 16);
     this.type = type;
     this.x = x;
     this.y = y;
     this.loop_cnt = 0;
     this.select = false;
     var string = null;
-    var color = "aquamarine";
+    var color = "silver";
 
     if (type == "up") {
-      string = "前進";
-      // color = "red";
+      this.image = core.assets["../img/up.png"];
     } else if (type == "leftRotate") {
-      string = "左に向く";
-      // color = "aquamarine";
+      this.image = core.assets["../img/left.png"];
     } else if (type == "rightRotate") {
-      string = "右に向く";
-      // color = "gold";
+      this.image = core.assets["../img/right.png"];
     } else if (type == "if") {
       string = "もしも";
       // color = "orange";
@@ -26,25 +24,23 @@ var Block = enchant.Class.create(enchant.Sprite, {
       string = "関数";
       // color = "darkslategray";
     } else if (type == "forStart") {
-      string = "ループ s";
-      // color = "coral";
+      this.image = core.assets["../img/loop_start.png"];
     } else if (type == "forEnd") {
-      string = "ループ e";
-      // color = "tomato";
+      this.image = core.assets["../img/loop_end.png"];
     } else if (type == "play") {
       string = "実行";
-      color = "darkturquoise";
+      color = "green";
     } else if (type == "exeCopy") {
       // string = "実行フレームにコピー";
       string = "exe";
-      color = "darkturquoise";
+      color = "green";
     } else if (type == "funcCopy") {
       // string = "関数フレームにコピー";
       string = "func";
-      color = "darkturquoise"
+      color = "green"
     } else if (type == "select") {
       string = "ブロックの選択";
-      color = "darkturquoise";
+      color = "green";
     }
     // console.log(this.loop_cnt);
 
@@ -52,17 +48,18 @@ var Block = enchant.Class.create(enchant.Sprite, {
     this.label.x = this.x;
     this.label.y = this.y;
     this.label.font = "6px 'MSゴシック'";
-    this.loopCounter = new Label(this.loop_cnt + "回");
+    this.loopCounter = new Label(String(this.loop_cnt));
     this.loopCounter.x = this.x + this.width - 15;
     this.loopCounter.y = this.y;
     this.loopCounter.font = "6px 'MSゴシック'";
+    //this.loopCounter.color = "white";
     this.backgroundColor = color;
   },
 
   remove: function(core) {
     core.rootScene.removeChild(this);
     core.rootScene.removeChild(this.label);
-    core.rootScene.removeChild(this.loopCounter);
+    //core.rootScene.removeChild(this.loopCounter);
   },
 
   play: function(block, player, core, backgroundMap, goal, t) {
@@ -72,7 +69,7 @@ var Block = enchant.Class.create(enchant.Sprite, {
 
     for (var i = 0; i < block.length; i++) {
       if (block[i].type == "function") {
-        time = this.play(player.func_block_list, player, core, backgroundMap, goal, time);
+        time = this.play(player.func_h, player, core, backgroundMap, goal, time);
       } else if (block[i].type == "forStart") {
         var loop_list = [];
         do {
