@@ -41,24 +41,6 @@ window.onload = function() {
     var select = new Block(330, 240, "select");
 
     var loop = addLabel(player.forStart, String(player.forStart.loop_cnt));
-    /*
-    var play = new Sprite(this, 16, 16);
-    play.backgroundColor = "green";
-    play.x = 330;
-    play.y = 300;
-    var exeCopy = new Sprite(this, 16, 16);
-    exeCopy.backgroundColor = "green";
-    exeCopy.x = 330;
-    exeCopy.y = 280;
-    var funcCopy = new Sprite(this, 16, 16);
-    funcCopy.backgroundColor = "green";
-    funcCopy.x = 330;
-    funcCopy.y = 260;
-    var select = new Sprite(this, 16, 16);
-    funcCopy.backgroundColor = "green";
-    funcCopy.x = 330;
-    funcCopy.y = 240;
-    */
 
     core.rootScene.addChild(backgroundMap);
     core.rootScene.addChild(stack_frame);
@@ -73,15 +55,10 @@ window.onload = function() {
     core.rootScene.addChild(player.forStart);
     core.rootScene.addChild(loop);
     core.rootScene.addChild(player.forEnd);
-    // core.rootScene.addChild(player.forEnd.label);
     core.rootScene.addChild(play);
-    // core.rootScene.addChild(play.label);
     core.rootScene.addChild(exeCopy);
-    // core.rootScene.addChild(exeCopy.label);
     core.rootScene.addChild(funcCopy);
-    // core.rootScene.addChild(funcCopy.label);
     core.rootScene.addChild(select);
-    // core.rootScene.addChild(select.label);
 
     play.addEventListener("touchstart", function(e) {
       if(block_list.length != 0) {
@@ -105,7 +82,7 @@ window.onload = function() {
         selectFlag = false;
         reset_block_color(block_list);
         reset_block_color(player.func_h);
-        this.backgroundColor = "darkturquoise";
+        this.backgroundColor = "green";
       } else {
         selectFlag = true;
         this.backgroundColor = "yellow";
@@ -123,53 +100,49 @@ window.onload = function() {
     exeCopy.addEventListener("touchstart", function(e) {
       if (player.copy_list.length != 0) {
         for (var i = 0; i < player.copy_list.length; i++) {
-          block_list.push(new Block(405, block_list.length * 15 + 15, player.copy_list[i].type));
-          register_block_eventListener(block_list[block_list.length - 1], block_list, player);
-          core.rootScene.addChild(block_list[block_list.length - 1]);
-          core.rootScene.addChild(block_list[block_list.length - 1].label);
-          if (block_list[block_list.length - 1].type == "forStart") {
-            register_loopCounter_eventListener(block_list[block_list - 1]);
-            block_list[block_list.length -1].loop_cnt = player.copy_list[i].loop_cnt;
-            core.rootScene.addChild(block_list[block_list.length - 1].loopCounter);
+          block_list.push(new Block(405, block_list.length * 20 + 15, player.copy_list[i].type));
+          if (block_list[block_list.length  - 1].type == "forStart") {
+            block_list[block_list.length - 1].loop_cnt = player.copy_list[i].loop_cnt;
+            var label = addLabel(block_list[block_list.length - 1], String(block_list[block_list.length - 1].loop_cnt));
+            register_forBlock_eventListener(block_list[block_list.length - 1], block_list, player, label);
+            core.rootScene.addChild(block_list[block_list.length - 1]);
+            core.rootScene.addChild(label);
+          } else {
+            register_block_eventListener(block_list[block_list.length - 1], block_list, player);
+            core.rootScene.addChild(block_list[block_list.length - 1]);
+            core.rootScene.addChild(block_list[block_list.length - 1].label);
           }
         }
-        // console.log(block_list);
+        /*
         console.log(player.copy_list);
         console.log("exeCopy");
+        */
       }
     });
 
     funcCopy.addEventListener("touchstart", function(e) {
       if (player.copy_list.length != 0) {
         for (var i = 0; i < player.copy_list.length; i++) {
-          player.func_h.push(new Block(485, player.func_h.length * 15 + 15, player.copy_list[i].type));
-          register_block_eventListener(player.func_h[player.func_h.length - 1], player.func_h, player);
-          core.rootScene.addChild(player.func_h[player.func_h.length - 1]);
-          core.rootScene.addChild(player.func_h[player.func_h.length - 1].label);
+          player.func_h.push(new Block(485, player.func_h.length * 20 + 15, player.copy_list[i].type));
           if (player.func_h[player.func_h.length - 1].type == "forStart") {
-            register_loopCounter_eventListener(player.func_h[player.func_h.length - 1]);
-            player.func_h[player.func_h.length - 1].loop_cnt = player.copy_list[i].loop_cnt;
-            core.rootScene.addChild(player.func_h[player.func_h.length - 1].loopCounter);
+            player.func_h[player.func_h.length -1].loop_cnt = player.copy_list[i].loop_cnt;
+            var label = addLabel(player.func_h[player.func_h.length -1], String(player.func_h[player.func_h.length - 1].loop_cnt));
+            register_forBlock_eventListener(player.func_h[player.func_h.length - 1], player.func_h, player, label);
+            core.rootScene.addChild(player.func_h[player.func_h.length - 1]);
+            core.rootScene.addChild(label);
+          } else {
+            register_block_eventListener(player.func_h[player.func_h.length - 1], player.func_h, player);
+            core.rootScene.addChild(player.func_h[player.func_h.length - 1]);
+            core.rootScene.addChild(player.func_h[player.func_h.length - 1].label);
           }
         }
         // console.log(player.func_h);
+        /*
         console.log(player.copy_list);
         console.log("funcCopy");
+        */
       }
     });
-
-    /*
-    player.addEventListener("enterframe", function(e) {
-      if (core.input.up)
-        player.toUp(core, backgroundMap);
-      else if (core.input.down)
-        player.toDown(core, backgroundMap);
-      else if (core.input.right)
-        player.toRight(core, backgroundMap);
-      else if (core.input.left)
-        player.toLeft(core, backgroundMap);
-    });
-    */
 
     player.up.addEventListener("touchmove", function(e) {
       this.x = e.x;
@@ -310,8 +283,6 @@ window.onload = function() {
         core.rootScene.addChild(block_list[block_list.length - 1]);
         core.rootScene.addChild(block_list[block_list.length - 1].label);
         core.rootScene.addChild(label);
-        // core.rootScene.addChild(block_list[block_list.length - 1].loopCounter);
-        // block_list[block_list.length - 1].loopCounter.text = this.loop_cnt;
         register_loopCounter_eventListener(block_list[block_list.length - 1], label);
       }
       if (e.x > 480 && e.x < 550 && e.y > 10 && e.y < 210) {
@@ -323,8 +294,6 @@ window.onload = function() {
         core.rootScene.addChild(player.func_h[player.func_h.length - 1]);
         core.rootScene.addChild(player.func_h[player.func_h.length - 1].label);
         core.rootScene.addChild(label);
-        // core.rootScene.addChild(player.func_h[player.func_h.length - 1].loopCounter);
-        // player.func_h[player.func_h.length - 1].loopCounter.text = this.loop_cnt;
         register_loopCounter_eventListener(player.func_h[player.func_h.length - 1], label);
       }
       this.x = 330;
@@ -403,7 +372,7 @@ window.onload = function() {
           i = searchBlock(block, array);
           for (var j = i; j < array.length && j < i + 3; j++) {
             array[j].select = false;
-            array[j].backgroundColor = "green";
+            array[j].backgroundColor = "silver";
           }
         } else {
           player.copy_list = [];
@@ -430,7 +399,7 @@ window.onload = function() {
           i = searchBlock(block, array);
           for (var j = i; j < array.length && j < i + 3; j++) {
             array[j].select = false;
-            array[j].backgroundColor = "green";
+            array[j].backgroundColor = "silver";
           }
         } else {
           player.copy_list = [];
@@ -475,7 +444,7 @@ window.onload = function() {
 
   reset_block_color = function(array) {
     for (var i = 0; i < array.length; i++) {
-      array[i].backgroundColor = "aquamarine";
+      array[i].backgroundColor = "silver";
     }
   }
 
