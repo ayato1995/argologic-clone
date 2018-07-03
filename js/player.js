@@ -17,12 +17,23 @@
     this.funcc = new Block(330, 90, "function_c");
     this.funcs = new Block(330, 110, "function_s");
     this.funcd = new Block(330, 130, "function_d");
-    this.forStart = new Block(330, 150, "forStart");
-    this.forEnd = new Block(330, 170, "forEnd");
+    this.arg1 = new Block(330, 150, "arg1");
+    this.arg2 = new Block(330, 170, "arg2");
+    this.arg3 = new Block(330, 190, "arg3");
+    this.forStart = new Block(330, 210, "forStart");
+    this.forEnd = new Block(330, 230, "forEnd");
     this.func_h = [];
+    this.arg_h = [];
+    this.func_h_arg = [];
     this.func_c = [];
+    this.arg_c = [];
+    this.func_c_arg = [];
     this.func_s = [];
+    this.arg_s = [];
+    this.func_s_arg = [];
     this.func_d = [];
+    this.arg_d = [];
+    this.func_d_arg = [];
     this.copy_list = [];
     this.maxCopy = 3;
   },
@@ -122,6 +133,14 @@
       return true;
     }
     return false;
-  }
+  },
 
+  arg_check: function(array, type) {
+    for (var i = 0; i < array.length; i++) {
+      if (array[i] == type) {
+        return;
+      }
+    }
+    array.push(type);
+  }
 })

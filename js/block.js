@@ -29,6 +29,12 @@ var Block = enchant.Class.create(enchant.Sprite, {
       string = "関数_s";
     } else if (type == "function_d") {
       string = "関数_D";
+    } else if (type == "arg1") {
+      color = "tomato";
+    } else if (type == "arg2") {
+      color = "deepskyblue";
+    } else if (type == "arg3") {
+      color = "greenyellow";
     } else if (type == "forStart") {
       this.image = core.assets["../img/loop_start.png"];
     } else if (type == "forEnd") {
@@ -166,5 +172,9 @@ var Block = enchant.Class.create(enchant.Sprite, {
   	  if (block_list[i].type == "forStart") return true;
   	}
   	return false;
+  },
+
+  expandFuncBlock: function(argNum) {
+    this.height += argNum * 20
   }
 });
