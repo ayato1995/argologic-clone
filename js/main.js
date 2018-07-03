@@ -195,6 +195,27 @@ window.onload = function() {
       this.label.y = this.y;
     });
 
+    player.funcc.addEventListener("touchmove", function(e) {
+      this.x = e.x;
+      this.y = e.y;
+      this.label.x = this.x;
+      this.label.y = this.y;
+    });
+
+    player.funcs.addEventListener("touchmove", function(e) {
+      this.x = e.x;
+      this.y = e.y;
+      this.label.x = this.x;
+      this.label.y = this.y;
+    });
+
+    player.funcd.addEventListener("touchmove", function(e) {
+      this.x = e.x;
+      this.y = e.y;
+      this.label.x = this.x;
+      this.label.y = this.y;
+    });
+
     player.forStart.addEventListener("touchmove", function(e) {
       this.x = e.x;
       this.y = e.y;
@@ -217,14 +238,30 @@ window.onload = function() {
         block_list.push(new Block(stack_frame.x + 8, block_list.length * 20 + 15, "up"));
         register_block_eventListener(block_list[block_list.length - 1], block_list, player);
         core.rootScene.addChild(block_list[block_list.length - 1]);
-        core.rootScene.addChild(block_list[block_list.length - 1].label);
       }
       if (e.x > funch_frame.x && e.x < funch_frame.x + funch_frame.width && e.y > funch_frame.y && e.y < funch_frame.y + funch_frame.height) {
         this.moveBlock(player.func_h);
         player.func_h.push(new Block(funch_frame.x + 8, player.func_h.length * 20 + 15, "up"));
         register_block_eventListener(player.func_h[player.func_h.length - 1], player.func_h, player);
         core.rootScene.addChild(player.func_h[player.func_h.length - 1]);
-        core.rootScene.addChild(player.func_h[player.func_h.length - 1].label);
+      }
+      if (e.x > funcc_frame.x && e.x < funcc_frame.x + funcc_frame.width && e.y > funcc_frame.y && e.y < funcc_frame.y + funcc_frame.height) {
+        this.moveBlock(player.func_c);
+        player.func_c.push(new Block(funcc_frame.x + 8, player.func_c.length * 20 + 15, "up"));
+        register_block_eventListener(player.func_c[player.func_c.length - 1], player.func_c, player);
+        core.rootScene.addChild(player.func_c[player.func_c.length - 1]);
+      }
+      if (e.x > funcs_frame.x && e.x < funcs_frame.x + funcs_frame.width && e.y > funcs_frame.y && e.y < funcs_frame.y + funcs_frame.height) {
+        this.moveBlock(player.func_s);
+        player.func_s.push(new Block(funcs_frame.x + 8, player.func_s.length * 20 + 15, "up"));
+        register_block_eventListener(player.func_s[player.func_s.length - 1], player.func_s, player);
+        core.rootScene.addChild(player.func_s[player.func_s.length -1]);
+      }
+      if (e.x > funcd_frame.x && e.x < funcd_frame.x + funcd_frame.width && e.y > funcd_frame.y && e.y < funcd_frame.y + funcd_frame.height) {
+        this.moveBlock(player.func_d);
+        player.func_d.push(new Block(funcd_frame.x + 8, player.func_d.length * 20 + 15, "up"));
+        register_block_eventListener(player.func_d[player.func_d.length - 1], player.func_d, player);
+        core.rootScene.addChild(player.func_d[player.func_d.length - 1]);
       }
       this.x = 330;
       this.y = 10;
@@ -239,14 +276,30 @@ window.onload = function() {
         block_list.push(new Block(stack_frame.x + 8, block_list.length * 20 + 15, "leftRotate"));
         register_block_eventListener(block_list[block_list.length - 1], block_list, player);
         core.rootScene.addChild(block_list[block_list.length - 1]);
-        core.rootScene.addChild(block_list[block_list.length - 1].label);
       }
       if (e.x > funch_frame.x && e.x < funch_frame.x + funch_frame.width && e.y > funch_frame.y && e.y < funch_frame.y + funch_frame.height) {
         this.moveBlock(player.func_h);
         player.func_h.push(new Block(funch_frame.x + 8, player.func_h.length * 20 + 15, "leftRotate"));
         register_block_eventListener(player.func_h[player.func_h.length - 1], player.func_h, player);
         core.rootScene.addChild(player.func_h[player.func_h.length - 1]);
-        core.rootScene.addChild(player.func_h[player.func_h.length - 1].label);
+      }
+      if (e.x > funcc_frame.x && e.x < funcc_frame.x + funcc_frame.width && e.y > funcc_frame.y && e.y < funcc_frame.y + funcc_frame.height) {
+        this.moveBlock(player.func_c);
+        player.func_c.push(new Block(funcc_frame.x + 8, player.func_c.length * 20 + 15, "leftRotate"));
+        register_block_eventListener(player.func_c[player.func_c.length - 1], player.func_c, player);
+        core.rootScene.addChild(player.func_c[player.func_c.length - 1]);
+      }
+      if (e.x > funcs_frame.x && e.x < funcs_frame.x + funcs_frame.width && e.y > funcs_frame.y && e.y < funcs_frame.y + funcs_frame.height) {
+        this.moveBlock(player.func_s);
+        player.func_s.push(new Block(funcs_frame.x + 8, player.func_s.length * 20 + 15, "leftRotate"));
+        register_block_eventListener(player.func_s[player.func_s.length - 1], player.func_s, player);
+        core.rootScene.addChild(player.func_s[player.func_s.length -1]);
+      }
+      if (e.x > funcd_frame.x && e.x < funcd_frame.x + funcd_frame.width && e.y > funcd_frame.y && e.y < funcd_frame.y + funcd_frame.height) {
+        this.moveBlock(player.func_d);
+        player.func_d.push(new Block(funcd_frame.x + 8, player.func_d.length * 20 + 15, "leftRotate"));
+        register_block_eventListener(player.func_d[player.func_d.length - 1], player.func_d, player);
+        core.rootScene.addChild(player.func_d[player.func_d.length - 1]);
       }
       this.x = 330;
       this.y = 30;
@@ -260,14 +313,30 @@ window.onload = function() {
         block_list.push(new Block(stack_frame.x + 8, block_list.length * 20 + 15, "rightRotate"));
         register_block_eventListener(block_list[block_list.length - 1], block_list, player);
         core.rootScene.addChild(block_list[block_list.length - 1]);
-        core.rootScene.addChild(block_list[block_list.length - 1].label);
       }
       if (e.x > funch_frame.x && e.x < funch_frame.x + funch_frame.width && e.y > funch_frame.y && e.y < funch_frame.y + funch_frame.height) {
         this.moveBlock(player.func_h);
         player.func_h.push(new Block(funch_frame.x + 8, player.func_h.length * 20 + 15, "rightRotate"));
         register_block_eventListener(player.func_h[player.func_h.length - 1], player.func_h, player);
         core.rootScene.addChild(player.func_h[player.func_h.length - 1]);
-        core.rootScene.addChild(player.func_h[player.func_h.length - 1].label);
+      }
+      if (e.x > funcc_frame.x && e.x < funcc_frame.x + funcc_frame.width && e.y > funcc_frame.y && e.y < funcc_frame.y + funcc_frame.height) {
+        this.moveBlock(player.func_c);
+        player.func_c.push(new Block(funcc_frame.x + 8, player.func_c.length * 20 + 15, "rightRotate"));
+        register_block_eventListener(player.func_c[player.func_c.length - 1], player.func_c, player);
+        core.rootScene.addChild(player.func_c[player.func_c.length - 1]);
+      }
+      if (e.x > funcs_frame.x && e.x < funcs_frame.x + funcs_frame.width && e.y > funcs_frame.y && e.y < funcs_frame.y + funcs_frame.height) {
+        this.moveBlock(player.func_s);
+        player.func_s.push(new Block(funcs_frame.x + 8, player.func_s.length * 20 + 15, "rightRotate"));
+        register_block_eventListener(player.func_s[player.func_s.length - 1], player.func_s, player);
+        core.rootScene.addChild(player.func_s[player.func_s.length -1]);
+      }
+      if (e.x > funcd_frame.x && e.x < funcd_frame.x + funcd_frame.width && e.y > funcd_frame.y && e.y < funcd_frame.y + funcd_frame.height) {
+        this.moveBlock(player.func_d);
+        player.func_d.push(new Block(funcd_frame.x + 8, player.func_d.length * 20 + 15, "rightRotate"));
+        register_block_eventListener(player.func_d[player.func_d.length - 1], player.func_d, player);
+        core.rootScene.addChild(player.func_d[player.func_d.length - 1]);
       }
       this.x = 330;
       this.y = 50;
@@ -278,20 +347,155 @@ window.onload = function() {
     player.funch.addEventListener("touchend", function(e) {
       if (e.x > stack_frame.x && e.x < stack_frame.x + stack_frame.width && e.y > stack_frame.y && e.y < stack_frame.y + stack_frame.height) {
         this.moveBlock(block_list);
-        block_list.push(new Block(stack_frame.x + 8, block_list.length * 20 + 15, "function"));
+        block_list.push(new Block(stack_frame.x + 8, block_list.length * 20 + 15, "function_h"));
         register_block_eventListener(block_list[block_list.length - 1], block_list, player);
         core.rootScene.addChild(block_list[block_list.length - 1]);
         core.rootScene.addChild(block_list[block_list.length - 1].label);
       }
       if (e.x > funch_frame.x && e.x < funch_frame.x + funch_frame.width && e.y > funch_frame.y && e.y < funch_frame.y + funch_frame.height) {
         this.moveBlock(player.func_h);
-        player.func_h.push(new Block(funch_frame.x + 8, player.func_h.length * 20 + 15, "function"));
+        player.func_h.push(new Block(funch_frame.x + 8, player.func_h.length * 20 + 15, "function_h"));
         register_block_eventListener(player.func_h[player.func_h.length - 1], player.func_h, player);
         core.rootScene.addChild(player.func_h[player.func_h.length - 1]);
         core.rootScene.addChild(player.func_h[player.func_h.length - 1].label);
       }
+      if (e.x > funcc_frame.x && e.x < funcc_frame.x + funcc_frame.width && e.y > funcc_frame.y && e.y < funcc_frame.y + funcc_frame.height) {
+        this.moveBlock(player.func_c);
+        player.func_c.push(new Block(funcc_frame.x + 8, player.func_c.length * 20 + 15, "function_h"));
+        register_block_eventListener(player.func_c[player.func_c.length - 1], player.func_c, player);
+        core.rootScene.addChild(player.func_c[player.func_c.length - 1]);
+      }
+      if (e.x > funcs_frame.x && e.x < funcs_frame.x + funcs_frame.width && e.y > funcs_frame.y && e.y < funcs_frame.y + funcs_frame.height) {
+        this.moveBlock(player.func_s);
+        player.func_s.push(new Block(funcs_frame.x + 8, player.func_s.length * 20 + 15, "function_h"));
+        register_block_eventListener(player.func_s[player.func_s.length - 1], player.func_s, player);
+        core.rootScene.addChild(player.func_s[player.func_s.length -1]);
+      }
+      if (e.x > funcd_frame.x && e.x < funcd_frame.x + funcd_frame.width && e.y > funcd_frame.y && e.y < funcd_frame.y + funcd_frame.height) {
+        this.moveBlock(player.func_d);
+        player.func_d.push(new Block(funcd_frame.x + 8, player.func_d.length * 20 + 15, "function_h"));
+        register_block_eventListener(player.func_d[player.func_d.length - 1], player.func_d, player);
+        core.rootScene.addChild(player.func_d[player.func_d.length - 1]);
+      }
       this.x = 330;
       this.y = 70;
+      this.label.x = this.x;
+      this.label.y = this.y;
+    });
+
+    player.funcc.addEventListener("touchend", function(e) {
+      if (e.x > stack_frame.x && e.x < stack_frame.x + stack_frame.width && e.y > stack_frame.y && e.y < stack_frame.y + stack_frame.height) {
+        this.moveBlock(block_list);
+        block_list.push(new Block(stack_frame.x + 8, block_list.length * 20 + 15, "function_c"));
+        register_block_eventListener(block_list[block_list.length - 1], block_list, player);
+        core.rootScene.addChild(block_list[block_list.length - 1]);
+        core.rootScene.addChild(block_list[block_list.length - 1].label);
+      }
+      if (e.x > funch_frame.x && e.x < funch_frame.x + funch_frame.width && e.y > funch_frame.y && e.y < funch_frame.y + funch_frame.height) {
+        this.moveBlock(player.func_h);
+        player.func_h.push(new Block(funch_frame.x + 8, player.func_h.length * 20 + 15, "function_c"));
+        register_block_eventListener(player.func_h[player.func_h.length - 1], player.func_h, player);
+        core.rootScene.addChild(player.func_h[player.func_h.length - 1]);
+        core.rootScene.addChild(player.func_h[player.func_h.length - 1].label);
+      }
+      if (e.x > funcc_frame.x && e.x < funcc_frame.x + funcc_frame.width && e.y > funcc_frame.y && e.y < funcc_frame.y + funcc_frame.height) {
+        this.moveBlock(player.func_c);
+        player.func_c.push(new Block(funcc_frame.x + 8, player.func_c.length * 20 + 15, "function_c"));
+        register_block_eventListener(player.func_c[player.func_c.length - 1], player.func_c, player);
+        core.rootScene.addChild(player.func_c[player.func_c.length - 1]);
+      }
+      if (e.x > funcs_frame.x && e.x < funcs_frame.x + funcs_frame.width && e.y > funcs_frame.y && e.y < funcs_frame.y + funcs_frame.height) {
+        this.moveBlock(player.func_s);
+        player.func_s.push(new Block(funcs_frame.x + 8, player.func_s.length * 20 + 15, "function_c"));
+        register_block_eventListener(player.func_s[player.func_s.length - 1], player.func_s, player);
+        core.rootScene.addChild(player.func_s[player.func_s.length -1]);
+      }
+      if (e.x > funcd_frame.x && e.x < funcd_frame.x + funcd_frame.width && e.y > funcd_frame.y && e.y < funcd_frame.y + funcd_frame.height) {
+        this.moveBlock(player.func_d);
+        player.func_d.push(new Block(funcd_frame.x + 8, player.func_d.length * 20 + 15, "function_c"));
+        register_block_eventListener(player.func_d[player.func_d.length - 1], player.func_d, player);
+        core.rootScene.addChild(player.func_d[player.func_d.length - 1]);
+      }
+      this.x = 330;
+      this.y = 90;
+      this.label.x = this.x;
+      this.label.y = this.y;
+    });
+
+    player.funcs.addEventListener("touchend", function(e) {
+      if (e.x > stack_frame.x && e.x < stack_frame.x + stack_frame.width && e.y > stack_frame.y && e.y < stack_frame.y + stack_frame.height) {
+        this.moveBlock(block_list);
+        block_list.push(new Block(stack_frame.x + 8, block_list.length * 20 + 15, "function_s"));
+        register_block_eventListener(block_list[block_list.length - 1], block_list, player);
+        core.rootScene.addChild(block_list[block_list.length - 1]);
+        core.rootScene.addChild(block_list[block_list.length - 1].label);
+      }
+      if (e.x > funch_frame.x && e.x < funch_frame.x + funch_frame.width && e.y > funch_frame.y && e.y < funch_frame.y + funch_frame.height) {
+        this.moveBlock(player.func_h);
+        player.func_h.push(new Block(funch_frame.x + 8, player.func_h.length * 20 + 15, "function_s"));
+        register_block_eventListener(player.func_h[player.func_h.length - 1], player.func_h, player);
+        core.rootScene.addChild(player.func_h[player.func_h.length - 1]);
+        core.rootScene.addChild(player.func_h[player.func_h.length - 1].label);
+      }
+      if (e.x > funcc_frame.x && e.x < funcc_frame.x + funcc_frame.width && e.y > funcc_frame.y && e.y < funcc_frame.y + funcc_frame.height) {
+        this.moveBlock(player.func_c);
+        player.func_c.push(new Block(funcc_frame.x + 8, player.func_c.length * 20 + 15, "function_s"));
+        register_block_eventListener(player.func_c[player.func_c.length - 1], player.func_c, player);
+        core.rootScene.addChild(player.func_c[player.func_c.length - 1]);
+      }
+      if (e.x > funcs_frame.x && e.x < funcs_frame.x + funcs_frame.width && e.y > funcs_frame.y && e.y < funcs_frame.y + funcs_frame.height) {
+        this.moveBlock(player.func_s);
+        player.func_s.push(new Block(funcs_frame.x + 8, player.func_s.length * 20 + 15, "function_s"));
+        register_block_eventListener(player.func_s[player.func_s.length - 1], player.func_s, player);
+        core.rootScene.addChild(player.func_s[player.func_s.length -1]);
+      }
+      if (e.x > funcd_frame.x && e.x < funcd_frame.x + funcd_frame.width && e.y > funcd_frame.y && e.y < funcd_frame.y + funcd_frame.height) {
+        this.moveBlock(player.func_d);
+        player.func_d.push(new Block(funcd_frame.x + 8, player.func_d.length * 20 + 15, "function_s"));
+        register_block_eventListener(player.func_d[player.func_d.length - 1], player.func_d, player);
+        core.rootScene.addChild(player.func_d[player.func_d.length - 1]);
+      }
+      this.x = 330;
+      this.y = 110;
+      this.label.x = this.x;
+      this.label.y = this.y;
+    });
+
+    player.funcd.addEventListener("touchend", function(e) {
+      if (e.x > stack_frame.x && e.x < stack_frame.x + stack_frame.width && e.y > stack_frame.y && e.y < stack_frame.y + stack_frame.height) {
+        this.moveBlock(block_list);
+        block_list.push(new Block(stack_frame.x + 8, block_list.length * 20 + 15, "function_d"));
+        register_block_eventListener(block_list[block_list.length - 1], block_list, player);
+        core.rootScene.addChild(block_list[block_list.length - 1]);
+        core.rootScene.addChild(block_list[block_list.length - 1].label);
+      }
+      if (e.x > funch_frame.x && e.x < funch_frame.x + funch_frame.width && e.y > funch_frame.y && e.y < funch_frame.y + funch_frame.height) {
+        this.moveBlock(player.func_h);
+        player.func_h.push(new Block(funch_frame.x + 8, player.func_h.length * 20 + 15, "function_d"));
+        register_block_eventListener(player.func_h[player.func_h.length - 1], player.func_h, player);
+        core.rootScene.addChild(player.func_h[player.func_h.length - 1]);
+        core.rootScene.addChild(player.func_h[player.func_h.length - 1].label);
+      }
+      if (e.x > funcc_frame.x && e.x < funcc_frame.x + funcc_frame.width && e.y > funcc_frame.y && e.y < funcc_frame.y + funcc_frame.height) {
+        this.moveBlock(player.func_c);
+        player.func_c.push(new Block(funcc_frame.x + 8, player.func_c.length * 20 + 15, "function_d"));
+        register_block_eventListener(player.func_c[player.func_c.length - 1], player.func_c, player);
+        core.rootScene.addChild(player.func_c[player.func_c.length - 1]);
+      }
+      if (e.x > funcs_frame.x && e.x < funcs_frame.x + funcs_frame.width && e.y > funcs_frame.y && e.y < funcs_frame.y + funcs_frame.height) {
+        this.moveBlock(player.func_s);
+        player.func_s.push(new Block(funcs_frame.x + 8, player.func_s.length * 20 + 15, "function_d"));
+        register_block_eventListener(player.func_s[player.func_s.length - 1], player.func_s, player);
+        core.rootScene.addChild(player.func_s[player.func_s.length -1]);
+      }
+      if (e.x > funcd_frame.x && e.x < funcd_frame.x + funcd_frame.width && e.y > funcd_frame.y && e.y < funcd_frame.y + funcd_frame.height) {
+        this.moveBlock(player.func_d);
+        player.func_d.push(new Block(funcd_frame.x + 8, player.func_d.length * 20 + 15, "function_d"));
+        register_block_eventListener(player.func_d[player.func_d.length - 1], player.func_d, player);
+        core.rootScene.addChild(player.func_d[player.func_d.length - 1]);
+      }
+      this.x = 330;
+      this.y = 130;
       this.label.x = this.x;
       this.label.y = this.y;
     });
@@ -304,7 +508,6 @@ window.onload = function() {
         var label = addLabel(block_list[block_list.length - 1], String(block_list[block_list.length - 1].loop_cnt));
         register_forBlock_eventListener(block_list[block_list.length - 1], block_list, player, label);
         core.rootScene.addChild(block_list[block_list.length - 1]);
-        core.rootScene.addChild(block_list[block_list.length - 1].label);
         core.rootScene.addChild(label);
         register_loopCounter_eventListener(block_list[block_list.length - 1], label);
       }
@@ -315,12 +518,41 @@ window.onload = function() {
         var label = addLabel(player.func_h[player.func_h.length - 1], String(player.func_h[player.func_h.length - 1].loop_cnt));
         register_forBlock_eventListener(player.func_h[player.func_h.length - 1], player.func_h, player, label);
         core.rootScene.addChild(player.func_h[player.func_h.length - 1]);
-        core.rootScene.addChild(player.func_h[player.func_h.length - 1].label);
         core.rootScene.addChild(label);
         register_loopCounter_eventListener(player.func_h[player.func_h.length - 1], label);
       }
+      if (e.x > funcc_frame.x && e.x < funcc_frame.x + funcc_frame.width && e.y > funcc_frame.y && e.y < funcc_frame.y + funcc_frame.height) {
+        this.moveBlock(player.func_c);
+        player.func_c.push(new Block(funcc_frame.x + 8, player.func_c.length * 20 + 15, "forStart"));
+        player.func_c[player.func_c.length - 1].loop_cnt = this.loop_cnt;
+        var label = addLabel(player.func_c[player.func_c.length - 1], String(player.func_c[player.func_c.length - 1].loop_cnt));
+        register_forBlock_eventListener(player.func_c[player.func_c.length - 1], player.func_c, player, label);
+        core.rootScene.addChild(player.func_c[player.func_c.length - 1]);
+        core.rootScene.addChild(label);
+        register_loopCounter_eventListener(player.func_c[player.func_c.length - 1], label);
+      }
+      if (e.x > funcs_frame.x && e.x < funcs_frame.x + funcs_frame.width && e.y > funcs_frame.y && e.y < funcs_frame.y + funcs_frame.height) {
+        this.moveBlock(player.func_s);
+        player.func_s.push(new Block(funcs_frame.x + 8, player.func_s.length * 20 + 15, "forStart"));
+        player.func_s[player.func_s.length - 1].loop_cnt = this.loop_cnt;
+        var label = addLabel(player.func_s[player.func_s.length - 1], String(player.func_s[player.func_s.length - 1].loop_cnt));
+        register_forBlock_eventListener(player.func_s[player.func_s.length - 1], player.func_s, player, label);
+        core.rootScene.addChild(player.func_s[player.func_s.length -1]);
+        core.rootScene.addChild(label);
+        register_loopCounter_eventListener(player.func_s[player.func_c.length - 1], label);
+      }
+      if (e.x > funcd_frame.x && e.x < funcd_frame.x + funcd_frame.width && e.y > funcd_frame.y && e.y < funcd_frame.y + funcd_frame.height) {
+        this.moveBlock(player.func_d);
+        player.func_d.push(new Block(funcd_frame.x + 8, player.func_d.length * 20 + 15, "forStart"));
+        player.func_d[player.func_d.length - 1].loop_cnt = this.loop_cnt;
+        var label = addLabel(player.func_d[player.func_d.length - 1], String(player.func_d[player.func_d.length - 1].loop_cnt));
+        register_forBlock_eventListener(player.func_d[player.func_d.length - 1], player.func_d, player, label);
+        core.rootScene.addChild(player.func_d[player.func_d.length - 1]);
+        core.rootScene.addChild(label);
+        register_loopCounter_eventListener(player.func_d[player.func_d.length - 1], label);
+      }
       this.x = 330;
-      this.y = 90;
+      this.y = 150;
       this.label.x = this.x;
       this.label.y = this.y;
       loop.x = this.x + this.width - 6;
@@ -349,17 +581,37 @@ window.onload = function() {
         block_list.push(new Block(stack_frame.x + 8, block_list.length * 20 + 15, "forEnd"));
         register_block_eventListener(block_list[block_list.length - 1], block_list, player);
         core.rootScene.addChild(block_list[block_list.length - 1]);
-        core.rootScene.addChild(block_list[block_list.length - 1].label);
       }
-      if (e.x > funch_frame.x && e.x < funch_frame.x + funch_frame.width && e.y > funch_frame.y && e.y < funch_frame.y + funch_frame.height) {
+      if (e.x > funch_frame.x && e.x < funch_frame.x + funch_frame.width && e.y > funch_frame.y && e.y < funch_frame.y + funch_frame.height
+        && this.checkForStart(player.func_h)) {
         this.moveBlock(player.func_h);
         player.func_h.push(new Block(funch_frame.x + 8, player.func_h.length * 20 + 15, "forEnd"));
         register_block_eventListener(player.func_h[player.func_h.length - 1], player.func_h, player);
         core.rootScene.addChild(player.func_h[player.func_h.length - 1]);
-        core.rootScene.addChild(player.func_h[player.func_h.length - 1].label);
+      }
+      if (e.x > funcc_frame.x && e.x < funcc_frame.x + funcc_frame.width && e.y > funcc_frame.y && e.y < funcc_frame.y + funcc_frame.height
+        && this.checkForStart(player.func_c)) {
+        this.moveBlock(player.func_c);
+        player.func_c.push(new Block(funcc_frame.x + 8, player.func_c.length * 20 + 15, "forEnd"));
+        register_block_eventListener(player.func_c[player.func_c.length - 1], player.func_c, player);
+        core.rootScene.addChild(player.func_c[player.func_c.length - 1]);
+      }
+      if (e.x > funcs_frame.x && e.x < funcs_frame.x + funcs_frame.width && e.y > funcs_frame.y && e.y < funcs_frame.y + funcs_frame.height
+        && this.checkForStart(player.func_s)) {
+        this.moveBlock(player.func_s);
+        player.func_s.push(new Block(funcs_frame.x + 8, player.func_s.length * 20 + 15, "forEnd"));
+        register_block_eventListener(player.func_s[player.func_s.length - 1], player.func_s, player);
+        core.rootScene.addChild(player.func_s[player.func_s.length -1]);
+      }
+      if (e.x > funcd_frame.x && e.x < funcd_frame.x + funcd_frame.width && e.y > funcd_frame.y && e.y < funcd_frame.y + funcd_frame.height
+        && this.checkForStart(player.func_d)) {
+        this.moveBlock(player.func_d);
+        player.func_d.push(new Block(funcd_frame.x + 8, player.func_d.length * 20 + 15, "forEnd"));
+        register_block_eventListener(player.func_d[player.func_d.length - 1], player.func_d, player);
+        core.rootScene.addChild(player.func_d[player.func_d.length - 1]);
       }
       this.x = 330;
-      this.y = 110;
+      this.y = 170;
       this.label.x = this.x;
       this.label.y = this.y;
     });

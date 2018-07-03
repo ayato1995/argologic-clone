@@ -22,7 +22,7 @@
     this.func_h = [];
     this.func_c = [];
     this.func_s = [];
-    this.func_D = [];
+    this.func_d = [];
     this.copy_list = [];
     this.maxCopy = 3;
   },
