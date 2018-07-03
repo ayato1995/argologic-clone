@@ -13,9 +13,12 @@
     this.up = new Block(330, 10, "up");
     this.leftRotate = new Block(330, 30, "leftRotate");
     this.rightRotate = new Block(330, 50, "rightRotate");
-    this.func = new Block(330, 70, "function");
-    this.forStart = new Block(330, 90, "forStart");
-    this.forEnd = new Block(330, 110, "forEnd");
+    this.funch = new Block(330, 70, "function_h");
+    this.funcc = new Block(330, 90, "function_c");
+    this.funcs = new Block(330, 110, "function_s");
+    this.funcd = new Block(330, 130, "function_d");
+    this.forStart = new Block(330, 150, "forStart");
+    this.forEnd = new Block(330, 170, "forEnd");
     this.func_h = [];
     this.func_c = [];
     this.func_s = [];

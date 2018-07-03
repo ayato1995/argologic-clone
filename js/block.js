@@ -20,9 +20,15 @@ var Block = enchant.Class.create(enchant.Sprite, {
     } else if (type == "if") {
       string = "もしも";
       // color = "orange";
-    } else if (type == "function") {
-      string = "関数";
+    } else if (type == "function_h") {
+      string = "関数_h";
       // color = "darkslategray";
+    } else if (type == "function_c") {
+      string = "関数_c";
+    } else if (type == "function_s") {
+      string = "関数_s";
+    } else if (type == "function_d") {
+      string = "関数_D";
     } else if (type == "forStart") {
       this.image = core.assets["../img/loop_start.png"];
     } else if (type == "forEnd") {

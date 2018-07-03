@@ -2,7 +2,7 @@ enchant();
 
 window.onload = function() {
   var selectFlag = false;
-  core = new Core(560, 320);
+  core = new Core(600, 320);
   core.fps = 60;
   core.preload("../img/chara5.png", "../img/map0.gif", "../img/goal.png", "../img/clear.png",
                "../img/end.png", "../img/up.png", "../img/left.png", "../img/right.png",
@@ -30,8 +30,18 @@ window.onload = function() {
     funch_frame.backgroundColor = "lightsteelblue";
     funch_frame.x = 412;
     funch_frame.y = 10;
-
-    
+    var funcc_frame = new Sprite(32, 200);
+    funcc_frame.backgroundColor = "lightsteelblue";
+    funcc_frame.x = 452;
+    funcc_frame.y = 10;
+    var funcs_frame = new Sprite(32, 200);
+    funcs_frame.backgroundColor = "lightsteelblue";
+    funcs_frame.x = 494;
+    funcs_frame.y = 10;
+    var funcd_frame = new Sprite(32, 200);
+    funcd_frame.backgroundColor = "lightsteelblue";
+    funcd_frame.x = 536;
+    funcd_frame.y = 10;
 
     var play = new Block(330, 300, "play");
     var exeCopy = new Block(330, 280, "exeCopy");
@@ -43,13 +53,22 @@ window.onload = function() {
     core.rootScene.addChild(backgroundMap);
     core.rootScene.addChild(stack_frame);
     core.rootScene.addChild(funch_frame);
+    core.rootScene.addChild(funcc_frame);
+    core.rootScene.addChild(funcs_frame);
+    core.rootScene.addChild(funcd_frame);
     core.rootScene.addChild(goal);
     core.rootScene.addChild(player);
     core.rootScene.addChild(player.up);
     core.rootScene.addChild(player.leftRotate);
     core.rootScene.addChild(player.rightRotate);
-    core.rootScene.addChild(player.func);
-    core.rootScene.addChild(player.func.label);
+    core.rootScene.addChild(player.funch);
+    core.rootScene.addChild(player.funch.label);
+    core.rootScene.addChild(player.funcc);
+    core.rootScene.addChild(player.funcc.label);
+    core.rootScene.addChild(player.funcs);
+    core.rootScene.addChild(player.funcs.label);
+    core.rootScene.addChild(player.funcd);
+    core.rootScene.addChild(player.funcd.label);
     core.rootScene.addChild(player.forStart);
     core.rootScene.addChild(loop);
     core.rootScene.addChild(player.forEnd);
@@ -169,7 +188,7 @@ window.onload = function() {
       this.label.y = this.y;
     });
 
-    player.func.addEventListener("touchmove", function(e) {
+    player.funch.addEventListener("touchmove", function(e) {
       this.x = e.x;
       this.y = e.y;
       this.label.x = this.x;
@@ -256,7 +275,7 @@ window.onload = function() {
       this.label.y = this.y;
     });
 
-    player.func.addEventListener("touchend", function(e) {
+    player.funch.addEventListener("touchend", function(e) {
       if (e.x > stack_frame.x && e.x < stack_frame.x + stack_frame.width && e.y > stack_frame.y && e.y < stack_frame.y + stack_frame.height) {
         this.moveBlock(block_list);
         block_list.push(new Block(stack_frame.x + 8, block_list.length * 20 + 15, "function"));
