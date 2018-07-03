@@ -36,14 +36,8 @@ var Block = enchant.Class.create(enchant.Sprite, {
     } else if (type == "play") {
       string = "実行";
       color = "green";
-    } else if (type == "exeCopy") {
-      // string = "実行フレームにコピー";
-      string = "exe";
+    } else if (type == "copy") {
       color = "green";
-    } else if (type == "funcCopy") {
-      // string = "関数フレームにコピー";
-      string = "func";
-      color = "green"
     } else if (type == "select") {
       string = "ブロックの選択";
       color = "green";

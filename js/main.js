@@ -44,9 +44,12 @@ window.onload = function() {
     funcd_frame.y = 10;
 
     var play = new Block(330, 300, "play");
-    var exeCopy = new Block(330, 280, "exeCopy");
-    var funcCopy = new Block(330, 260, "funcCopy");
-    var select = new Block(330, 240, "select");
+    var exeCopy = new Block(stack_frame.x + 8, stack_frame.y + stack_frame.height + 10, "copy");
+    var funchCopy = new Block(funch_frame.x + 8, funch_frame.y + funch_frame.height + 10, "copy");
+    var funccCopy = new Block(funcc_frame.x + 8, funcc_frame.y + funcc_frame.height + 10, "copy");
+    var funcsCopy = new Block(funcs_frame.x + 8, funcs_frame.y + funcs_frame.height + 10, "copy");
+    var funcdCopy = new Block(funcd_frame.x + 8, funcd_frame.y + funcd_frame.height + 10, "copy");
+    var select = new Block(330, exeCopy.y, "select");
 
     var loop = addLabel(player.forStart, String(player.forStart.loop_cnt));
 
@@ -74,7 +77,10 @@ window.onload = function() {
     core.rootScene.addChild(player.forEnd);
     core.rootScene.addChild(play);
     core.rootScene.addChild(exeCopy);
-    core.rootScene.addChild(funcCopy);
+    core.rootScene.addChild(funchCopy);
+    core.rootScene.addChild(funccCopy);
+    core.rootScene.addChild(funcsCopy);
+    core.rootScene.addChild(funcdCopy);
     core.rootScene.addChild(select);
 
     play.addEventListener("touchstart", function(e) {
@@ -136,7 +142,7 @@ window.onload = function() {
       }
     });
 
-    funcCopy.addEventListener("touchstart", function(e) {
+    funchCopy.addEventListener("touchstart", function(e) {
       if (player.copy_list.length != 0) {
         for (var i = 0; i < player.copy_list.length; i++) {
           player.func_h.push(new Block(funch_frame.x + 8, player.func_h.length * 20 + 15, player.copy_list[i].type));
@@ -159,6 +165,80 @@ window.onload = function() {
         */
       }
     });
+
+    funccCopy.addEventListener("touchstart", function(e) {
+      if (player.copy_list.length != 0) {
+        for (var i = 0; i < player.copy_list.length; i++) {
+          player.func_c.push(new Block(funcc_frame.x + 8, player.func_c.length * 20 + 15, player.copy_list[i].type));
+          if (player.func_c[player.func_c.length - 1].type == "forStart") {
+            player.func_c[player.func_c.length -1].loop_cnt = player.copy_list[i].loop_cnt;
+            var label = addLabel(player.func_c[player.func_c.length -1], String(player.func_c[player.func_c.length - 1].loop_cnt));
+            register_forBlock_eventListener(player.func_c[player.func_c.length - 1], player.func_c, player, label);
+            core.rootScene.addChild(player.func_c[player.func_c.length - 1]);
+            core.rootScene.addChild(label);
+          } else {
+            register_block_eventListener(player.func_c[player.func_c.length - 1], player.func_c, player);
+            core.rootScene.addChild(player.func_c[player.func_c.length - 1]);
+            core.rootScene.addChild(player.func_c[player.func_c.length - 1].label);
+          }
+        }
+        // console.log(player.func_h);
+        /*
+        console.log(player.copy_list);
+        console.log("funcCopy");
+        */
+      }
+    });
+
+    funcsCopy.addEventListener("touchstart", function(e) {
+      if (player.copy_list.length != 0) {
+        for (var i = 0; i < player.copy_list.length; i++) {
+          player.func_s.push(new Block(funcs_frame.x + 8, player.func_s.length * 20 + 15, player.copy_list[i].type));
+          if (player.func_s[player.func_s.length - 1].type == "forStart") {
+            player.func_s[player.func_s.length -1].loop_cnt = player.copy_list[i].loop_cnt;
+            var label = addLabel(player.func_s[player.func_s.length -1], String(player.func_s[player.func_s.length - 1].loop_cnt));
+            register_forBlock_eventListener(player.func_s[player.func_s.length - 1], player.func_s, player, label);
+            core.rootScene.addChild(player.func_s[player.func_s.length - 1]);
+            core.rootScene.addChild(label);
+          } else {
+            register_block_eventListener(player.func_s[player.func_s.length - 1], player.func_s, player);
+            core.rootScene.addChild(player.func_s[player.func_s.length - 1]);
+            core.rootScene.addChild(player.func_s[player.func_s.length - 1].label);
+          }
+        }
+        // console.log(player.func_h);
+        /*
+        console.log(player.copy_list);
+        console.log("funcCopy");
+        */
+      }
+    });
+
+    funcdCopy.addEventListener("touchstart", function(e) {
+      if (player.copy_list.length != 0) {
+        for (var i = 0; i < player.copy_list.length; i++) {
+          player.func_d.push(new Block(funcd_frame.x + 8, player.func_d.length * 20 + 15, player.copy_list[i].type));
+          if (player.func_d[player.func_d.length - 1].type == "forStart") {
+            player.func_d[player.func_d.length -1].loop_cnt = player.copy_list[i].loop_cnt;
+            var label = addLabel(player.func_d[player.func_d.length -1], String(player.func_d[player.func_d.length - 1].loop_cnt));
+            register_forBlock_eventListener(player.func_d[player.func_d.length - 1], player.func_d, player, label);
+            core.rootScene.addChild(player.func_d[player.func_d.length - 1]);
+            core.rootScene.addChild(label);
+          } else {
+            register_block_eventListener(player.func_d[player.func_d.length - 1], player.func_d, player);
+            core.rootScene.addChild(player.func_d[player.func_d.length - 1]);
+            core.rootScene.addChild(player.func_d[player.func_d.length - 1].label);
+          }
+        }
+        // console.log(player.func_h);
+        /*
+        console.log(player.copy_list);
+        console.log("funcCopy");
+        */
+      }
+    });
+
+
 
     player.up.addEventListener("touchmove", function(e) {
       this.x = e.x;
