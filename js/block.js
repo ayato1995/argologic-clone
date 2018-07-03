@@ -31,10 +31,13 @@ var Block = enchant.Class.create(enchant.Sprite, {
       string = "関数_D";
     } else if (type == "arg1") {
       color = "tomato";
+      this.func_name;
     } else if (type == "arg2") {
       color = "deepskyblue";
+      this.func_name;
     } else if (type == "arg3") {
       color = "greenyellow";
+      this.func_name;
     } else if (type == "forStart") {
       this.image = core.assets["../img/loop_start.png"];
     } else if (type == "forEnd") {
@@ -74,8 +77,68 @@ var Block = enchant.Class.create(enchant.Sprite, {
     var stackCounter = 0;
 
     for (var i = 0; i < block.length; i++) {
-      if (block[i].type == "function") {
+      console.log(block[i].type);
+      if (block[i].type == "function_h") {
+        var k = i;
+        i++;
+        for (var j = player.func_h.length; i < block.length && j > 0; i++, j--) {
+          console.log("for " + block[i].type);
+          player.arg_h.push(block[i]);
+        }
+        i = k;
+        block.splice(i + 1, player.func_h.length);
         time = this.play(player.func_h, player, core, backgroundMap, time);
+      } else if (block[i].type == "function_c") {
+        /*
+        var k = i;
+        for (var j = func_c.length; i < block.length && j > 0; i++, j--) {
+          player.arg_h.push(block[i]);
+        }
+        i = k;
+        block.splite(i + 1, func_h.length);
+        time = this.play(player.func_h, player, core, backgroundMap, time);
+        */
+      } else if (block[i].type == "function_s") {
+      } else if (block[i].type == "function_d") {
+      } else if (block[i].type == "arg1") {
+        var b = block[i];
+        var order;
+        if (b.func_name == "h") {
+          order = player.arg_h[0];
+        } else if (b.func_name == "c") {
+          order = player.arg_c[0];
+        } else if (b.func_name == "h") {
+          order = player.arg_s[0];
+        } else if (b.func_name == "d") {
+          order = player.arg_d[0];
+        }
+        setTimeout(this.execution, time, order, player, core, backgroundMap);
+      } else if (block[i].type == "arg2") {
+        var b = block[i];
+        var order;
+        if (b.func_name == "h") {
+          order = player.arg_h[1];
+        } else if (b.func_name == "c") {
+          order = player.arg_c[1];
+        } else if (b.func_name == "h") {
+          order = player.arg_s[1];
+        } else if (b.func_name == "d") {
+          order = player.arg_d[1];
+        }
+        setTimeout(this.execution, time, order, player, core, backgroundMap);
+      } else if (block[i].type == "arg3") {
+        var b = block[i];
+        var order;
+        if (b.func_name == "h") {
+          order = player.arg_h[2];
+        } else if (b.func_name == "c") {
+          order = player.arg_c[2];
+        } else if (b.func_name == "h") {
+          order = player.arg_s[2];
+        } else if (b.func_name == "d") {
+          order = player.arg_d[2];
+        }
+        setTimeout(this.execution, time, order, player, core, backgroundMap);
       } else if (block[i].type == "forStart") {
         var loop_list = [];
         do {
