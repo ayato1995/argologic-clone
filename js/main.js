@@ -421,39 +421,53 @@ window.onload = function() {
       if (e.x > stack_frame.x && e.x < stack_frame.x + stack_frame.width && e.y > stack_frame.y && e.y < stack_frame.y + stack_frame.height) {
         this.moveBlock(block_list);
         block_list.push(new Block(stack_frame.x + 8, block_list.length * 20 + 15, "function_h"));
-        block_list[block_list.length - 1].expandFuncBlock(player.func_h_arg.length);
+        var bs = block_list[block_list.length - 1].expandFuncBlock(player.func_h_arg.length);
         register_block_eventListener(block_list[block_list.length - 1], block_list, player);
         core.rootScene.addChild(block_list[block_list.length - 1]);
-        core.rootScene.addChild(block_list[block_list.length - 1].label);
+        for (var i = 0; i < bs.length; i++) {
+        	core.rootScene.addChild(bs[i]);
+        }
       }
       if (e.x > funch_frame.x && e.x < funch_frame.x + funch_frame.width && e.y > funch_frame.y && e.y < funch_frame.y + funch_frame.height) {
         this.moveBlock(player.func_h);
         player.func_h.push(new Block(funch_frame.x + 8, player.func_h.length * 20 + 15, "function_h"));
-        player.func_h[player.func_h.length - 1].expandFuncBlock(player.func_h_arg.length);
+        var bs = player.func_h[player.func_h.length - 1].expandFuncBlock(player.func_h_arg.length);
         register_block_eventListener(player.func_h[player.func_h.length - 1], player.func_h, player);
         core.rootScene.addChild(player.func_h[player.func_h.length - 1]);
-        core.rootScene.addChild(player.func_h[player.func_h.length - 1].label);
+        for (var i = 0; i < bs.length; i++) {
+        	bs[i].height += 4;
+        	core.rootScene.addChild(bs[i]);
+        }
       }
       if (e.x > funcc_frame.x && e.x < funcc_frame.x + funcc_frame.width && e.y > funcc_frame.y && e.y < funcc_frame.y + funcc_frame.height) {
         this.moveBlock(player.func_c);
         player.func_c.push(new Block(funcc_frame.x + 8, player.func_c.length * 20 + 15, "function_h"));
-        player.func_c[player.func_c.length - 1].expandFuncBlock(player.func_h_arg.length);
+        var bs = player.func_c[player.func_c.length - 1].expandFuncBlock(player.func_h_arg.length);
         register_block_eventListener(player.func_c[player.func_c.length - 1], player.func_c, player);
         core.rootScene.addChild(player.func_c[player.func_c.length - 1]);
+        for (var i = 0; i < bs.length; i++) {
+        	core.rootScene.addChild(bs[i]);
+        }
       }
       if (e.x > funcs_frame.x && e.x < funcs_frame.x + funcs_frame.width && e.y > funcs_frame.y && e.y < funcs_frame.y + funcs_frame.height) {
         this.moveBlock(player.func_s);
         player.func_s.push(new Block(funcs_frame.x + 8, player.func_s.length * 20 + 15, "function_h"));
-        player.func_s[player.func_s.length - 1].expandFuncBlock(player.func_h_arg.length);
+        var bs = player.func_s[player.func_s.length - 1].expandFuncBlock(player.func_h_arg.length);
         register_block_eventListener(player.func_s[player.func_s.length - 1], player.func_s, player);
         core.rootScene.addChild(player.func_s[player.func_s.length -1]);
+        for (var i = 0; i < bs.length; i++) {
+        	core.rootScene.addChild(bs[i]);
+        }
       }
       if (e.x > funcd_frame.x && e.x < funcd_frame.x + funcd_frame.width && e.y > funcd_frame.y && e.y < funcd_frame.y + funcd_frame.height) {
         this.moveBlock(player.func_d);
         player.func_d.push(new Block(funcd_frame.x + 8, player.func_d.length * 20 + 15, "function_h"));
-        player.func_d[player.func_d.length - 1].expandFuncBlock(player.func_h_arg.length);
+        var bs = player.func_d[player.func_d.length - 1].expandFuncBlock(player.func_h_arg.length);
         register_block_eventListener(player.func_d[player.func_d.length - 1], player.func_d, player);
         core.rootScene.addChild(player.func_d[player.func_d.length - 1]);
+        for (var i = 0; i < bs.length; i++) {
+        	core.rootScene.addChild(bs[i]);
+        }
       }
       this.x = 330;
       this.y = 70;
