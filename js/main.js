@@ -631,7 +631,8 @@ window.onload = function() {
     });
 
     player.arg2.addEventListener("touchend", function(e) {
-      if (e.x > funch_frame.x && e.x < funch_frame.x + funch_frame.width && e.y > funch_frame.y && e.y < funch_frame.y + funch_frame.height) {
+      if (e.x > funch_frame.x && e.x < funch_frame.x + funch_frame.width && e.y > funch_frame.y && e.y < funch_frame.y + funch_frame.height 
+      	&& this.checkArg1(player.func_h)) {
         this.moveBlock(player.func_h);
         player.func_h.push(new Block(funch_frame.x + 8, player.func_h.length * 20 + 15, "arg2"));
         player.func_h[player.func_h.length - 1].func_name = "h";
@@ -639,7 +640,8 @@ window.onload = function() {
         player.arg_check(player.func_h_arg, "arg2");
         core.rootScene.addChild(player.func_h[player.func_h.length - 1]);
       }
-      if (e.x > funcc_frame.x && e.x < funcc_frame.x + funcc_frame.width && e.y > funcc_frame.y && e.y < funcc_frame.y + funcc_frame.height) {
+      if (e.x > funcc_frame.x && e.x < funcc_frame.x + funcc_frame.width && e.y > funcc_frame.y && e.y < funcc_frame.y + funcc_frame.height
+      	&& this.checkArg1(player.func_c)) {
         this.moveBlock(player.func_c);
         player.func_c.push(new Block(funcc_frame.x + 8, player.func_c.length * 20 + 15, "arg2"));
         player.func_c[player.func_c.length - 1].func_name = "c";
@@ -647,7 +649,8 @@ window.onload = function() {
         player.arg_check(player.func_c_arg, "arg2");
         core.rootScene.addChild(player.func_c[player.func_c.length - 1]);
       }
-      if (e.x > funcs_frame.x && e.x < funcs_frame.x + funcs_frame.width && e.y > funcs_frame.y && e.y < funcs_frame.y + funcs_frame.height) {
+      if (e.x > funcs_frame.x && e.x < funcs_frame.x + funcs_frame.width && e.y > funcs_frame.y && e.y < funcs_frame.y + funcs_frame.height
+      	&& this.checkArg1(player.func_s)) {
         this.moveBlock(player.func_s);
         player.func_s.push(new Block(funcs_frame.x + 8, player.func_s.length * 20 + 15, "arg2"));
         player.func_s[player.func_s.length - 1].func_name = "s";
@@ -655,7 +658,8 @@ window.onload = function() {
         player.arg_check(player.func_c_arg, "arg2");
         core.rootScene.addChild(player.func_s[player.func_s.length -1]);
       }
-      if (e.x > funcd_frame.x && e.x < funcd_frame.x + funcd_frame.width && e.y > funcd_frame.y && e.y < funcd_frame.y + funcd_frame.height) {
+      if (e.x > funcd_frame.x && e.x < funcd_frame.x + funcd_frame.width && e.y > funcd_frame.y && e.y < funcd_frame.y + funcd_frame.height
+      	&& this.checkArg1(player.func_d)) {
         this.moveBlock(player.func_d);
         player.func_d.push(new Block(funcd_frame.x + 8, player.func_d.length * 20 + 15, "arg2"));
         player.func_d[player.func_d.length - 1].func_name = "d";
@@ -668,7 +672,8 @@ window.onload = function() {
     });
 
     player.arg3.addEventListener("touchend", function(e) {
-      if (e.x > funch_frame.x && e.x < funch_frame.x + funch_frame.width && e.y > funch_frame.y && e.y < funch_frame.y + funch_frame.height) {
+      if (e.x > funch_frame.x && e.x < funch_frame.x + funch_frame.width && e.y > funch_frame.y && e.y < funch_frame.y + funch_frame.height
+      	&& this.checkArg2(player.func_h)) {
         this.moveBlock(player.func_h);
         player.func_h.push(new Block(funch_frame.x + 8, player.func_h.length * 20 + 15, "arg3"));
         player.func_h[player.func_h.length - 1].func_name = "h";
@@ -676,7 +681,8 @@ window.onload = function() {
         player.arg_check(player.func_h_arg, "arg3");
         core.rootScene.addChild(player.func_h[player.func_h.length - 1]);
       }
-      if (e.x > funcc_frame.x && e.x < funcc_frame.x + funcc_frame.width && e.y > funcc_frame.y && e.y < funcc_frame.y + funcc_frame.height) {
+      if (e.x > funcc_frame.x && e.x < funcc_frame.x + funcc_frame.width && e.y > funcc_frame.y && e.y < funcc_frame.y + funcc_frame.height
+      	&& this.checkArg2(player.func_c)) {
         this.moveBlock(player.func_c);
         player.func_c.push(new Block(funcc_frame.x + 8, player.func_c.length * 20 + 15, "arg3"));
         player.func_c[player.func_c.length - 1].func_name = "c";
@@ -684,7 +690,8 @@ window.onload = function() {
         player.arg_check(player.func_c_arg, "arg3");
         core.rootScene.addChild(player.func_c[player.func_c.length - 1]);
       }
-      if (e.x > funcs_frame.x && e.x < funcs_frame.x + funcs_frame.width && e.y > funcs_frame.y && e.y < funcs_frame.y + funcs_frame.height) {
+      if (e.x > funcs_frame.x && e.x < funcs_frame.x + funcs_frame.width && e.y > funcs_frame.y && e.y < funcs_frame.y + funcs_frame.height
+      	&& this.checkArg2(player.func_s)) {
         this.moveBlock(player.func_s);
         player.func_s.push(new Block(funcs_frame.x + 8, player.func_s.length * 20 + 15, "arg3"));
         player.func_s[player.func_s.length - 1].func_name = "s";
@@ -692,7 +699,8 @@ window.onload = function() {
         player.arg_check(player.func_s_arg, "arg3");
         core.rootScene.addChild(player.func_s[player.func_s.length -1]);
       }
-      if (e.x > funcd_frame.x && e.x < funcd_frame.x + funcd_frame.width && e.y > funcd_frame.y && e.y < funcd_frame.y + funcd_frame.height) {
+      if (e.x > funcd_frame.x && e.x < funcd_frame.x + funcd_frame.width && e.y > funcd_frame.y && e.y < funcd_frame.y + funcd_frame.height
+      	&& this.checkArg2(player.func_d)) {
         this.moveBlock(player.func_d);
         player.func_d.push(new Block(funcd_frame.x + 8, player.func_d.length * 20 + 15, "arg3"));
         player.func_d[player.func_d.length - 1].func_name = "d";
@@ -756,7 +764,7 @@ window.onload = function() {
         register_loopCounter_eventListener(player.func_d[player.func_d.length - 1], label);
       }
       this.x = 330;
-      this.y = 150;
+      this.y = 210;
       this.label.x = this.x;
       this.label.y = this.y;
       loop.x = this.x + this.width - 6;
@@ -815,7 +823,7 @@ window.onload = function() {
         core.rootScene.addChild(player.func_d[player.func_d.length - 1]);
       }
       this.x = 330;
-      this.y = 170;
+      this.y = 230;
       this.label.x = this.x;
       this.label.y = this.y;
     });

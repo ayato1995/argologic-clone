@@ -19,16 +19,14 @@ var Block = enchant.Class.create(enchant.Sprite, {
       this.image = core.assets["../img/right.png"];
     } else if (type == "if") {
       string = "もしも";
-      // color = "orange";
     } else if (type == "function_h") {
-      string = "関数_h";
-      // color = "darkslategray";
+      this.image = core.assets["../img/heart.png"];
     } else if (type == "function_c") {
-      string = "関数_c";
+      this.image = core.assets["../img/clover.png"];
     } else if (type == "function_s") {
-      string = "関数_s";
+      this.image = core.assets["../img/spade.png"];
     } else if (type == "function_d") {
-      string = "関数_D";
+      this.image = core.assets["../img/diamond.png"];
     } else if (type == "arg1") {
       color = "tomato";
       this.func_name;
@@ -89,17 +87,35 @@ var Block = enchant.Class.create(enchant.Sprite, {
         block.splice(i + 1, player.func_h.length);
         time = this.play(player.func_h, player, core, backgroundMap, time);
       } else if (block[i].type == "function_c") {
-        /*
-        var k = i;
-        for (var j = func_c.length; i < block.length && j > 0; i++, j--) {
-          player.arg_h.push(block[i]);
+      	var k = i;
+        i++;
+        for (var j = player.func_c.length; i < block.length && j > 0; i++, j--) {
+          console.log("for " + block[i].type);
+          player.arg_c.push(block[i]);
         }
         i = k;
-        block.splite(i + 1, func_h.length);
-        time = this.play(player.func_h, player, core, backgroundMap, time);
-        */
+        block.splice(i + 1, player.func_c.length);
+        time = this.play(player.func_c, player, core, backgroundMap, time);
       } else if (block[i].type == "function_s") {
+      	var k = i;
+        i++;
+        for (var j = player.func_s.length; i < block.length && j > 0; i++, j--) {
+          console.log("for s" + block[i].type);
+          player.arg_s.push(block[i]);
+        }
+        i = k;
+        block.splice(i + 1, player.func_s.length);
+        time = this.play(player.func_s, player, core, backgroundMap, time);
       } else if (block[i].type == "function_d") {
+      	var k = i;
+        i++;
+        for (var j = player.func_d.length; i < block.length && j > 0; i++, j--) {
+          console.log("for " + block[i].type);
+          player.arg_d.push(block[i]);
+        }
+        i = k;
+        block.splice(i + 1, player.func_d.length);
+        time = this.play(player.func_d, player, core, backgroundMap, time);
       } else if (block[i].type == "arg1") {
         var b = block[i];
         var order;
@@ -107,12 +123,13 @@ var Block = enchant.Class.create(enchant.Sprite, {
           order = player.arg_h[0];
         } else if (b.func_name == "c") {
           order = player.arg_c[0];
-        } else if (b.func_name == "h") {
+        } else if (b.func_name == "s") {
           order = player.arg_s[0];
         } else if (b.func_name == "d") {
           order = player.arg_d[0];
         }
         setTimeout(this.execution, time, order, player, core, backgroundMap);
+        time += 1000;
       } else if (block[i].type == "arg2") {
         var b = block[i];
         var order;
@@ -233,6 +250,20 @@ var Block = enchant.Class.create(enchant.Sprite, {
   checkForStart: function(block_list) {
   	for (var i = 0; i < block_list.length; i++) {
   	  if (block_list[i].type == "forStart") return true;
+  	}
+  	return false;
+  },
+
+  checkArg1: function(block_list) {
+  	for (var i = 0; i < block_list.length; i++) {
+  	  if (block_list[i].type == "arg1") return true;
+  	}
+  	return false;
+  },
+
+  checkArg2: function(block_list) {
+  	for (var i = 0; i < block_list.length; i++) {
+  	  if (block_list[i].type == "arg2") return true;
   	}
   	return false;
   },
