@@ -87,10 +87,10 @@
   	this.decisionMap(map, core, this.x + 16, this.y + 16);
   },
 
-  decisionMap: function(map, core, x, y) {
+  decisionMap: function(map, scene, x, y) {
   	if (map.hitTest(x, y)) {
-  		core.rootScene.removeChild(this);
-  		core.replaceScene(core.field(false));
+  		scene.removeChild(this);
+  		scene.replaceScene(secne.field(false));
   	}
   },
 
