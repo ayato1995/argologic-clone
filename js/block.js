@@ -50,7 +50,6 @@ var Block = enchant.Class.create(enchant.Sprite, {
       this.image = core.assets["../img/cut.png"];
       color = null;
     }
-    // console.log(this.loop_cnt);
 
     this.label = new Label(string);
     this.label.x = this.x;
@@ -60,17 +59,14 @@ var Block = enchant.Class.create(enchant.Sprite, {
     this.loopCounter.x = this.x + this.width - 15;
     this.loopCounter.y = this.y;
     this.loopCounter.font = "6px 'MSゴシック'";
-    //this.loopCounter.color = "white";
     this.backgroundColor = color;
   },
 
-  remove: function(core) {
+  remove: function() {
     core.rootScene.removeChild(this);
-    core.rootScene.removeChild(this.label);
-    //core.rootScene.removeChild(this.loopCounter);
   },
 
-  play: function(block, player, core, backgroundMap, t) {
+  play: function(block, player, backgroundMap, t) {
     var time = t;
     var forStack = [];
     var stackCounter = 0;
@@ -86,7 +82,7 @@ var Block = enchant.Class.create(enchant.Sprite, {
         }
         i = k;
         block.splice(i + 1, player.func_h.length);
-        time = this.play(player.func_h, player, core, backgroundMap, time);
+        time = this.play(player.func_h, player, backgroundMap, time);
       } else if (block[i].type == "function_c") {
       	var k = i;
         i++;
@@ -96,7 +92,7 @@ var Block = enchant.Class.create(enchant.Sprite, {
         }
         i = k;
         block.splice(i + 1, player.func_c.length);
-        time = this.play(player.func_c, player, core, backgroundMap, time);
+        time = this.play(player.func_c, player, backgroundMap, time);
       } else if (block[i].type == "function_s") {
       	var k = i;
         i++;
@@ -106,7 +102,7 @@ var Block = enchant.Class.create(enchant.Sprite, {
         }
         i = k;
         block.splice(i + 1, player.func_s.length);
-        time = this.play(player.func_s, player, core, backgroundMap, time);
+        time = this.play(player.func_s, player, backgroundMap, time);
       } else if (block[i].type == "function_d") {
       	var k = i;
         i++;
@@ -116,7 +112,7 @@ var Block = enchant.Class.create(enchant.Sprite, {
         }
         i = k;
         block.splice(i + 1, player.func_d.length);
-        time = this.play(player.func_d, player, core, backgroundMap, time);
+        time = this.play(player.func_d, player, backgroundMap, time);
       } else if (block[i].type == "arg1") {
         var b = block[i];
         var order;
@@ -129,7 +125,7 @@ var Block = enchant.Class.create(enchant.Sprite, {
         } else if (b.func_name == "d") {
           order = player.arg_d[0];
         }
-        setTimeout(this.execution, time, order, player, core, backgroundMap);
+        setTimeout(this.execution, time, order, player, backgroundMap);
         time += 1000;
       } else if (block[i].type == "arg2") {
         var b = block[i];
@@ -143,7 +139,7 @@ var Block = enchant.Class.create(enchant.Sprite, {
         } else if (b.func_name == "d") {
           order = player.arg_d[1];
         }
-        setTimeout(this.execution, time, order, player, core, backgroundMap);
+        setTimeout(this.execution, time, order, player, backgroundMap);
       } else if (block[i].type == "arg3") {
         var b = block[i];
         var order;
@@ -156,7 +152,7 @@ var Block = enchant.Class.create(enchant.Sprite, {
         } else if (b.func_name == "d") {
           order = player.arg_d[2];
         }
-        setTimeout(this.execution, time, order, player, core, backgroundMap);
+        setTimeout(this.execution, time, order, player, backgroundMap);
       } else if (block[i].type == "forStart") {
         var loop_list = [];
         do {
@@ -171,9 +167,9 @@ var Block = enchant.Class.create(enchant.Sprite, {
           i++;
         } while (forStack.length > 0);
         i--;
-        time = this.forExecution(loop_list, 0, player, core, backgroundMap, time)[0];
+        time = this.forExecution(loop_list, 0, player, backgroundMap, time)[0];
       } else {
-        setTimeout(this.execution, time, block[i], player, core, backgroundMap);
+        setTimeout(this.execution, time, block[i], player, backgroundMap);
         time += 1000;
       }
     }
@@ -181,7 +177,7 @@ var Block = enchant.Class.create(enchant.Sprite, {
     return time;
   },
 
-  forExecution: function(block, i, player, core, backgroundMap, time) {
+  forExecution: function(block, i, player, backgroundMap, time) {
     if (block.length == 0) {
       return time;
     }
@@ -192,7 +188,7 @@ var Block = enchant.Class.create(enchant.Sprite, {
     while (true) {
       k++;
       if (block[k].type == "forStart") {
-        var req = this.forExecution(block, k, player, core, backgroundMap, time);
+        var req = this.forExecution(block, k, player, backgroundMap, time);
         time = req[0];
         k = req[1];
       } else if (block[k].type == "forEnd") {
@@ -205,9 +201,9 @@ var Block = enchant.Class.create(enchant.Sprite, {
         }
       } else {
         if (block[k].type == "function") {
-          time = this.play(player.func_h, player, core, backgroundMap, time);
+          time = this.play(player.func_h, player, backgroundMap, time);
         } else {
-          setTimeout(this.execution, time, block[k], player, core, backgroundMap);
+          setTimeout(this.execution, time, block[k], player, backgroundMap);
           time += 1000;
         }
       }
@@ -216,16 +212,16 @@ var Block = enchant.Class.create(enchant.Sprite, {
     return time;
   },
 
-  execution: function(block, player, core, backgroundMap) {
+  execution: function(block, player, backgroundMap) {
     switch(block.type) {
     case "up":
-      player.toUp(core, backgroundMap);
+      player.toUp(backgroundMap);
       break;
     case "leftRotate":
-      player.toLeftRotate(core, backgroundMap);
+      player.toLeftRotate(backgroundMap);
       break;
     case "rightRotate":
-      player.toRightRotate(core, backgroundMap);
+      player.toRightRotate(backgroundMap);
       break;
     }
   },

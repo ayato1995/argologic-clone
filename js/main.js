@@ -12,9 +12,8 @@ window.onload = function() {
 
   core.onload = function() {
     /* map initialize */
-    // var backgroundMap = addMap1(core.assets["../img/map0.gif"]);
-    var stageId = 2;
-    var stage = createStage(stageId);
+    core.stageId = 1;
+    var stage = createStage(core.stageId);
 
     core.pushScene(stage);
   }
@@ -26,7 +25,7 @@ window.onload = function() {
       game_set_image = core.assets["../img/clear.png"];
     else 
       game_set_image = core.assets["../img/end.png"];
-    register_replay_eventListener(game_set_image, stage.id);
+    register_replay_eventListener(game_set_image, core.stageId);
     scene.addChild(game_set_image);
     return scene;
   }
@@ -63,7 +62,7 @@ window.onload = function() {
           }
         }
       } else {
-        this.remove(core);
+        this.remove();
         block_remove(array, this); 
       }
     });
@@ -90,7 +89,7 @@ window.onload = function() {
           }
         }
       } else {
-        this.remove(core);
+        this.remove();
         block_remove(array, this);
         stage.removeChild(label);
       }
@@ -149,20 +148,20 @@ window.onload = function() {
   }
 
   createStage = function(stageId) {
-  	var backgroundMap = null;
+  	var map = null;
   	var map_img = core.assets["../img/map0.gif"];
   	if (stageId == 1) {
-  	  backgroundMap = addMap1(map_img);
+  	  map = addMap1(map_img);
   	} else if (stageId == 2) {
-  	  backgroundMap = addMap2(map_img);
+  	  map = addMap2(map_img);
   	}
     var block_list = [];
 
     /* goal initialize */
-    var goal = new Goal(backgroundMap.goalX, backgroundMap.goalY, core.assets["../img/goal.png"]);
+    var goal = new Goal(map.goalX, map.goalY, core.assets["../img/goal.png"]);
 
     /* player initialize */
-    var player = new Player(backgroundMap.initializeX, backgroundMap.initializeY, backgroundMap.direction);
+    var player = new Player(map.initializeX, map.initializeY, map.direction);
 
     /* block initialize */
     var stack_frame = new Sprite(32, 200);
@@ -198,7 +197,7 @@ window.onload = function() {
     var stage = new Scene();
     stage.id = stageId;
 
-    stage.addChild(backgroundMap);
+    stage.addChild(map);
     stage.addChild(stack_frame);
     stage.addChild(funch_frame);
     stage.addChild(funcc_frame);
@@ -229,7 +228,7 @@ window.onload = function() {
 
     play.addEventListener("touchstart", function(e) {
       if(block_list.length != 0) {
-      	var time = this.play(block_list, player, core, backgroundMap, 0);
+      	var time = this.play(block_list, player, map, 0);
         setTimeout(function() {
           if (player.within(goal, 16)) {
           	var scene = core.field(true, stage);
@@ -239,7 +238,7 @@ window.onload = function() {
             core.pushScene(scene);
           }
           for (i = 0; i < block_list.length; i++)
-            block_list[i].remove(core);
+            block_list[i].remove();
         }, time);
         block_list = [];
       }

@@ -38,59 +38,59 @@
     this.maxCopy = 3;
   },
 
-  toUp: function(core, map) {
+  toUp: function(map) {
   	switch(this.frame) {
   	case 1:
-  		this.moveDown(core, map);
+  		this.moveDown(map);
   		break;
   	case 10:
-  		this.moveLeft(core, map);
+  		this.moveLeft(map);
   		break;
   	case 19:
-  		this.moveRight(core, map);
+  		this.moveRight(map);
   		break;
   	case 28:
-  		this.moveUp(core, map);
+  		this.moveUp(map);
   		break;
   	}
   },
 
-  moveUp: function(core, map) {
+  moveUp: function(map) {
   	var y = this.y;
     while (y - this.y < 16) {
       this.y -= 4;
     }
-    this.decisionMap(map, core, this.x + 16, this.y + 16);
+    this.decisionMap(map,this.x + 16, this.y + 16);
   },
 
-  moveDown: function(core, map) {
+  moveDown: function(map) {
   	var y = this.y;
   	while(this.y - y < 16) {
   		this.y += 4;
   	}
-  	this.decisionMap(map, core, this.x + 16, this.y + 16);
+  	this.decisionMap(map,this.x + 16, this.y + 16);
   },
 
-  moveLeft: function(core, map) {
+  moveLeft: function(map) {
   	var x = this.x;
   	while (x - this.x < 16) {
   		this.x -= 4;
   	}
-  	this.decisionMap(map, core, this.x + 16, this.y + 16);
+  	this.decisionMap(map, this.x + 16, this.y + 16);
   },
 
-  moveRight: function(core, map) {
+  moveRight: function(map) {
   	var x = this.x;
   	while(this.x - x < 16) {
   		this.x += 4;
   	}
-  	this.decisionMap(map, core, this.x + 16, this.y + 16);
+  	this.decisionMap(map, this.x + 16, this.y + 16);
   },
 
-  decisionMap: function(map, scene, x, y) {
+  decisionMap: function(map, x, y) {
   	if (map.hitTest(x, y)) {
-  		scene.removeChild(this);
-  		scene.replaceScene(secne.field(false));
+  		core.rootScene.removeChild(this);
+  		core.pushScene(core.field(false, core.rootScene.id));
   	}
   },
 
