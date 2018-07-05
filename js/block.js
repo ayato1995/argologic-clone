@@ -1,5 +1,4 @@
-﻿
-var Block = enchant.Class.create(enchant.Sprite, {
+﻿var Block = enchant.Class.create(enchant.Sprite, {
   initialize: function(x, y, type) {
     // enchant.Sprite.call(this, 60, 10);
     enchant.Sprite.call(this, 16, 16);
@@ -66,7 +65,7 @@ var Block = enchant.Class.create(enchant.Sprite, {
     core.rootScene.removeChild(this);
   },
 
-  play: function(block, player, backgroundMap, t) {
+  play: function(block, player, map, t) {
     var time = t;
     var forStack = [];
     var stackCounter = 0;
@@ -82,7 +81,7 @@ var Block = enchant.Class.create(enchant.Sprite, {
         }
         i = k;
         block.splice(i + 1, player.func_h.length);
-        time = this.play(player.func_h, player, backgroundMap, time);
+        time = this.play(player.func_h, player, map, time);
       } else if (block[i].type == "function_c") {
       	var k = i;
         i++;
@@ -92,7 +91,7 @@ var Block = enchant.Class.create(enchant.Sprite, {
         }
         i = k;
         block.splice(i + 1, player.func_c.length);
-        time = this.play(player.func_c, player, backgroundMap, time);
+        time = this.play(player.func_c, player, map, time);
       } else if (block[i].type == "function_s") {
       	var k = i;
         i++;
@@ -102,7 +101,7 @@ var Block = enchant.Class.create(enchant.Sprite, {
         }
         i = k;
         block.splice(i + 1, player.func_s.length);
-        time = this.play(player.func_s, player, backgroundMap, time);
+        time = this.play(player.func_s, player, map, time);
       } else if (block[i].type == "function_d") {
       	var k = i;
         i++;
@@ -112,7 +111,7 @@ var Block = enchant.Class.create(enchant.Sprite, {
         }
         i = k;
         block.splice(i + 1, player.func_d.length);
-        time = this.play(player.func_d, player, backgroundMap, time);
+        time = this.play(player.func_d, player, map, time);
       } else if (block[i].type == "arg1") {
         var b = block[i];
         var order;
@@ -125,7 +124,7 @@ var Block = enchant.Class.create(enchant.Sprite, {
         } else if (b.func_name == "d") {
           order = player.arg_d[0];
         }
-        setTimeout(this.execution, time, order, player, backgroundMap);
+        setTimeout(this.execution, time, order, player, map);
         time += 1000;
       } else if (block[i].type == "arg2") {
         var b = block[i];
@@ -139,7 +138,7 @@ var Block = enchant.Class.create(enchant.Sprite, {
         } else if (b.func_name == "d") {
           order = player.arg_d[1];
         }
-        setTimeout(this.execution, time, order, player, backgroundMap);
+        setTimeout(this.execution, time, order, player, map);
       } else if (block[i].type == "arg3") {
         var b = block[i];
         var order;
@@ -152,7 +151,7 @@ var Block = enchant.Class.create(enchant.Sprite, {
         } else if (b.func_name == "d") {
           order = player.arg_d[2];
         }
-        setTimeout(this.execution, time, order, player, backgroundMap);
+        setTimeout(this.execution, time, order, player, map);
       } else if (block[i].type == "forStart") {
         var loop_list = [];
         do {
@@ -167,9 +166,9 @@ var Block = enchant.Class.create(enchant.Sprite, {
           i++;
         } while (forStack.length > 0);
         i--;
-        time = this.forExecution(loop_list, 0, player, backgroundMap, time)[0];
+        time = this.forExecution(loop_list, 0, player, map, time)[0];
       } else {
-        setTimeout(this.execution, time, block[i], player, backgroundMap);
+        setTimeout(this.execution, time, block[i], player, map);
         time += 1000;
       }
     }
@@ -177,7 +176,7 @@ var Block = enchant.Class.create(enchant.Sprite, {
     return time;
   },
 
-  forExecution: function(block, i, player, backgroundMap, time) {
+  forExecution: function(block, i, player, map, time) {
     if (block.length == 0) {
       return time;
     }
@@ -188,7 +187,7 @@ var Block = enchant.Class.create(enchant.Sprite, {
     while (true) {
       k++;
       if (block[k].type == "forStart") {
-        var req = this.forExecution(block, k, player, backgroundMap, time);
+        var req = this.forExecution(block, k, player, map, time);
         time = req[0];
         k = req[1];
       } else if (block[k].type == "forEnd") {
@@ -201,9 +200,9 @@ var Block = enchant.Class.create(enchant.Sprite, {
         }
       } else {
         if (block[k].type == "function") {
-          time = this.play(player.func_h, player, backgroundMap, time);
+          time = this.play(player.func_h, player, map, time);
         } else {
-          setTimeout(this.execution, time, block[k], player, backgroundMap);
+          setTimeout(this.execution, time, block[k], player, map);
           time += 1000;
         }
       }
@@ -212,16 +211,16 @@ var Block = enchant.Class.create(enchant.Sprite, {
     return time;
   },
 
-  execution: function(block, player, backgroundMap) {
+  execution: function(block, player, map) {
     switch(block.type) {
     case "up":
-      player.toUp(backgroundMap);
+      player.toUp(map);
       break;
     case "leftRotate":
-      player.toLeftRotate(backgroundMap);
+      player.toLeftRotate(map);
       break;
     case "rightRotate":
-      player.toRightRotate(backgroundMap);
+      player.toRightRotate(map);
       break;
     }
   },
