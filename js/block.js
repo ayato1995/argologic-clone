@@ -71,36 +71,38 @@
     var stackCounter = 0;
 
     for (var i = 0; i < block.length; i++) {
-      console.log(block[i].type);
       if (block[i].type == "function_h") {
         var k = i;
         i++;
-        for (var j = player.func_h.length; i < block.length && j > 0; i++, j--) {
-          console.log("for " + block[i].type);
+        for (var j = player.func_h_arg.length; i < block.length && j > 0; i++, j--) {
           player.arg_h.push(block[i]);
         }
+        if (player.func_h_arg.length != 0) {
+          block.splice(i + 1, player.func_h.length);
+        }
         i = k;
-        block.splice(i + 1, player.func_h.length);
         time = this.play(player.func_h, player, stage, map, time);
       } else if (block[i].type == "function_c") {
       	var k = i;
         i++;
         for (var j = player.func_c.length; i < block.length && j > 0; i++, j--) {
-          console.log("for " + block[i].type);
           player.arg_c.push(block[i]);
         }
+        if (player.func_c_arg.length != 0) {
+          block.splice(i + 1, player.func_c.length);
+        }
         i = k;
-        block.splice(i + 1, player.func_c.length);
         time = this.play(player.func_c, player, stage, map, time);
       } else if (block[i].type == "function_s") {
       	var k = i;
         i++;
         for (var j = player.func_s.length; i < block.length && j > 0; i++, j--) {
-          console.log("for s" + block[i].type);
           player.arg_s.push(block[i]);
         }
+        if (player.func_s_arg.length != 0) {
+          block.splice(i + 1, player.func_s.length);
+        }
         i = k;
-        block.splice(i + 1, player.func_s.length);
         time = this.play(player.func_s, player, stage, map, time);
       } else if (block[i].type == "function_d") {
       	var k = i;
@@ -109,8 +111,10 @@
           console.log("for " + block[i].type);
           player.arg_d.push(block[i]);
         }
+        if (player.func_d_arg.length != 0) {
+          block.splice(i + 1, player.func_d.length);
+        }
         i = k;
-        block.splice(i + 1, player.func_d.length);
         time = this.play(player.func_d, player, stage, map, time);
       } else if (block[i].type == "arg1") {
         var b = block[i];
