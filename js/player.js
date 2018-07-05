@@ -38,58 +38,59 @@
     this.maxCopy = 3;
   },
 
-  toUp: function(map) {
+  toUp: function(map, stage) {
   	switch(this.frame) {
   	case 1:
-  		this.moveDown(map);
+  		this.moveDown(map, stage);
   		break;
   	case 10:
-  		this.moveLeft(map);
+  		this.moveLeft(map, stage);
   		break;
   	case 19:
-  		this.moveRight(map);
+  		this.moveRight(map, stage);
   		break;
   	case 28:
-  		this.moveUp(map);
+  		this.moveUp(map, stage);
   		break;
   	}
   },
 
-  moveUp: function(map) {
+  moveUp: function(map, stage) {
   	var y = this.y;
     while (y - this.y < 16) {
       this.y -= 4;
     }
-    this.decisionMap(map,this.x + 16, this.y + 16);
+    this.decisionMap(map, stage, this.x + 16, this.y + 16);
   },
 
-  moveDown: function(map) {
+  moveDown: function(map, stage) {
   	var y = this.y;
   	while(this.y - y < 16) {
   		this.y += 4;
   	}
-  	this.decisionMap(map,this.x + 16, this.y + 16);
+  	this.decisionMap(map, stage,this.x + 16, this.y + 16);
   },
 
-  moveLeft: function(map) {
+  moveLeft: function(map, stage) {
   	var x = this.x;
   	while (x - this.x < 16) {
   		this.x -= 4;
   	}
-  	this.decisionMap(map, this.x + 16, this.y + 16);
+  	this.decisionMap(map, stage, this.x + 16, this.y + 16);
   },
 
-  moveRight: function(map) {
+  moveRight: function(map, stage) {
   	var x = this.x;
   	while(this.x - x < 16) {
   		this.x += 4;
   	}
-  	this.decisionMap(map, this.x + 16, this.y + 16);
+  	this.decisionMap(map, stage, this.x + 16, this.y + 16);
   },
 
-  decisionMap: function(map, x, y) {
+  decisionMap: function(map, stage, x, y) {
   	if (map.hitTest(x, y)) {
-  		core.rootScene.removeChild(this);
+  		console.log(this);
+  		stage.removeChild(this);
   		core.pushScene(core.field(false, core.rootScene.id));
   	}
   },
@@ -129,9 +130,8 @@
   },
 
   copyListSize: function() {
-    if (this.copy_list.lenght < maxCopy) {
+    if (this.copy_list.lenght < maxCopy)
       return true;
-    }
     return false;
   },
 

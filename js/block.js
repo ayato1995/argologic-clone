@@ -65,7 +65,7 @@
     core.rootScene.removeChild(this);
   },
 
-  play: function(block, player, map, t) {
+  play: function(block, player, stage, map, t) {
     var time = t;
     var forStack = [];
     var stackCounter = 0;
@@ -81,7 +81,7 @@
         }
         i = k;
         block.splice(i + 1, player.func_h.length);
-        time = this.play(player.func_h, player, map, time);
+        time = this.play(player.func_h, player, stage, map, time);
       } else if (block[i].type == "function_c") {
       	var k = i;
         i++;
@@ -91,7 +91,7 @@
         }
         i = k;
         block.splice(i + 1, player.func_c.length);
-        time = this.play(player.func_c, player, map, time);
+        time = this.play(player.func_c, player, stage, map, time);
       } else if (block[i].type == "function_s") {
       	var k = i;
         i++;
@@ -101,7 +101,7 @@
         }
         i = k;
         block.splice(i + 1, player.func_s.length);
-        time = this.play(player.func_s, player, map, time);
+        time = this.play(player.func_s, player, stage, map, time);
       } else if (block[i].type == "function_d") {
       	var k = i;
         i++;
@@ -111,7 +111,7 @@
         }
         i = k;
         block.splice(i + 1, player.func_d.length);
-        time = this.play(player.func_d, player, map, time);
+        time = this.play(player.func_d, player, stage, map, time);
       } else if (block[i].type == "arg1") {
         var b = block[i];
         var order;
@@ -124,7 +124,7 @@
         } else if (b.func_name == "d") {
           order = player.arg_d[0];
         }
-        setTimeout(this.execution, time, order, player, map);
+        setTimeout(this.execution, time, order, player, map, stage);
         time += 1000;
       } else if (block[i].type == "arg2") {
         var b = block[i];
@@ -138,7 +138,7 @@
         } else if (b.func_name == "d") {
           order = player.arg_d[1];
         }
-        setTimeout(this.execution, time, order, player, map);
+        setTimeout(this.execution, time, order, player, map, stage);
       } else if (block[i].type == "arg3") {
         var b = block[i];
         var order;
@@ -151,7 +151,7 @@
         } else if (b.func_name == "d") {
           order = player.arg_d[2];
         }
-        setTimeout(this.execution, time, order, player, map);
+        setTimeout(this.execution, time, order, player, map, stage);
       } else if (block[i].type == "forStart") {
         var loop_list = [];
         do {
@@ -166,9 +166,9 @@
           i++;
         } while (forStack.length > 0);
         i--;
-        time = this.forExecution(loop_list, 0, player, map, time)[0];
+        time = this.forExecution(loop_list, 0, player, map, time, stage)[0];
       } else {
-        setTimeout(this.execution, time, block[i], player, map);
+        setTimeout(this.execution, time, block[i], player, map, stage);
         time += 1000;
       }
     }
@@ -176,7 +176,7 @@
     return time;
   },
 
-  forExecution: function(block, i, player, map, time) {
+  forExecution: function(block, i, player, map, time, stage) {
     if (block.length == 0) {
       return time;
     }
@@ -187,7 +187,7 @@
     while (true) {
       k++;
       if (block[k].type == "forStart") {
-        var req = this.forExecution(block, k, player, map, time);
+        var req = this.forExecution(block, k, player, map, time, stage);
         time = req[0];
         k = req[1];
       } else if (block[k].type == "forEnd") {
@@ -200,9 +200,9 @@
         }
       } else {
         if (block[k].type == "function") {
-          time = this.play(player.func_h, player, map, time);
+          time = this.play(player.func_h, player, stage, map, time);
         } else {
-          setTimeout(this.execution, time, block[k], player, map);
+          setTimeout(this.execution, time, block[k], player, map, stage);
           time += 1000;
         }
       }
@@ -211,10 +211,10 @@
     return time;
   },
 
-  execution: function(block, player, map) {
+  execution: function(block, player, map, stage) {
     switch(block.type) {
     case "up":
-      player.toUp(map);
+      player.toUp(map, stage);
       break;
     case "leftRotate":
       player.toLeftRotate(map);

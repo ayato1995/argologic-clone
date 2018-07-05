@@ -12,6 +12,7 @@ window.onload = function() {
 
   core.onload = function() {
     core.stageId = 1;
+    core.clearFlag = true;
     var stage = createStage(core.stageId);
 
     core.pushScene(stage);
@@ -20,10 +21,12 @@ window.onload = function() {
   core.field = function(clear, stage) {
     var scene = new Scene();
     var game_set_image = new Sprite(189, 97);
-    if (clear)
+    if (clear && core.clearFlag) {
       game_set_image = core.assets["../img/clear.png"];
-    else 
+    } else {
+      core.clearFlag = false;
       game_set_image = core.assets["../img/end.png"];
+    }
     register_replay_eventListener(game_set_image, core.stageId);
     scene.addChild(game_set_image);
     return scene;
@@ -61,8 +64,6 @@ window.onload = function() {
           }
         }
       } else {
-        // this.remove();
-        console.log(this);
         scene.removeChild(this);
         block_remove(array, this); 
       }
@@ -123,11 +124,10 @@ window.onload = function() {
     label.addEventListener("enterframe", function() {
     	if (block.loop_cnt == 10) {
     	  this.x = block.x + block.width - 8;
-    	  this.y = block.y + block.height - 6;
     	} else {
     	  this.x = block.x + block.width - 6;
-    	  this.y = block.y + block.height - 6;
     	}
+    	this.y = block.y + block.height - 6;
     })
   }
 
@@ -239,7 +239,7 @@ window.onload = function() {
 
     play.addEventListener("touchstart", function(e) {
       if(block_list.length != 0) {
-      	var time = this.play(block_list, player, map, 0);
+      	var time = this.play(block_list, player, stage, map, 0);
         setTimeout(function() {
           if (player.within(goal, 16)) {
           	var scene = core.field(true, stage);
@@ -884,7 +884,6 @@ window.onload = function() {
     });
 
     loop.addEventListener("touchstart", function(e) {
-    	console.log(this.font);
       if (player.forStart.loop_cnt < 10) {
         player.forStart.loop_cnt++;
       } else {
