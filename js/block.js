@@ -274,6 +274,7 @@ var Block = enchant.Class.create(enchant.Sprite, {
   	switch(argNum) {
   	case 1:
   	  blocks.push(new Block(this.x, this.y + this.height, "arg1"));
+  	  blocks[0].height += 6;
       break;
   	case 2:
   	  blocks.push(new Block(this.x, this.y + this.height, "arg1"));
