@@ -203,8 +203,14 @@
           return req;
         }
       } else {
-        if (block[k].type == "function") {
+        if (block[k].type == "function_h") {
           time = this.play(player.func_h, player, stage, map, time);
+        } else if (block[k].type == "function_c") {
+          time = this.play(player.func_c, player, stage, map, time);
+        } else if (block[k].type == "function_s") {
+          time = this.play(player.func_s, player, stage, map, time);
+        } else if (block[k].type == "function_d") {
+          time = this.play(player.func_d, player, stage, map, time);
         } else {
           setTimeout(this.execution, time, block[k], player, map, stage);
           time += 1000;
