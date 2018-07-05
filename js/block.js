@@ -276,19 +276,17 @@ var Block = enchant.Class.create(enchant.Sprite, {
       break;
   	case 2:
   	  blocks.push(new Block(this.x, this.y + this.height, "arg1"));
-  	  // console.log(blocks[0].height);
-  	  // blocks[0].height += 4;
-  	  // console.log(blocks[0].height);
-  	  //console.log(blocks[0].y + blocks[0].height)
+  	  blocks[0].height += 6;
   	  blocks.push(new Block(blocks[0].x, blocks[0].y + blocks[0].height, "arg2"));
-  	  // console.log(blocks[1].y);
+  	  blocks[1].height += 4;
   	  break;
   	case 3:
   	  blocks.push(new Block(this.x, this.y + this.height, "arg1"));
-  	  // blocks[0].height += 4;
+  	  blocks[0].height += 6;
   	  blocks.push(new Block(blocks[0].x, blocks[0].y + blocks[0].height, "arg2"));
-  	  // blocks[1].height += 4;
+  	  blocks[1].height += 4;
   	  blocks.push(new Block(blocks[1].x, blocks[1].y + blocks[1].height, "arg3"));
+  	  blocks[2].height += 4;
   	}
 
     return blocks;
