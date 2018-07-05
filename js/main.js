@@ -11,7 +11,6 @@ window.onload = function() {
                "../img/copy.png", "../img/cut.png", "../img/play.png");
 
   core.onload = function() {
-    /* map initialize */
     core.stageId = 1;
     var stage = createStage(core.stageId);
 
@@ -91,10 +90,8 @@ window.onload = function() {
           }
         }
       } else {
-        // this.remove();
         scene.removeChild(this);
         block_remove(array, this);
-        // stage.removeChild(label);
         scene.removeChild(label);
       }
     });
@@ -122,6 +119,16 @@ window.onload = function() {
       }
       label.text = String(this.loop_cnt);
     }.bind(block));
+
+    label.addEventListener("enterframe", function() {
+    	if (block.loop_cnt == 10) {
+    	  this.x = block.x + block.width - 8;
+    	  this.y = block.y + block.height - 6;
+    	} else {
+    	  this.x = block.x + block.width - 6;
+    	  this.y = block.y + block.height - 6;
+    	}
+    })
   }
 
   register_replay_eventListener = function(img, id) {
