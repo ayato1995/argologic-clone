@@ -7,7 +7,8 @@ window.onload = function() {
   core.preload("../img/chara5.png", "../img/map0.gif", "../img/goal.png", "../img/clear.png",
                "../img/end.png", "../img/up.png", "../img/left.png", "../img/right.png",
                "../img/loop_start.png", "../img/loop_end.png",
-               "../img/heart.png", "../img/spade.png", "../img/diamond.png", "../img/clover.png");
+               "../img/heart.png", "../img/spade.png", "../img/diamond.png", "../img/clover.png",
+               "../img/copy.png", "../img/cut.png", "../img/play.png");
 
   core.onload = function() {
     /* map initialize */
@@ -99,7 +100,6 @@ window.onload = function() {
         }, time);
         block_list = [];
       }
-
     });
     
     select.addEventListener("touchstart", function(e) {
@@ -107,7 +107,7 @@ window.onload = function() {
         selectFlag = false;
         reset_block_color(block_list);
         reset_block_color(player.func_h);
-        this.backgroundColor = "green";
+        this.backgroundColor = null;
       } else {
         selectFlag = true;
         this.backgroundColor = "yellow";

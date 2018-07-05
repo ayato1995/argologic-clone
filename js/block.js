@@ -41,13 +41,14 @@ var Block = enchant.Class.create(enchant.Sprite, {
     } else if (type == "forEnd") {
       this.image = core.assets["../img/loop_end.png"];
     } else if (type == "play") {
-      string = "実行";
-      color = "green";
+      this.image = core.assets["../img/play.png"];
+      color = null;
     } else if (type == "copy") {
-      color = "green";
+      this.image = core.assets["../img/copy.png"];
+      color = null;
     } else if (type == "select") {
-      string = "ブロックの選択";
-      color = "green";
+      this.image = core.assets["../img/cut.png"];
+      color = null;
     }
     // console.log(this.loop_cnt);
 
