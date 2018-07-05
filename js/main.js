@@ -55,6 +55,11 @@ window.onload = function() {
             array[j].backgroundColor = "silver";
           }
         } else {
+          reset_block_color(scene.block_list);
+          reset_block_color(player.func_h);
+          reset_block_color(player.func_c);
+          reset_block_color(player.func_s);
+          reset_block_color(player.func_d);
           player.copy_list = [];
           var i = searchBlock(block, array);
           for (var j = i; j < array.length && j < i + 3; j++) {
@@ -74,6 +79,11 @@ window.onload = function() {
     block.addEventListener("touchstart", function() {
       if (selectFlag) {
         if (this.select) {
+          reset_block_color(scene.block_list);
+          reset_block_color(player.func_h);
+          reset_block_color(player.func_c);
+          reset_block_color(player.func_s);
+          reset_block_color(player.func_d);
           var i = searchBlock(block, player.copy_list);
           player.copy_list.splice(i, player.copy_list.length - i);
           i = searchBlock(block, array);
@@ -166,7 +176,6 @@ window.onload = function() {
   	} else if (stageId == 2) {
   	  map = addMap2(map_img);
   	}
-    var block_list = [];
 
     /* goal initialize */
     var goal = new Goal(map.goalX, map.goalY, core.assets["../img/goal.png"]);
@@ -207,6 +216,7 @@ window.onload = function() {
     var loop = addLabel(player.forStart, String(player.forStart.loop_cnt));
     var stage = new Scene();
     stage.id = stageId;
+    stage.block_list = [];
 
     stage.addChild(map);
     stage.addChild(stack_frame);
@@ -238,8 +248,8 @@ window.onload = function() {
     stage.addChild(select);
 
     play.addEventListener("touchstart", function(e) {
-      if(block_list.length != 0) {
-      	var time = this.play(block_list, player, stage, map, 0);
+      if(stage.block_list.length != 0) {
+      	var time = this.play(stage.block_list, player, stage, map, 0);
         setTimeout(function() {
           if (player.within(goal, 16)) {
           	var scene = core.field(true, stage);
@@ -248,18 +258,21 @@ window.onload = function() {
           	var scene = core.field(false, stage);
             core.pushScene(scene);
           }
-          for (i = 0; i < block_list.length; i++)
-            block_list[i].remove();
+          for (i = 0; i < stage.block_list.length; i++)
+            stage.block_list[i].remove();
         }, time);
-        block_list = [];
+        stage.block_list = [];
       }
     });
 
     select.addEventListener("touchstart", function(e) {
       if (selectFlag) {
         selectFlag = false;
-        reset_block_color(block_list);
+        reset_block_color(stage.block_list);
         reset_block_color(player.func_h);
+        reset_block_color(player.func_c);
+        reset_block_color(player.func_s);
+        reset_block_color(player.func_d);
         this.backgroundColor = null;
       } else {
         selectFlag = true;
@@ -271,17 +284,17 @@ window.onload = function() {
     exeCopy.addEventListener("touchstart", function(e) {
       if (player.copy_list.length != 0) {
         for (var i = 0; i < player.copy_list.length; i++) {
-          block_list.push(new Block(stack_frame.x + 8, block_list.length * 20 + 15, player.copy_list[i].type));
-          if (block_list[block_list.length  - 1].type == "forStart") {
-            block_list[block_list.length - 1].loop_cnt = player.copy_list[i].loop_cnt;
-            var label = addLabel(block_list[block_list.length - 1], String(block_list[block_list.length - 1].loop_cnt));
-            register_forBlock_eventListener(block_list[block_list.length - 1], block_list, player, stage, label);
-            stage.addChild(block_list[block_list.length - 1]);
+          stage.block_list.push(new Block(stack_frame.x + 8, stage.block_list.length * 20 + 15, player.copy_list[i].type));
+          if (stage.block_list[stage.block_list.length  - 1].type == "forStart") {
+            stage.block_list[stage.block_list.length - 1].loop_cnt = player.copy_list[i].loop_cnt;
+            var label = addLabel(stage.block_list[stage.block_list.length - 1], String(stage.block_list[stage.block_list.length - 1].loop_cnt));
+            register_forBlock_eventListener(stage.block_list[stage.block_list.length - 1], stage.block_list, player, stage, label);
+            stage.addChild(stage.block_list[stage.block_list.length - 1]);
             stage.addChild(label);
           } else {
-            register_block_eventListener(block_list[block_list.length - 1], block_list, player, stage);
-            stage.addChild(block_list[block_list.length - 1]);
-            stage.addChild(block_list[block_list.length - 1].label);
+            register_block_eventListener(stage.block_list[stage.block_list.length - 1], stage.block_list, player, stage);
+            stage.addChild(stage.block_list[stage.block_list.length - 1]);
+            stage.addChild(stage.block_list[stage.block_list.length - 1].label);
           }
         }
       }
@@ -427,10 +440,10 @@ window.onload = function() {
 
     player.up.addEventListener("touchend", function(e) {
       if (e.x > stack_frame.x && e.x < stack_frame.x + stack_frame.width && e.y > stack_frame.y && e.y < stack_frame.y + stack_frame.height) {
-        this.moveBlock(block_list);
-        block_list.push(new Block(stack_frame.x + 8, block_list.length * 20 + 15, "up"));
-        register_block_eventListener(block_list[block_list.length - 1], block_list, player, stage);
-        stage.addChild(block_list[block_list.length - 1]);
+        this.moveBlock(stage.block_list);
+        stage.block_list.push(new Block(stack_frame.x + 8, stage.block_list.length * 20 + 15, "up"));
+        register_block_eventListener(stage.block_list[stage.block_list.length - 1], stage.block_list, player, stage);
+        stage.addChild(stage.block_list[stage.block_list.length - 1]);
       }
       if (e.x > funch_frame.x && e.x < funch_frame.x + funch_frame.width && e.y > funch_frame.y && e.y < funch_frame.y + funch_frame.height) {
         this.moveBlock(player.func_h);
@@ -463,10 +476,10 @@ window.onload = function() {
 
     player.leftRotate.addEventListener("touchend", function(e) {
       if (e.x > stack_frame.x && e.x < stack_frame.x + stack_frame.width && e.y > stack_frame.y && e.y < stack_frame.y + stack_frame.height) {
-        this.moveBlock(block_list);
-        block_list.push(new Block(stack_frame.x + 8, block_list.length * 20 + 15, "leftRotate"));
-        register_block_eventListener(block_list[block_list.length - 1], block_list, player, stage);
-        stage.addChild(block_list[block_list.length - 1]);
+        this.moveBlock(stage.block_list);
+        stage.block_list.push(new Block(stack_frame.x + 8, stage.block_list.length * 20 + 15, "leftRotate"));
+        register_block_eventListener(stage.block_list[stage.block_list.length - 1], stage.block_list, player, stage);
+        stage.addChild(stage.block_list[stage.block_list.length - 1]);
       }
       if (e.x > funch_frame.x && e.x < funch_frame.x + funch_frame.width && e.y > funch_frame.y && e.y < funch_frame.y + funch_frame.height) {
         this.moveBlock(player.func_h);
@@ -498,10 +511,10 @@ window.onload = function() {
 
     player.rightRotate.addEventListener("touchend", function(e) {
       if (e.x > stack_frame.x && e.x < stack_frame.x + stack_frame.width && e.y > stack_frame.y && e.y < stack_frame.y + stack_frame.height) {
-        this.moveBlock(block_list);
-        block_list.push(new Block(stack_frame.x + 8, block_list.length * 20 + 15, "rightRotate"));
-        register_block_eventListener(block_list[block_list.length - 1], block_list, player, stage);
-        stage.addChild(block_list[block_list.length - 1]);
+        this.moveBlock(stage.block_list);
+        stage.block_list.push(new Block(stack_frame.x + 8, stage.block_list.length * 20 + 15, "rightRotate"));
+        register_block_eventListener(stage.block_list[stage.block_list.length - 1], stage.block_list, player, stage);
+        stage.addChild(stage.block_list[stage.block_list.length - 1]);
       }
       if (e.x > funch_frame.x && e.x < funch_frame.x + funch_frame.width && e.y > funch_frame.y && e.y < funch_frame.y + funch_frame.height) {
         this.moveBlock(player.func_h);
@@ -533,11 +546,11 @@ window.onload = function() {
 
     player.funch.addEventListener("touchend", function(e) {
       if (e.x > stack_frame.x && e.x < stack_frame.x + stack_frame.width && e.y > stack_frame.y && e.y < stack_frame.y + stack_frame.height) {
-        this.moveBlock(block_list);
-        block_list.push(new Block(stack_frame.x + 8, block_list.length * 20 + 15, "function_h"));
-        var bs = block_list[block_list.length - 1].expandFuncBlock(player.func_h_arg.length);
-        register_block_eventListener(block_list[block_list.length - 1], block_list, player, stage);
-        stage.addChild(block_list[block_list.length - 1]);
+        this.moveBlock(stage.block_list);
+        stage.block_list.push(new Block(stack_frame.x + 8, stage.block_list.length * 20 + 15, "function_h"));
+        var bs = stage.block_list[stage.block_list.length - 1].expandFuncBlock(player.func_h_arg.length);
+        register_block_eventListener(stage.block_list[stage.block_list.length - 1], stage.block_list, player, stage);
+        stage.addChild(stage.block_list[stage.block_list.length - 1]);
         for (var i = 0; i < bs.length; i++) {
         	stage.addChild(bs[i]);
         }
@@ -589,11 +602,11 @@ window.onload = function() {
 
     player.funcc.addEventListener("touchend", function(e) {
       if (e.x > stack_frame.x && e.x < stack_frame.x + stack_frame.width && e.y > stack_frame.y && e.y < stack_frame.y + stack_frame.height) {
-        this.moveBlock(block_list);
-        block_list.push(new Block(stack_frame.x + 8, block_list.length * 20 + 15, "function_c"));
-        block_list[block_list.length - 1].expandFuncBlock(player.func_c_arg.length);
-        register_block_eventListener(block_list[block_list.length - 1], block_list, player, stage);
-        stage.addChild(block_list[block_list.length - 1]);
+        this.moveBlock(stage.block_list);
+        stage.block_list.push(new Block(stack_frame.x + 8, stage.block_list.length * 20 + 15, "function_c"));
+        stage.block_list[stage.block_list.length - 1].expandFuncBlock(player.func_c_arg.length);
+        register_block_eventListener(stage.block_list[stage.block_list.length - 1], stage.block_list, player, stage);
+        stage.addChild(stage.block_list[stage.block_list.length - 1]);
       }
       if (e.x > funch_frame.x && e.x < funch_frame.x + funch_frame.width && e.y > funch_frame.y && e.y < funch_frame.y + funch_frame.height) {
         this.moveBlock(player.func_h);
@@ -629,11 +642,11 @@ window.onload = function() {
 
     player.funcs.addEventListener("touchend", function(e) {
       if (e.x > stack_frame.x && e.x < stack_frame.x + stack_frame.width && e.y > stack_frame.y && e.y < stack_frame.y + stack_frame.height) {
-        this.moveBlock(block_list);
-        block_list.push(new Block(stack_frame.x + 8, block_list.length * 20 + 15, "function_s"));
-        block_list[block_list.length - 1].expandFuncBlock(player.func_s_arg.length);
-        register_block_eventListener(block_list[block_list.length - 1], block_list, player, stage);
-        stage.addChild(block_list[block_list.length - 1]);
+        this.moveBlock(stage.block_list);
+        stage.block_list.push(new Block(stack_frame.x + 8, stage.block_list.length * 20 + 15, "function_s"));
+        stage.block_list[stage.block_list.length - 1].expandFuncBlock(player.func_s_arg.length);
+        register_block_eventListener(stage.block_list[stage.block_list.length - 1], stage.block_list, player, stage);
+        stage.addChild(stage.block_list[stage.block_list.length - 1]);
       }
       if (e.x > funch_frame.x && e.x < funch_frame.x + funch_frame.width && e.y > funch_frame.y && e.y < funch_frame.y + funch_frame.height) {
         this.moveBlock(player.func_h);
@@ -669,11 +682,11 @@ window.onload = function() {
 
     player.funcd.addEventListener("touchend", function(e) {
       if (e.x > stack_frame.x && e.x < stack_frame.x + stack_frame.width && e.y > stack_frame.y && e.y < stack_frame.y + stack_frame.height) {
-        this.moveBlock(block_list);
-        block_list.push(new Block(stack_frame.x + 8, block_list.length * 20 + 15, "function_d"));
-        block_list[block_list.length - 1].expandFuncBlock(player.func_d_arg.length);
-        register_block_eventListener(block_list[block_list.length - 1], block_list, player, stage);
-        stage.addChild(block_list[block_list.length - 1]);
+        this.moveBlock(stage.block_list);
+        stage.block_list.push(new Block(stack_frame.x + 8, stage.block_list.length * 20 + 15, "function_d"));
+        stage.block_list[stage.block_list.length - 1].expandFuncBlock(player.func_d_arg.length);
+        register_block_eventListener(stage.block_list[stage.block_list.length - 1], stage.block_list, player, stage);
+        stage.addChild(stage.block_list[stage.block_list.length - 1]);
       }
       if (e.x > funch_frame.x && e.x < funch_frame.x + funch_frame.width && e.y > funch_frame.y && e.y < funch_frame.y + funch_frame.height) {
         this.moveBlock(player.func_h);
@@ -828,14 +841,14 @@ window.onload = function() {
 
     player.forStart.addEventListener("touchend", function(e) {
       if (e.x > stack_frame.x && e.x < stack_frame.x + stack_frame.width && e.y > stack_frame.y && e.y < stack_frame.y + stack_frame.height) {
-        this.moveBlock(block_list);
-        block_list.push(new Block(stack_frame.x + 8, block_list.length * 20 + 15, "forStart"));
-        block_list[block_list.length - 1].loop_cnt = this.loop_cnt;
-        var label = addLabel(block_list[block_list.length - 1], String(block_list[block_list.length - 1].loop_cnt));
-        register_forBlock_eventListener(block_list[block_list.length - 1], block_list, player, stage, label);
-        stage.addChild(block_list[block_list.length - 1]);
+        this.moveBlock(stage.block_list);
+        stage.block_list.push(new Block(stack_frame.x + 8, stage.block_list.length * 20 + 15, "forStart"));
+        stage.block_list[stage.block_list.length - 1].loop_cnt = this.loop_cnt;
+        var label = addLabel(stage.block_list[stage.block_list.length - 1], String(stage.block_list[stage.block_list.length - 1].loop_cnt));
+        register_forBlock_eventListener(stage.block_list[stage.block_list.length - 1], stage.block_list, player, stage, label);
+        stage.addChild(stage.block_list[stage.block_list.length - 1]);
         stage.addChild(label);
-        register_loopCounter_eventListener(block_list[block_list.length - 1], label);
+        register_loopCounter_eventListener(stage.block_list[stage.block_list.length - 1], label);
       }
       if (e.x > funch_frame.x && e.x < funch_frame.x + funch_frame.width && e.y > funch_frame.y && e.y < funch_frame.y + funch_frame.height) {
         this.moveBlock(player.func_h);
@@ -900,11 +913,11 @@ window.onload = function() {
 
     player.forEnd.addEventListener("touchend", function(e) {
       if (e.x > stack_frame.x && e.x < stack_frame.x + stack_frame.width && e.y > stack_frame.y && e.y < stack_frame.y + stack_frame.height 
-        && this.checkForStart(block_list)) {
-        this.moveBlock(block_list);
-        block_list.push(new Block(stack_frame.x + 8, block_list.length * 20 + 15, "forEnd"));
-        register_block_eventListener(block_list[block_list.length - 1], block_list, player, stage);
-        stage.addChild(block_list[block_list.length - 1]);
+        && this.checkForStart(stage.block_list)) {
+        this.moveBlock(stage.block_list);
+        stage.block_list.push(new Block(stack_frame.x + 8, stage.block_list.length * 20 + 15, "forEnd"));
+        register_block_eventListener(stage.block_list[stage.block_list.length - 1], stage.block_list, player, stage);
+        stage.addChild(stage.block_list[stage.block_list.length - 1]);
       }
       if (e.x > funch_frame.x && e.x < funch_frame.x + funch_frame.width && e.y > funch_frame.y && e.y < funch_frame.y + funch_frame.height
         && this.checkForStart(player.func_h)) {
