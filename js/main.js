@@ -70,7 +70,28 @@ window.onload = function() {
         }
       } else {
         scene.removeChild(this);
-        block_remove(array, this); 
+        block_remove(array, this);
+        if (this.type == "arg1" || this.type == "arg2" || this.type || "arg3") {
+          var i = 0;
+          if (this.func_name == "h") {
+          	for (; i < player.func_h_arg.length; i++)
+          	  if (player.func_h_arg[i] == this.type) {
+          	  	player.func_h_arg.splice(i, 1);
+          	  }
+          } else if (this.func_name == "c") {
+          	for (; i < player.func_c_arg.length; i++)
+          	  if (player.func_c_arg[i] == this.type) 
+          	  	player.func_c_arg.splice(i, 1);
+          } else if (this.func_name == "s") {
+          	for (; i < player.func_s_arg.length; i++)
+          	  if (player.func_s_arg[i] == this.type) 
+          	  	player.func_s_arg.splice(i, 1);
+          } else if (this.func_name == "d") {
+          	for (; i < player.func_d_arg.length; i++)
+          	  if (player.func_d_arg[i] == this.type) 
+          	  	player.func_d_arg.splice(i, 1);
+          }
+        }
       }
     });
   }
@@ -852,7 +873,7 @@ window.onload = function() {
         this.moveBlock(player.func_c);
         player.func_c.push(new Block(funcc_frame.x + 8, player.func_c.length * 20 + 15, "arg2"));
         player.func_c[player.func_c.length - 1].func_name = "c";
-        register_block_eventListener(player.func_c[player.func_c.length - 1], player.func_c, player);
+        register_block_eventListener(player.func_c[player.func_c.length - 1], player.func_c, player, stage);
         player.arg_check(player.func_c_arg, "arg2");
         stage.addChild(player.func_c[player.func_c.length - 1]);
       }
