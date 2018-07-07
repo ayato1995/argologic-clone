@@ -78,7 +78,7 @@
           player.arg_h.push(block[i]);
         }
         if (player.func_h_arg.length != 0) {
-          block.splice(i + 1, player.func_h.length);
+          block.splice(k + 1, player.func_h.length);
         }
         i = k;
         time = this.play(player.func_h, player, stage, map, time);
@@ -89,7 +89,7 @@
           player.arg_c.push(block[i]);
         }
         if (player.func_c_arg.length != 0) {
-          block.splice(i + 1, player.func_c.length);
+          block.splice(k + 1, player.func_c.length);
         }
         i = k;
         time = this.play(player.func_c, player, stage, map, time);
@@ -100,7 +100,7 @@
           player.arg_s.push(block[i]);
         }
         if (player.func_s_arg.length != 0) {
-          block.splice(i + 1, player.func_s.length);
+          block.splice(k + 1, player.func_s.length);
         }
         i = k;
         time = this.play(player.func_s, player, stage, map, time);
@@ -112,7 +112,7 @@
           player.arg_d.push(block[i]);
         }
         if (player.func_d_arg.length != 0) {
-          block.splice(i + 1, player.func_d.length);
+          block.splice(k + 1, player.func_d.length);
         }
         i = k;
         time = this.play(player.func_d, player, stage, map, time);
