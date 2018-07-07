@@ -71,6 +71,7 @@
     var stackCounter = 0;
 
     for (var i = 0; i < block.length; i++) {
+      // console.log("play " + block[i].type);
       if (block[i].type == "function_h") {
         var k = i;
         i++;
@@ -143,6 +144,7 @@
           order = player.arg_d[1];
         }
         setTimeout(this.execution, time, order, player, map, stage);
+        time += 1000;
       } else if (block[i].type == "arg3") {
         var b = block[i];
         var order;
@@ -156,6 +158,7 @@
           order = player.arg_d[2];
         }
         setTimeout(this.execution, time, order, player, map, stage);
+        time += 1000;
       } else if (block[i].type == "forStart") {
         var loop_list = [];
         do {
@@ -222,6 +225,7 @@
   },
 
   execution: function(block, player, map, stage) {
+    // console.log("execution " + block.type);
     switch(block.type) {
     case "up":
       player.toUp(map, stage);
