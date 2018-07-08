@@ -351,6 +351,8 @@ window.onload = function() {
       if(stage.block_list.length != 0) {
       	var time = this.play(stage.block_list, player, stage, map, 0);
         setTimeout(function() {
+          if (player.before_block != null)
+            player.before_block.backgroundColor = "silver";
           if (player.within(goal, 16)) {
           	var scene = core.field(true, stage);
             core.pushScene(scene);
