@@ -11,9 +11,9 @@ window.onload = function() {
                "../img/copy.png", "../img/cut.png", "../img/play.png");
 
   core.onload = function() {
-    core.stageId = 1;
+    core.stageId = 0;
     core.clearFlag = true;
-    var stage = createStage(core.stageId);
+    var stage = titleScene();
 
     core.pushScene(stage);
   }
@@ -27,7 +27,7 @@ window.onload = function() {
       core.clearFlag = false;
       game_set_image = core.assets["../img/end.png"];
     }
-    register_replay_eventListener(game_set_image, core.stageId);
+    register_replay_eventListener(game_set_image, core.stageId, clear);
     scene.addChild(game_set_image);
     return scene;
   }
@@ -197,11 +197,15 @@ window.onload = function() {
     });
   }
 
-  register_replay_eventListener = function(img, id) {
+  register_replay_eventListener = function(img, id, flag) {
   	img.addEventListener("touchstart", function() {
   	  core.popScene();
   	  core.popScene();
-  	  var scene = createStage(id);
+  	  var scene = null;
+  	  if (flag)
+  	    scene = titleScene();
+  	  else 
+  	    scene = createStage(id);
   	  core.pushScene(scene);
   	});
   }
@@ -222,6 +226,46 @@ window.onload = function() {
     label.height = 6;
     label.width = 6;
     return label;
+  }
+
+  titleScene = function() {
+  	var scene = new Scene();
+  	// scene.backgroundColor = "red";
+  	var title = new Label("アルゴロジック クローン");
+  	title.height = 16;
+  	title.width = 166;
+  	title.x = (core.width / 2) - (title.width / 2);
+  	title.y = 40;
+  	var stage1 = new Label("stage 1");
+  	stage1.height = 16;
+  	stage1.width = 112;
+  	stage1.x = (core.width / 4) - (stage1.width / 2);
+  	stage1.y = core.height / 2;
+  	var stage2 = new Label("stage 2");
+  	stage2.height = 16;
+  	stage2.width = 112;
+  	stage2.x = (core.width * 3 / 4) - (stage2.width / 2);
+  	stage2.y = core.height / 2;
+
+  	stage1.addEventListener("touchstart", function() {
+  		core.stageId = 1;
+  		var stage = createStage(core.stageId);
+  		core.popScene();
+  		core.pushScene(stage);
+  	});
+
+  	stage2.addEventListener("touchstart", function() {
+  	  core.stageId = 2;
+  	  var stage = createStage(core.stageId);
+  	  core.popScene();
+  	  core.pushScene(stage);
+  	})
+
+  	scene.addChild(title);
+  	scene.addChild(stage1);
+  	scene.addChild(stage2);
+
+  	return scene;
   }
 
   createStage = function(stageId) {
@@ -1055,6 +1099,6 @@ window.onload = function() {
     return stage;
   }
 
-  core.start();
-  // core.debug();
+  // core.start();
+  core.debug();
 };
