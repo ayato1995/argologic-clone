@@ -69,6 +69,7 @@
     var time = t;
     var forStack = [];
     var stackCounter = 0;
+    var interval = 500;
 
     for (var i = 0; i < block.length; i++) {
       // console.log("play " + block[i].type);
@@ -130,7 +131,7 @@
           order = player.arg_d[0];
         }
         setTimeout(this.execution, time, order, player, map, stage);
-        time += 1000;
+        time += interval;
       } else if (block[i].type == "arg2") {
         var b = block[i];
         var order;
@@ -144,7 +145,7 @@
           order = player.arg_d[1];
         }
         setTimeout(this.execution, time, order, player, map, stage);
-        time += 1000;
+        time += interval;
       } else if (block[i].type == "arg3") {
         var b = block[i];
         var order;
@@ -158,7 +159,7 @@
           order = player.arg_d[2];
         }
         setTimeout(this.execution, time, order, player, map, stage);
-        time += 1000;
+        time += interval;
       } else if (block[i].type == "forStart") {
         var loop_list = [];
         do {
@@ -176,7 +177,7 @@
         time = this.forExecution(loop_list, 0, player, map, time, stage)[0];
       } else {
         setTimeout(this.execution, time, block[i], player, map, stage);
-        time += 1000;
+        time += interval;
       }
     }
 
@@ -184,6 +185,7 @@
   },
 
   forExecution: function(block, i, player, map, time, stage) {
+  	var interval = 500;
     if (block.length == 0) {
       return time;
     }
@@ -216,7 +218,7 @@
           time = this.play(player.func_d, player, stage, map, time);
         } else {
           setTimeout(this.execution, time, block[k], player, map, stage);
-          time += 1000;
+          time += interval;
         }
       }
     }

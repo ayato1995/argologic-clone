@@ -1099,6 +1099,6 @@ window.onload = function() {
     return stage;
   }
 
-  // core.start();
-  core.debug();
+  core.start();
+  // core.debug();
 };
