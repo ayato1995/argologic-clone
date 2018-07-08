@@ -36,6 +36,7 @@
     this.func_d_arg = [];
     this.copy_list = [];
     this.maxCopy = 3;
+    this.befor_block = null
   },
 
   toUp: function(map, stage) {

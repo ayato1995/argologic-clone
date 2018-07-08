@@ -80,7 +80,7 @@
           player.arg_h.push(block[i]);
         }
         if (player.func_h_arg.length != 0) {
-          block.splice(k + 1, player.func_h.length);
+          block.splice(k + 1, player.func_h_arg.length);
         }
         i = k;
         time = this.play(player.func_h, player, stage, map, time);
@@ -91,7 +91,7 @@
           player.arg_c.push(block[i]);
         }
         if (player.func_c_arg.length != 0) {
-          block.splice(k + 1, player.func_c.length);
+          block.splice(k + 1, player.func_c_arg.length);
         }
         i = k;
         time = this.play(player.func_c, player, stage, map, time);
@@ -102,7 +102,7 @@
           player.arg_s.push(block[i]);
         }
         if (player.func_s_arg.length != 0) {
-          block.splice(k + 1, player.func_s.length);
+          block.splice(k + 1, player.func_s_arg.length);
         }
         i = k;
         time = this.play(player.func_s, player, stage, map, time);
@@ -114,7 +114,7 @@
           player.arg_d.push(block[i]);
         }
         if (player.func_d_arg.length != 0) {
-          block.splice(k + 1, player.func_d.length);
+          block.splice(k + 1, player.func_d_arg.length);
         }
         i = k;
         time = this.play(player.func_d, player, stage, map, time);
@@ -216,7 +216,49 @@
           time = this.play(player.func_s, player, stage, map, time);
         } else if (block[k].type == "function_d") {
           time = this.play(player.func_d, player, stage, map, time);
-        } else {
+        } else if (block[k].type == "arg1") {
+          var fn = block[k].func_name;
+          var order;
+          if (fn == "h") {
+            order = player.arg_h[0];
+          } else if (b.func_name == "c") {
+            order = player.arg_c[0];
+          } else if (b.func_name == "s") {
+            order = player.arg_s[0];
+          } else if (b.func_name == "d") {
+            order = player.arg_d[0];
+          }
+          setTimeout(this.execution, time, order, player, map, stage);
+          time += interval;
+	    } else if (block[k].type == "arg2") {
+	      var fn = block[k].func_name;
+	      var order;
+	      if (fn == "h") {
+	        order = player.arg_h[1];
+	      } else if (b.func_name == "c") {
+	        order = player.arg_c[1];
+	      } else if (b.func_name == "h") {
+	        order = player.arg_s[1];
+	      } else if (b.func_name == "d") {
+	        order = player.arg_d[1];
+	      }
+	      setTimeout(this.execution, time, order, player, map, stage);
+	      time += interval;
+	    } else if (block[k].type == "arg3") {
+	      var fn = block[k].func_name;
+	      var order;
+	      if (fn == "h") {
+	        order = player.arg_h[2];
+	      } else if (b.func_name == "c") {
+	        order = player.arg_c[2];
+	      } else if (b.func_name == "h") {
+	        order = player.arg_s[2];
+	      } else if (b.func_name == "d") {
+	        order = player.arg_d[2];
+	      }
+	      setTimeout(this.execution, time, order, player, map, stage);
+	      time += interval;
+	    } else {
           setTimeout(this.execution, time, block[k], player, map, stage);
           time += interval;
         }
@@ -228,6 +270,9 @@
 
   execution: function(block, player, map, stage) {
     // console.log("execution " + block.type);
+    if (player.before_block != null)
+      player.before_block.backgroundColor = "silver";
+    block.backgroundColor = "yellow";
     switch(block.type) {
     case "up":
       player.toUp(map, stage);
@@ -239,8 +284,9 @@
       player.toRightRotate(map);
       break;
     }
+    player.before_block = block;
   },
-
+  /*
   forAnalyzer: function(block_list, i) {
   	var for_blocks = [];
   	for (; i < block_list.length; i++) {
@@ -251,7 +297,7 @@
   	  else
   	  	for_blocks.push(block_list[i]);
   	}
-  },
+  },*/
   
   moveBlock: function(n) {
     this.y = n * 20 + 15;
