@@ -1045,7 +1045,7 @@ window.onload = function() {
         register_forBlock_eventListener(player.func_s[player.func_s.length - 1], player.func_s, player, stage, label);
         stage.addChild(player.func_s[player.func_s.length -1]);
         stage.addChild(label);
-        register_loopCounter_eventListener(player.func_s[player.func_c.length - 1], label);
+        register_loopCounter_eventListener(player.func_s[player.func_s.length - 1], label);
       }
       if (e.x > funcd_frame.x && e.x < funcd_frame.x + funcd_frame.width && e.y > funcd_frame.y && e.y < funcd_frame.y + funcd_frame.height) {
         this.moveBlock(player.func_d);
