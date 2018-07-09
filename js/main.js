@@ -12,7 +12,7 @@ window.onload = function() {
 
   core.onload = function() {
     core.stageId = 0;
-    core.clearFlag = true;
+    // core.clearFlag = true;
     var stage = titleScene();
 
     core.pushScene(stage);
@@ -21,10 +21,11 @@ window.onload = function() {
   core.field = function(clear, stage) {
     var scene = new Scene();
     var game_set_image = new Sprite(189, 97);
-    if (clear && core.clearFlag) {
+    // if (clear && core.clearFlag) {
+    if (clear && stage.clearFlag) {
       game_set_image = core.assets["../img/clear.png"];
     } else {
-      core.clearFlag = false;
+      stage.clearFlag = false;
       game_set_image = core.assets["../img/end.png"];
     }
     register_replay_eventListener(game_set_image, core.stageId, clear);
@@ -332,6 +333,7 @@ window.onload = function() {
     var loop = addLabel(player.forStart, String(player.forStart.loop_cnt));
     var stage = new Scene();
     stage.id = stageId;
+    stage.clearFlag = true;
     stage.block_list = [];
 
     stage.addChild(map);
