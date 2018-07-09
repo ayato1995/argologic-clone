@@ -300,7 +300,7 @@
   },*/
   
   moveBlock: function(n) {
-    this.y = n * 20 + 15;
+    this.y = n * 20 + 31 + 4;
     this.label.y = this.y;
     this.loopCounter.y = this.y;
   },
