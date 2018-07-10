@@ -52,7 +52,15 @@ window.onload = function() {
           i = searchBlock(block, array);
           for (var j = i; j < array.length && j < i + 3; j++) {
             array[j].select = false;
-            array[j].backgroundColor = "silver";
+            if (array[j].type == "arg1") {
+              array[j].backgroundColor = "tomato";
+            } else if (array[j].type == "arg2") {
+              array[j].backgroundColor = "deepskyblue";
+            } else if (array[j].type == "arg3") {
+              array[j].backgroundColor = "greenyellow";
+            } else {
+              array[j].backgroundColor = "silver";
+            }
           }
         } else {
           reset_block_color(scene.block_list);
@@ -212,7 +220,15 @@ window.onload = function() {
 
   reset_block_color = function(array) {
     for (var i = 0; i < array.length; i++) {
-      array[i].backgroundColor = "silver";
+      if (array[i].type == "arg1") {
+      	array[i].backgroundColor = "tomato";
+      } else if (array[i].type == "arg2") {
+      	array[i].backgroundColor = "deepskyblue";
+      } else if (array[i].type ==  "arg3") {
+      	array[i].backgroundColor = "greenyellow";
+      } else {
+        array[i].backgroundColor = "silver";
+      }
     }
   }
 
