@@ -91,7 +91,7 @@
   decisionMap: function(map, stage, x, y) {
   	if (map.hitTest(x, y)) {
   		stage.removeChild(this);
-  		core.pushScene(core.field(false, core.rootScene.id));
+  		core.pushScene(core.field(false, core.rootScene));
   	}
   },
 

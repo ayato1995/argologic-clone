@@ -12,7 +12,6 @@ window.onload = function() {
 
   core.onload = function() {
     core.stageId = 0;
-    // core.clearFlag = true;
     var stage = titleScene();
 
     core.pushScene(stage);
@@ -21,8 +20,8 @@ window.onload = function() {
   core.field = function(clear, stage) {
     var scene = new Scene();
     var game_set_image = new Sprite(189, 97);
-    // if (clear && core.clearFlag) {
     if (clear && stage.clearFlag) {
+      stage.clearFlag = false;
       game_set_image = core.assets["../img/clear.png"];
     } else {
       stage.clearFlag = false;
@@ -373,6 +372,8 @@ window.onload = function() {
       if(stage.block_list.length != 0) {
       	var time = this.play(stage.block_list, player, stage, map, 0);
         setTimeout(function() {
+          if (!stage.clearFlag) return;
+          stage.clearFlag = false;
           if (player.before_block != null)
             player.before_block.backgroundColor = "silver";
           if (player.within(goal, 16)) {
