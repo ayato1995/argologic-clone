@@ -130,8 +130,18 @@
         } else if (b.func_name == "d") {
           order = player.arg_d[0];
         }
-        setTimeout(this.execution, time, order, player, map, stage);
-        time += interval;
+        if (order.type == "function_h")
+          time = this.play(player.func_h, player, stage, map, time);
+        else if (order.type == "function_c")
+          time = this.play(player.func_c, player, stage, map, time);
+        else if (order.type == "function_s")
+          time = this.play(player.func_s, player, stage, map, time);
+        else if (order.type == "function_d")
+          time = this.play(player.func_d, player, stage, map, time);
+        else {
+          setTimeout(this.execution, time, order, player, map, stage);
+          time += interval;
+        }
       } else if (block[i].type == "arg2") {
         var b = block[i];
         var order;
@@ -144,8 +154,18 @@
         } else if (b.func_name == "d") {
           order = player.arg_d[1];
         }
-        setTimeout(this.execution, time, order, player, map, stage);
-        time += interval;
+        if (order.type == "function_h")
+          time = this.play(player.func_h, player, stage, map, time);
+        else if (order.type == "function_c")
+          time = this.play(player.func_c, player, stage, map, time);
+        else if (order.type == "function_s")
+          time = this.play(player.func_s, player, stage, map, time);
+        else if (order.type == "function_d")
+          time = this.play(player.func_d, player, stage, map, time);
+        else {
+          setTimeout(this.execution, time, order, player, map, stage);
+          time += interval;
+        }
       } else if (block[i].type == "arg3") {
         var b = block[i];
         var order;
@@ -158,8 +178,18 @@
         } else if (b.func_name == "d") {
           order = player.arg_d[2];
         }
-        setTimeout(this.execution, time, order, player, map, stage);
-        time += interval;
+        if (order.type == "function_h")
+          time = this.play(player.func_h, player, stage, map, time);
+        else if (order.type == "function_c")
+          time = this.play(player.func_c, player, stage, map, time);
+        else if (order.type == "function_s")
+          time = this.play(player.func_s, player, stage, map, time);
+        else if (order.type == "function_d")
+          time = this.play(player.func_d, player, stage, map, time);
+        else {
+          setTimeout(this.execution, time, order, player, map, stage);
+          time += interval;
+        }
       } else if (block[i].type == "forStart") {
         var loop_list = [];
         do {
