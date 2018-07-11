@@ -95,17 +95,17 @@
         }
         i = k;
         time = this.play(player.func_c.func, player, stage, map, time);
-      } else if (block[i].type == "function_s") {
+      } else if (block[i].type == "function" && block[i].name == "spead") {
       	var k = i;
         i++;
-        for (var j = player.func_s.length; i < block.length && j > 0; i++, j--) {
-          player.arg_s.push(block[i]);
+        for (var j = player.func_s.arg_num; i < block.length && j > 0; i++, j--) {
+          player.func_s.arg.push(block[i]);
         }
-        if (player.func_s_arg.length != 0) {
-          block.splice(k + 1, player.func_s_arg.length);
+        if (player.func_s.arg_num != 0) {
+          block.splice(k + 1, player.func_s.arg_num);
         }
         i = k;
-        time = this.play(player.func_s, player, stage, map, time);
+        time = this.play(player.func_s.func, player, stage, map, time);
       } else if (block[i].type == "function_d") {
       	var k = i;
         i++;
