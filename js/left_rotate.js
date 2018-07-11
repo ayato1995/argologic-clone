@@ -11,17 +11,17 @@ var Left_rotate = enchant.Class.create(Block, {
 		this.addEventListener("touchend", function() {
 			if (stage.selectFlag) {
 				if (this.select) {
-					var i = this.searchBlock(array);
+					var i = this.searchBlock(player.copy_list);
 					player.copy_list.splice(i, player.copy_list.length - i);
 					i = this.searchBlock(array);
-					for (var j = i; j < array.length && j < i + 3; i++) {
-						array[i].select = false;
-						array[i].backgroundColor = array[i].default_color;
+					for (var j = i; j < array.length && j < i + 3; j++) {
+						array[j].select = false;
+						array[j].backgroundColor = array[j].default_color;
 					}
 				} else {
 					player.reset_blocks_color();
 					player.copy_list.length = 0;
-					var i = searchBlock(array);
+					var i = this.searchBlock(array);
 					for (var j = i; j < array.length && j < i + 3; j++) {
 						player.copy_list.push(array[j]);
 						array[j].select = true;
@@ -48,8 +48,8 @@ var Left_rotate = enchant.Class.create(Block, {
 				&& e.y > frame.y && e.y < frame.y + frame.height) {
 				this.set_block(array, frame, stage, player);
 			}
-			this.x = 330;
-			this.y = 30;
+			this.x = this.default_x;
+			this.y = this.default_y;
 		});
 	},
 
@@ -60,4 +60,4 @@ var Left_rotate = enchant.Class.create(Block, {
 		stage.addChild(block);
 		array.push(block);
 	}
-})
+});

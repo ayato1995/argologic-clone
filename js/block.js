@@ -6,6 +6,8 @@
     this.y = y;
     this.loop_cnt = 0;
     this.select = false;
+    this.default_x = x;
+    this.default_y = y;
     var string = null;
     var color = "silver";
 
@@ -69,18 +71,20 @@
     var interval = 500;
 
     for (var i = 0; i < block.length; i++) {
-      // console.log("play " + block[i].type);
-      if (block[i].type == "function_h") {
+      console.log("play " + block[i].type);
+      if (block[i].type == "function" && block[i].name == "heart") {
+
+      console.log("test");
         var k = i;
         i++;
-        for (var j = player.func_h_arg.length; i < block.length && j > 0; i++, j--) {
-          player.arg_h.push(block[i]);
+        for (var j = player.func_h.arg_num; i < block.length && j > 0; i++, j--) {
+          player.func_h.arg.push(block[i]);
         }
-        if (player.func_h_arg.length != 0) {
-          block.splice(k + 1, player.func_h_arg.length);
+        if (player.func_h.arg_num != 0) {
+          block.splice(k + 1, player.func_h.arg_num);
         }
         i = k;
-        time = this.play(player.func_h, player, stage, map, time);
+        time = this.play(player.func_h.func, player, stage, map, time);
       } else if (block[i].type == "function_c") {
       	var k = i;
         i++;

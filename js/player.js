@@ -15,10 +15,10 @@
     this.up.register_move_eventListener();
     this.left_rotate = new Left_rotate(330, 30);
     this.left_rotate.register_move_eventListener();
-    // this.right_rotate = new Block(330, 50, "rightRotate");
     this.right_rotate = new Right_rotate(330, 50);
     this.right_rotate.register_move_eventListener();
-    this.funch = new Block(330, 70, "function_h");
+    this.func_h = new Func_h(330, 70);
+    this.func_h.register_move_eventListener();
     this.funcc = new Block(330, 90, "function_c");
     this.funcs = new Block(330, 110, "function_s");
     this.funcd = new Block(330, 130, "function_d");
@@ -28,9 +28,13 @@
     this.forStart = new Block(330, 210, "forStart");
     this.forEnd = new Block(330, 230, "forEnd");
     this.block_list = [];
+    /*
     this.func_h = [];
+    // blockを入れる
     this.arg_h = [];
+    // 引数が何個あったか入れる
     this.func_h_arg = [];
+    */
     this.func_c = [];
     this.arg_c = [];
     this.func_c_arg = [];
