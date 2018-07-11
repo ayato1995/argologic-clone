@@ -19,7 +19,9 @@
     this.right_rotate.register_move_eventListener();
     this.func_h = new Func_h(330, 70);
     this.func_h.register_move_eventListener();
-    this.funcc = new Block(330, 90, "function_c");
+    this.func_c = new Func_c(330, 90);
+    this.func_c.register_move_eventListener();
+    // this.funcc = new Block(330, 90, "function_c");
     this.funcs = new Block(330, 110, "function_s");
     this.funcd = new Block(330, 130, "function_d");
     this.arg1 = new Block(330, 150, "arg1");
@@ -34,10 +36,10 @@
     this.arg_h = [];
     // 引数が何個あったか入れる
     this.func_h_arg = [];
-    */
     this.func_c = [];
     this.arg_c = [];
     this.func_c_arg = [];
+    */
     this.func_s = [];
     this.arg_s = [];
     this.func_s_arg = [];

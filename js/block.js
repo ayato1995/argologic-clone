@@ -73,8 +73,6 @@
     for (var i = 0; i < block.length; i++) {
       console.log("play " + block[i].type);
       if (block[i].type == "function" && block[i].name == "heart") {
-
-      console.log("test");
         var k = i;
         i++;
         for (var j = player.func_h.arg_num; i < block.length && j > 0; i++, j--) {
@@ -85,17 +83,18 @@
         }
         i = k;
         time = this.play(player.func_h.func, player, stage, map, time);
-      } else if (block[i].type == "function_c") {
+      } else if (block[i].type == "function" && block[i].name == "clover") {
+        console.log(block[i].name);
       	var k = i;
         i++;
-        for (var j = player.func_c.length; i < block.length && j > 0; i++, j--) {
-          player.arg_c.push(block[i]);
+        for (var j = player.func_c.arg_num; i < block.length && j > 0; i++, j--) {
+          player.func_c.arg.push(block[i]);
         }
-        if (player.func_c_arg.length != 0) {
-          block.splice(k + 1, player.func_c_arg.length);
+        if (player.func_c.arg_num != 0) {
+          block.splice(k + 1, player.func_c.arg_num);
         }
         i = k;
-        time = this.play(player.func_c, player, stage, map, time);
+        time = this.play(player.func_c.func, player, stage, map, time);
       } else if (block[i].type == "function_s") {
       	var k = i;
         i++;
@@ -308,10 +307,10 @@
     case "up":
       player.toUp(map, stage);
       break;
-    case "leftRotate":
+    case "left_rotate":
       player.toLeftRotate(map);
       break;
-    case "rightRotate":
+    case "right_rotate":
       player.toRightRotate(map);
       break;
     }
