@@ -1,6 +1,5 @@
 ﻿var Block = enchant.Class.create(enchant.Sprite, {
   initialize: function(x, y, type) {
-    // enchant.Sprite.call(this, 60, 10);
     enchant.Sprite.call(this, 16, 16);
     this.type = type;
     this.x = x;
@@ -10,9 +9,7 @@
     var string = null;
     var color = "silver";
 
-    if (type == "up") {
-      this.image = core.assets["../img/up.png"];
-    } else if (type == "leftRotate") {
+    if (type == "leftRotate") {
       this.image = core.assets["../img/left.png"];
     } else if (type == "rightRotate") {
       this.image = core.assets["../img/right.png"];
@@ -316,18 +313,6 @@
     }
     player.before_block = block;
   },
-  /*
-  forAnalyzer: function(block_list, i) {
-  	var for_blocks = [];
-  	for (; i < block_list.length; i++) {
-  	  if (block[i].type == "forStart")
-  	    for_blocks.push(forAnalyzer(block_list, i));
-  	  else if (block_list[i].type == "forEnd")
-  	  	return for_blocks;
-  	  else
-  	  	for_blocks.push(block_list[i]);
-  	}
-  },*/
   
   moveBlock: function(n) {
     this.y = n * 20 + 31 + 4;
@@ -393,4 +378,5 @@
   	  this.y = block.y + block.height;
   	});
   }
+  
 });

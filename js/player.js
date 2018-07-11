@@ -10,7 +10,9 @@
     this.frame = dire;
     this.x = x;
     this.y = y;
-    this.up = new Block(330, 10, "up");
+    this.blocks = [];
+    this.up = new Up(330, 10);
+    this.up.register_move_eventListener();
     this.leftRotate = new Block(330, 30, "leftRotate");
     this.rightRotate = new Block(330, 50, "rightRotate");
     this.funch = new Block(330, 70, "function_h");
@@ -22,6 +24,7 @@
     this.arg3 = new Block(330, 190, "arg3");
     this.forStart = new Block(330, 210, "forStart");
     this.forEnd = new Block(330, 230, "forEnd");
+    this.block_list = [];
     this.func_h = [];
     this.arg_h = [];
     this.func_h_arg = [];
@@ -38,6 +41,20 @@
     this.maxCopy = 3;
     this.befor_block = null
   },
+  /*
+  initialize_blocks: function() {
+    this.blocks.push(new Up(330, 10));
+    this.blocks.push(new Left_rotate(330, 30));
+    this.blocks.push(new Right_rotate(330, 50));
+    this.blocks.push(new Func_h(330, 70));
+    this.blocks.push(new Func_c(330, 90));
+    this.blocks.push(new Func_s(330, 110));
+    this.blocks.push(new Func_d(330, 130));
+    this.blocks.push(new Arg1(330, 150));
+    this.blocks.push(new Arg2(330, 170));
+    this.blocks.push(new Arg3(330, 190));
+  },
+  */
 
   toUp: function(map, stage) {
   	switch(this.frame) {
@@ -142,5 +159,13 @@
       }
     }
     array.push(type);
+  },
+
+  reset_blocks_color: function() {
+    this.reset_block_color(this.block_list);
+    this.reset_block_color(this.func_h);
+    this.reset_block_color(this.func_c);
+    this.reset_block_color(this.func_s);
+    this.reset_block_color(this.func_d);
   }
 })
