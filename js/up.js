@@ -2,7 +2,6 @@ var Up = enchant.Class.create(Block, {
 	initialize: function(x, y) {
 		Block.call(this, x, y);
 		this.type = "up";
-		this.select = false;
 		this.image = core.assets["../img/up.png"];
 		this.default_color = "silver";
 		this.backgroundColor = this.default_color;

@@ -1,11 +1,12 @@
-var Left_rotate = enchant.Class.create(Block, {
+var Right_rotate = enchant.Class.create(Block, {
 	initialize: function(x, y) {
 		Block.call(this, x, y);
-		this.type = "left_rotate";
-		this.image = core.assets["../img/left.png"];
+		this.type = "right_rotate";
+		this.image = core.assets["../img/right.png"];
 		this.default_color = "silver";
 		this.backgroundColor = this.default_color;
 	},
+
 
 	register_remove_eventListener: function(array, stage, player) {
 		this.addEventListener("touchend", function() {
@@ -49,13 +50,13 @@ var Left_rotate = enchant.Class.create(Block, {
 				this.set_block(array, frame, stage, player);
 			}
 			this.x = 330;
-			this.y = 30;
+			this.y = 50;
 		});
 	},
 
 	set_block: function(array, frame, stage, player) {
 		this.moveBlock(array.length);
-		var block = new Left_rotate(frame.x + 8, array.length * 20 + frame.y + 4);
+		var block = new Right_rotate(frame.x + 8, array.length * 20 + frame.y + 4);
 		block.register_remove_eventListener(array, stage, player);
 		stage.addChild(block);
 		array.push(block);
