@@ -13,7 +13,9 @@
     this.blocks = [];
     this.up = new Up(330, 10);
     this.up.register_move_eventListener();
-    this.leftRotate = new Block(330, 30, "leftRotate");
+    this.leftRotate = new Left_rotate(330, 30);
+    this.leftRotate.register_move_eventListener();
+    // this.leftRotate = new Block(330, 30, "leftRotate");
     this.rightRotate = new Block(330, 50, "rightRotate");
     this.funch = new Block(330, 70, "function_h");
     this.funcc = new Block(330, 90, "function_c");

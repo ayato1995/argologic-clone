@@ -517,12 +517,7 @@ window.onload = function() {
         }
       }
     });
-
-    player.leftRotate.addEventListener("touchmove", function(e) {
-      this.x = e.x;
-      this.y = e.y;
-    });
-
+    
     player.rightRotate.addEventListener("touchmove", function(e) {
       this.x = e.x;
       this.y = e.y;
@@ -580,41 +575,12 @@ window.onload = function() {
     player.up.register_set_eventListener(player.func_c, funcc_frame, stage, player);
     player.up.register_set_eventListener(player.func_s, funcs_frame, stage, player);
     player.up.register_set_eventListener(player.func_d, funcd_frame, stage, player);
-    
-    player.leftRotate.addEventListener("touchend", function(e) {
-      if (e.x > stack_frame.x && e.x < stack_frame.x + stack_frame.width && e.y > stack_frame.y && e.y < stack_frame.y + stack_frame.height) {
-        this.moveBlock(player.block_list);
-        player.block_list.push(new Block(stack_frame.x + 8, player.block_list.length * 20 + stack_frame.y + 4, "leftRotate"));
-        register_block_eventListener(player.block_list[player.block_list.length - 1], player.block_list, player, stage);
-        stage.addChild(player.block_list[player.block_list.length - 1]);
-      }
-      if (e.x > funch_frame.x && e.x < funch_frame.x + funch_frame.width && e.y > funch_frame.y && e.y < funch_frame.y + funch_frame.height) {
-        this.moveBlock(player.func_h);
-        player.func_h.push(new Block(funch_frame.x + 8, player.func_h.length * 20 + funch_frame.y + 4, "leftRotate"));
-        register_block_eventListener(player.func_h[player.func_h.length - 1], player.func_h, player, stage);
-        stage.addChild(player.func_h[player.func_h.length - 1]);
-      }
-      if (e.x > funcc_frame.x && e.x < funcc_frame.x + funcc_frame.width && e.y > funcc_frame.y && e.y < funcc_frame.y + funcc_frame.height) {
-        this.moveBlock(player.func_c);
-        player.func_c.push(new Block(funcc_frame.x + 8, player.func_c.length * 20 + funcc_frame.y + 4, "leftRotate"));
-        register_block_eventListener(player.func_c[player.func_c.length - 1], player.func_c, player, stage);
-        stage.addChild(player.func_c[player.func_c.length - 1]);
-      }
-      if (e.x > funcs_frame.x && e.x < funcs_frame.x + funcs_frame.width && e.y > funcs_frame.y && e.y < funcs_frame.y + funcs_frame.height) {
-        this.moveBlock(player.func_s);
-        player.func_s.push(new Block(funcs_frame.x + 8, player.func_s.length * 20 + funcd_frame.y + 4, "leftRotate"));
-        register_block_eventListener(player.func_s[player.func_s.length - 1], player.func_s, player, stage);
-        stage.addChild(player.func_s[player.func_s.length -1]);
-      }
-      if (e.x > funcd_frame.x && e.x < funcd_frame.x + funcd_frame.width && e.y > funcd_frame.y && e.y < funcd_frame.y + funcd_frame.height) {
-        this.moveBlock(player.func_d);
-        player.func_d.push(new Block(funcd_frame.x + 8, player.func_d.length * 20 + funcd_frame.y + 4, "leftRotate"));
-        register_block_eventListener(player.func_d[player.func_d.length - 1], player.func_d, player, stage);
-        stage.addChild(player.func_d[player.func_d.length - 1]);
-      }
-      this.x = 330;
-      this.y = 30;
-    });
+
+    player.leftRotate.register_set_eventListener(player.block_list, stack_frame, stage, player);
+    player.leftRotate.register_set_eventListener(player.func_h, funch_frame, stage, player);
+    player.leftRotate.register_set_eventListener(player.func_c, funcc_frame, stage, player);
+    player.leftRotate.register_set_eventListener(player.func_s, funcs_frame, stage, player);
+    player.leftRotate.register_set_eventListener(player.func_d, funcd_frame, stage, player);
 
     player.rightRotate.addEventListener("touchend", function(e) {
       if (e.x > stack_frame.x && e.x < stack_frame.x + stack_frame.width && e.y > stack_frame.y && e.y < stack_frame.y + stack_frame.height) {

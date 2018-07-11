@@ -10,19 +10,19 @@ var Up = enchant.Class.create(Block, {
 
 	register_remove_eventListener: function(array, stage, player) {
 		this.addEventListener("touchend", function() {
-			if (core.rootScene.selectFlag) {
+			if (stage.selectFlag) {
 				if (this.select) {
-					var i = this.searchBlock(this, array);
+					var i = this.searchBlock(array);
 					player.copy_list.splice(i, player.copy_list.length - i);
-					i = this.searchBlock(this, array);
+					i = this.searchBlock(array);
 					for (var j = i; j < array.length && j < i + 3; j++) {
 						array[i].select = false;
             			array[i].backgroundColor = array[i].default_color;
           			}
         		} else {
-          			this.reset_block_color(player);
+          			player.reset_block_color();
           			player.copy_list.length = 0;
-          			var i = searchBlock(this, array);
+          			var i = searchBlock(array);
           			for (var j = i; j < array.length && j < i + 3; j++) {
             			player.copy_list.push(array[j]);
             			array[j].select = true;
@@ -46,7 +46,7 @@ var Up = enchant.Class.create(Block, {
   	register_set_eventListener: function(array, frame, stage, player) {
   		this.addEventListener("touchend", function(e) {
   			if (e.x > frame.x && e.x < frame.x + frame.width 
-  				&& e.y > frame.y && frame.y + frame.height) {
+  				&& e.y > frame.y && e.y < frame.y + frame.height) {
   				this.set_block(array, frame, stage, player);
   			}
   			this.x = 330;
@@ -56,7 +56,7 @@ var Up = enchant.Class.create(Block, {
 
   	set_block: function(array, frame, stage, player) {
   		this.moveBlock(array.length);
-  		block = new Up(frame.x + 8, array.length * 20 + frame.y + 4);
+  		var block = new Up(frame.x + 8, array.length * 20 + frame.y + 4);
   		block.register_remove_eventListener(array, stage, player);
   		stage.addChild(block);
   		array.push(block);

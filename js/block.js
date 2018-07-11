@@ -379,14 +379,14 @@
   	});
   },
 
-  searchBlock: function(block, array) {
+  searchBlock: function(array) {
       for (var i = 0; i < array.length; i++)
-        if (array[i] == block) return i;
+        if (array[i] == this) return i;
       return -1;
   },
 
   block_remove: function(array) {
-    var i = this.searchBlock(this, array);
+    var i = this.searchBlock(array);
     array.splice(i, 1);
     for (var i = 0; i < array.length; i++) {
       array[i].moveBlock(i);
