@@ -377,6 +377,19 @@
   	  this.x = block.x;
   	  this.y = block.y + block.height;
   	});
+  },
+
+  searchBlock: function(block, array) {
+      for (var i = 0; i < array.length; i++)
+        if (array[i] == block) return i;
+      return -1;
+  },
+
+  block_remove: function(array) {
+    var i = this.searchBlock(this, array);
+    array.splice(i, 1);
+    for (var i = 0; i < array.length; i++) {
+      array[i].moveBlock(i);
+    }
   }
-  
 });

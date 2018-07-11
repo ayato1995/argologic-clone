@@ -1,16 +1,14 @@
 var Up = enchant.Class.create(Block, {
 	initialize: function(x, y) {
-		Block.call(this);
+		Block.call(this, x, y);
 		this.type = "up";
 		this.select = false;
 		this.image = core.assets["../img/up.png"];
 		this.default_color = "silver";
 		this.backgroundColor = this.default_color;
-		this.x = x;
-		this.y = y;
 	},
 
-	register_remove_eventListener: function(array, player) {
+	register_remove_eventListener: function(array, stage, player) {
 		this.addEventListener("touchend", function() {
 			if (core.rootScene.selectFlag) {
 				if (this.select) {
@@ -32,8 +30,8 @@ var Up = enchant.Class.create(Block, {
           			}
         		}
       		} else {
-        		core.rootScene.removeChild(this);
-        		block_remove(array, this);
+        		stage.removeChild(this);
+        		this.block_remove(array);
       		}
     	});
   	},
@@ -45,28 +43,22 @@ var Up = enchant.Class.create(Block, {
   		});
   	},
 
-  	register_set_eventListener: function(array, frame, stage) {
+  	register_set_eventListener: function(array, frame, stage, player) {
   		this.addEventListener("touchend", function(e) {
   			if (e.x > frame.x && e.x < frame.x + frame.width 
   				&& e.y > frame.y && frame.y + frame.height) {
-  				this.set_block(array, frame, stage);
+  				this.set_block(array, frame, stage, player);
   			}
   			this.x = 330;
   			this.y = 10;
   		});
   	},
 
-  	set_block: function(array, frame, stage) {
+  	set_block: function(array, frame, stage, player) {
   		this.moveBlock(array.length);
   		block = new Up(frame.x + 8, array.length * 20 + frame.y + 4);
-  		block.register_remove_eventListener();
+  		block.register_remove_eventListener(array, stage, player);
   		stage.addChild(block);
   		array.push(block);
-  	},
-
-  	searchBlock: function(block, array) {
-  		for (var i = 0; i < array.length; i++)
-  			if (array[i] == block) return i;
-  		return -1;
   	}
 });
