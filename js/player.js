@@ -31,7 +31,9 @@
     this.arg2.register_move_eventListener();
     this.arg3 = new Arg(330, 190, 2);
     this.arg3.register_move_eventListener();
-    this.forStart = new Block(330, 210, "forStart");
+    this.loop_start = new Loop_start(330, 210);
+    this.loop_start.register_move_eventListener();
+    // this.forStart = new Block(330, 210, "forStart");
     this.forEnd = new Block(330, 230, "forEnd");
     this.block_list = [];
     /*

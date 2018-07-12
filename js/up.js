@@ -15,8 +15,8 @@ var Up = enchant.Class.create(Block, {
 					player.copy_list.splice(i, player.copy_list.length - i);
 					i = this.searchBlock(array);
 					for (var j = i; j < array.length && j < i + 3; j++) {
-						array[i].select = false;
-            			array[i].backgroundColor = array[i].default_color;
+						array[j].select = false;
+            			array[j].backgroundColor = array[j].default_color;
           			}
         		} else {
           			player.reset_block_color();

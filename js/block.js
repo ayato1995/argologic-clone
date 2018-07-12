@@ -11,16 +11,7 @@
     var string = null;
     var color = "silver";
 
-    if (type == "arg1") {
-      color = "tomato";
-      this.func_name;
-    } else if (type == "arg2") {
-      color = "deepskyblue";
-      this.func_name;
-    } else if (type == "arg3") {
-      color = "greenyellow";
-      this.func_name;
-    } else if (type == "forStart") {
+    if (type == "forStart") {
       this.image = core.assets["../img/loop_start.png"];
     } else if (type == "forEnd") {
       this.image = core.assets["../img/loop_end.png"];
@@ -35,16 +26,6 @@
       color = null;
     }
 
-    /*
-    this.label = new Label(string);
-    this.label.x = this.x;
-    this.label.y = this.y;
-    this.label.font = "6px 'MSゴシック'";
-    this.loopCounter = new Label(String(this.loop_cnt));
-    this.loopCounter.x = this.x + this.width - 15;
-    this.loopCounter.y = this.y;
-    this.loopCounter.font = "6px 'MSゴシック'";
-    */
     this.backgroundColor = color;
   },
 
