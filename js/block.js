@@ -289,7 +289,7 @@
   execution: function(block, player, map, stage) {
     // console.log("execution " + block.type);
     if (player.before_block != null)
-      player.before_block.backgroundColor = "silver";
+      player.before_block.backgroundColor = player.before_block.default_color;
     block.backgroundColor = "yellow";
     switch(block.type) {
     case "up":
