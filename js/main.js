@@ -100,55 +100,35 @@ window.onload = function() {
     var player = new Player(map.initializeX, map.initializeY, map.direction);
 
     /* block initialize */
-    var stack_frame = new Sprite(32, 200);
-    stack_frame.backgroundColor = "gray";
-    stack_frame.x = 370;
-    stack_frame.y = 31;
-    stack_frame.name = "stack";
-    var funch_frame = new Sprite(32, 200);
-    funch_frame.backgroundColor = "lightsteelblue";
-    funch_frame.x = 412;
-    funch_frame.y = 31;
-    funch_frame.name = "heart";
+    var stack_frame = new Frame(370, 31, "stack");
+    var h_frame = new Frame(412, 31, "heart");
     var h_label = new Sprite(16, 16);
     h_label.image = core.assets["../img/heart.png"];
-    h_label.x = funch_frame.x + 8;
+    h_label.x = h_frame.x + 8;
     h_label.y = 10;
-    var funcc_frame = new Sprite(32, 200);
-    funcc_frame.backgroundColor = "lightsteelblue";
-    funcc_frame.x = 452;
-    funcc_frame.y = 31;
-    funcc_frame.name = "clover";
+    var c_frame = new Frame(452, 31, "clover");
     var c_label = new Sprite(16, 16);
     c_label.image = core.assets["../img/clover.png"];
-    c_label.x = funcc_frame.x + 8;
+    c_label.x = c_frame.x + 8;
     c_label.y = 10;
-    var funcs_frame = new Sprite(32, 200);
-    funcs_frame.backgroundColor = "lightsteelblue";
-    funcs_frame.x = 494;
-    funcs_frame.y = 31;
-    funcs_frame.name = "spade";
+    var s_frame = new Frame(494, 31, "spade");
     var s_label = new Sprite(16, 16);
     s_label.image = core.assets["../img/spade.png"];
-    s_label.x = funcs_frame.x + 8;
+    s_label.x = s_frame.x + 8;
     s_label.y = 10;
-    var funcd_frame = new Sprite(32, 200);
-    funcd_frame.backgroundColor = "lightsteelblue";
-    funcd_frame.x = 536;
-    funcd_frame.y = 31;
-    funcd_frame.name = "diamond";
+    var d_frame = new Frame(536, 31, "diamond");
     var d_label = new Sprite(16, 16);
     d_label.image = core.assets["../img/diamond.png"];
-    d_label.x = funcd_frame.x + 8;
+    d_label.x = d_frame.x + 8;
     d_label.y = 10;
 
     var play = new Play(330, 300);
     var select = new Select (330, 280);
     var exe_copy = new Copy(stack_frame.x + 8, stack_frame.y + stack_frame.height + 10);
-    var h_copy = new Copy(funch_frame.x + 8, funch_frame.y + funch_frame.height + 10);
-    var c_copy = new Copy(funcc_frame.x + 8, funcc_frame.y + funcc_frame.height + 10);
-    var s_copy = new Copy(funcs_frame.x + 8, funcs_frame.y + funcs_frame.height + 10);
-    var d_copy = new Copy(funcd_frame.x + 8, funcd_frame.y + funcd_frame.height + 10);
+    var h_copy = new Copy(h_frame.x + 8, h_frame.y + h_frame.height + 10);
+    var c_copy = new Copy(c_frame.x + 8, c_frame.y + c_frame.height + 10);
+    var s_copy = new Copy(s_frame.x + 8, s_frame.y + s_frame.height + 10);
+    var d_copy = new Copy(d_frame.x + 8, d_frame.y + d_frame.height + 10);
     
     var stage = new Scene();
     stage.id = stageId;
@@ -158,13 +138,13 @@ window.onload = function() {
     stage.addChild(map);
     stage.addChild(stack_frame);
     stage.addChild(h_label);
-    stage.addChild(funch_frame);
+    stage.addChild(h_frame);
     stage.addChild(c_label);
-    stage.addChild(funcc_frame);
+    stage.addChild(c_frame);
     stage.addChild(s_label);
-    stage.addChild(funcs_frame);
+    stage.addChild(s_frame);
     stage.addChild(d_label);
-    stage.addChild(funcd_frame);
+    stage.addChild(d_frame);
     stage.addChild(goal);
     stage.addChild(player);
     player.push_block_stage(stage);
@@ -178,81 +158,81 @@ window.onload = function() {
 
     console.log(exe_copy.register_eventListener);
     play.register_play_eventListener(player, stage, map, goal);
-    select.register_eventListener(stage, stack_frame, funch_frame, funcc_frame, funcs_frame, funcd_frame);
+    select.register_eventListener(stage, stack_frame, h_frame, c_frame, s_frame, d_frame);
     exe_copy.register_eventListener(player, player.block_list, stack_frame, stage);
-    h_copy.register_eventListener(player, player.func_h.func, funch_frame, stage);
-    c_copy.register_eventListener(player, player.func_c.func, funcc_frame, stage);
-    s_copy.register_eventListener(player, player.func_s.func, funcs_frame, stage);
-    d_copy.register_eventListener(player, player.func_d.func, funcd_frame, stage);
+    h_copy.register_eventListener(player, player.func_h.func, h_frame, stage);
+    c_copy.register_eventListener(player, player.func_c.func, c_frame, stage);
+    s_copy.register_eventListener(player, player.func_s.func, s_frame, stage);
+    d_copy.register_eventListener(player, player.func_d.func, d_frame, stage);
 
     player.up.register_set_eventListener(player.block_list, stack_frame, stage, player);
-    player.up.register_set_eventListener(player.func_h.func, funch_frame, stage, player);
-    player.up.register_set_eventListener(player.func_c.func, funcc_frame, stage, player);
-    player.up.register_set_eventListener(player.func_s.func, funcs_frame, stage, player);
-    player.up.register_set_eventListener(player.func_d.func, funcd_frame, stage, player);
+    player.up.register_set_eventListener(player.func_h.func, h_frame, stage, player);
+    player.up.register_set_eventListener(player.func_c.func, c_frame, stage, player);
+    player.up.register_set_eventListener(player.func_s.func, s_frame, stage, player);
+    player.up.register_set_eventListener(player.func_d.func, d_frame, stage, player);
 
     player.left_rotate.register_set_eventListener(player.block_list, stack_frame, stage, player);
-    player.left_rotate.register_set_eventListener(player.func_h.func, funch_frame, stage, player);
-    player.left_rotate.register_set_eventListener(player.func_c.func, funcc_frame, stage, player);
-    player.left_rotate.register_set_eventListener(player.func_s.func, funcs_frame, stage, player);
-    player.left_rotate.register_set_eventListener(player.func_d.func, funcd_frame, stage, player);
+    player.left_rotate.register_set_eventListener(player.func_h.func, h_frame, stage, player);
+    player.left_rotate.register_set_eventListener(player.func_c.func, c_frame, stage, player);
+    player.left_rotate.register_set_eventListener(player.func_s.func, s_frame, stage, player);
+    player.left_rotate.register_set_eventListener(player.func_d.func, d_frame, stage, player);
 
     player.right_rotate.register_set_eventListener(player.block_list, stack_frame, stage, player);
-    player.right_rotate.register_set_eventListener(player.func_h.func, funch_frame, stage, player);
-    player.right_rotate.register_set_eventListener(player.func_c.func, funcc_frame, stage, player);
-    player.right_rotate.register_set_eventListener(player.func_s.func, funcs_frame, stage, player);
-    player.right_rotate.register_set_eventListener(player.func_d.func, funcd_frame, stage, player);
+    player.right_rotate.register_set_eventListener(player.func_h.func, h_frame, stage, player);
+    player.right_rotate.register_set_eventListener(player.func_c.func, c_frame, stage, player);
+    player.right_rotate.register_set_eventListener(player.func_s.func, s_frame, stage, player);
+    player.right_rotate.register_set_eventListener(player.func_d.func, d_frame, stage, player);
 
     player.func_h.register_set_eventListener(player.block_list, stack_frame, stage, player);
-    player.func_h.register_set_eventListener(player.func_h.func, funch_frame, stage, player);
-    player.func_h.register_set_eventListener(player.func_c.func, funcc_frame, stage, player);
-    player.func_h.register_set_eventListener(player.func_s.func, funcs_frame, stage, player);
-    player.func_h.register_set_eventListener(player.func_d.func, funcd_frame, stage, player);
+    player.func_h.register_set_eventListener(player.func_h.func, h_frame, stage, player);
+    player.func_h.register_set_eventListener(player.func_c.func, c_frame, stage, player);
+    player.func_h.register_set_eventListener(player.func_s.func, s_frame, stage, player);
+    player.func_h.register_set_eventListener(player.func_d.func, d_frame, stage, player);
 
     player.func_c.register_set_eventListener(player.block_list, stack_frame, stage, player);
-    player.func_c.register_set_eventListener(player.func_h.func, funch_frame, stage, player);
-    player.func_c.register_set_eventListener(player.func_c.func, funcc_frame, stage, player);
-    player.func_c.register_set_eventListener(player.func_s.func, funcs_frame, stage, player);
-    player.func_c.register_set_eventListener(player.func_d.func, funcd_frame, stage, player);
+    player.func_c.register_set_eventListener(player.func_h.func, h_frame, stage, player);
+    player.func_c.register_set_eventListener(player.func_c.func, c_frame, stage, player);
+    player.func_c.register_set_eventListener(player.func_s.func, s_frame, stage, player);
+    player.func_c.register_set_eventListener(player.func_d.func, d_frame, stage, player);
 
     player.func_s.register_set_eventListener(player.block_list, stack_frame, stage, player);
-    player.func_s.register_set_eventListener(player.func_h.func, funch_frame, stage, player);
-    player.func_s.register_set_eventListener(player.func_c.func, funcc_frame, stage, player);
-    player.func_s.register_set_eventListener(player.func_s.func, funcs_frame, stage, player);
-    player.func_s.register_set_eventListener(player.func_d.func, funcd_frame, stage, player);
+    player.func_s.register_set_eventListener(player.func_h.func, h_frame, stage, player);
+    player.func_s.register_set_eventListener(player.func_c.func, c_frame, stage, player);
+    player.func_s.register_set_eventListener(player.func_s.func, s_frame, stage, player);
+    player.func_s.register_set_eventListener(player.func_d.func, d_frame, stage, player);
 
     player.func_d.register_set_eventListener(player.block_list, stack_frame, stage, player);
-    player.func_d.register_set_eventListener(player.func_h.func, funch_frame, stage, player);
-    player.func_d.register_set_eventListener(player.func_c.func, funcc_frame, stage, player);
-    player.func_d.register_set_eventListener(player.func_s.func, funcs_frame, stage, player);
-    player.func_d.register_set_eventListener(player.func_d.func, funcd_frame, stage, player);
+    player.func_d.register_set_eventListener(player.func_h.func, h_frame, stage, player);
+    player.func_d.register_set_eventListener(player.func_c.func, c_frame, stage, player);
+    player.func_d.register_set_eventListener(player.func_s.func, s_frame, stage, player);
+    player.func_d.register_set_eventListener(player.func_d.func, d_frame, stage, player);
 
-    player.arg1.register_set_eventListener(player.func_h.func, funch_frame, stage, player);
-    player.arg1.register_set_eventListener(player.func_c.func, funcc_frame, stage, player);
-    player.arg1.register_set_eventListener(player.func_s.func, funcs_frame, stage, player);
-    player.arg1.register_set_eventListener(player.func_d.func, funcd_frame, stage, player);
+    player.arg1.register_set_eventListener(player.func_h.func, h_frame, stage, player);
+    player.arg1.register_set_eventListener(player.func_c.func, c_frame, stage, player);
+    player.arg1.register_set_eventListener(player.func_s.func, s_frame, stage, player);
+    player.arg1.register_set_eventListener(player.func_d.func, d_frame, stage, player);
 
-    player.arg2.register_set_eventListener(player.func_h.func, funch_frame, stage, player);
-    player.arg2.register_set_eventListener(player.func_c.func, funcc_frame, stage, player);
-    player.arg2.register_set_eventListener(player.func_s.func, funcs_frame, stage, player);
-    player.arg2.register_set_eventListener(player.func_d.func, funcd_frame, stage, player);
+    player.arg2.register_set_eventListener(player.func_h.func, h_frame, stage, player);
+    player.arg2.register_set_eventListener(player.func_c.func, c_frame, stage, player);
+    player.arg2.register_set_eventListener(player.func_s.func, s_frame, stage, player);
+    player.arg2.register_set_eventListener(player.func_d.func, d_frame, stage, player);
 
-    player.arg2.register_set_eventListener(player.func_h.func, funch_frame, stage, player);
-    player.arg2.register_set_eventListener(player.func_c.func, funcc_frame, stage, player);
-    player.arg2.register_set_eventListener(player.func_s.func, funcs_frame, stage, player);
-    player.arg2.register_set_eventListener(player.func_d.func, funcd_frame, stage, player);
+    player.arg2.register_set_eventListener(player.func_h.func, h_frame, stage, player);
+    player.arg2.register_set_eventListener(player.func_c.func, c_frame, stage, player);
+    player.arg2.register_set_eventListener(player.func_s.func, s_frame, stage, player);
+    player.arg2.register_set_eventListener(player.func_d.func, d_frame, stage, player);
 
     player.loop_start.register_set_eventListener(player.block_list, stack_frame, stage, player);
-    player.loop_start.register_set_eventListener(player.func_h.func, funch_frame, stage, player);
-    player.loop_start.register_set_eventListener(player.func_c.func, funcc_frame, stage, player);
-    player.loop_start.register_set_eventListener(player.func_s.func, funcs_frame, stage, player);
-    player.loop_start.register_set_eventListener(player.func_d.func, funcd_frame, stage, player);
+    player.loop_start.register_set_eventListener(player.func_h.func, h_frame, stage, player);
+    player.loop_start.register_set_eventListener(player.func_c.func, c_frame, stage, player);
+    player.loop_start.register_set_eventListener(player.func_s.func, s_frame, stage, player);
+    player.loop_start.register_set_eventListener(player.func_d.func, d_frame, stage, player);
 
     player.loop_end.register_set_eventListener(player.block_list, stack_frame, stage, player);
-    player.loop_end.register_set_eventListener(player.func_h.func, funch_frame, stage, player);
-    player.loop_end.register_set_eventListener(player.func_c.func, funcc_frame, stage, player);
-    player.loop_end.register_set_eventListener(player.func_s.func, funcs_frame, stage, player);
-    player.loop_end.register_set_eventListener(player.func_d.func, funcd_frame, stage, player);
+    player.loop_end.register_set_eventListener(player.func_h.func, h_frame, stage, player);
+    player.loop_end.register_set_eventListener(player.func_c.func, c_frame, stage, player);
+    player.loop_end.register_set_eventListener(player.func_s.func, s_frame, stage, player);
+    player.loop_end.register_set_eventListener(player.func_d.func, d_frame, stage, player);
 
     return stage;
   }
