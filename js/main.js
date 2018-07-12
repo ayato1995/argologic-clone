@@ -383,7 +383,7 @@ window.onload = function() {
     stage.addChild(player.loop_start);
     stage.addChild(player.loop_start.loop_label);
     // stage.addChild(loop);
-    stage.addChild(player.forEnd);
+    stage.addChild(player.loop_end);
     stage.addChild(play);
     stage.addChild(exeCopy);
     stage.addChild(funchCopy);
@@ -526,18 +526,11 @@ window.onload = function() {
     });
 
     /*
-    player.forStart.addEventListener("touchmove", function(e) {
-      this.x = e.x;
-      this.y = e.y;
-      loop.x = this.x + this.width - 6;
-      loop.y = this.y + this.height - 6;
-    });
-    */
-
     player.forEnd.addEventListener("touchmove", function(e) {
       this.x = e.x;
       this.y = e.y;
     });
+    */
 
     player.up.register_set_eventListener(player.block_list, stack_frame, stage, player);
     player.up.register_set_eventListener(player.func_h.func, funch_frame, stage, player);
@@ -601,81 +594,14 @@ window.onload = function() {
     player.loop_start.register_set_eventListener(player.func_c.func, funcc_frame, stage, player);
     player.loop_start.register_set_eventListener(player.func_s.func, funcs_frame, stage, player);
     player.loop_start.register_set_eventListener(player.func_d.func, funcd_frame, stage, player);
-    
+
+    player.loop_end.register_set_eventListener(player.block_list, stack_frame, stage, player);
+    player.loop_end.register_set_eventListener(player.func_h.func, funch_frame, stage, player);
+    player.loop_end.register_set_eventListener(player.func_c.func, funcc_frame, stage, player);
+    player.loop_end.register_set_eventListener(player.func_s.func, funcs_frame, stage, player);
+    player.loop_end.register_set_eventListener(player.func_d.func, funcd_frame, stage, player);
+
     /*
-    player.forStart.addEventListener("touchend", function(e) {
-      if (e.x > stack_frame.x && e.x < stack_frame.x + stack_frame.width && e.y > stack_frame.y && e.y < stack_frame.y + stack_frame.height) {
-        this.moveBlock(player.block_list);
-        player.block_list.push(new Block(stack_frame.x + 8, player.block_list.length * 20 + stack_frame.y + 4, "forStart"));
-        player.block_list[player.block_list.length - 1].loop_cnt = this.loop_cnt;
-        var label = addLabel(player.block_list[player.block_list.length - 1], String(player.block_list[player.block_list.length - 1].loop_cnt));
-        register_forBlock_eventListener(player.block_list[player.block_list.length - 1], player.block_list, player, stage, label);
-        stage.addChild(player.block_list[player.block_list.length - 1]);
-        stage.addChild(label);
-        register_loopCounter_eventListener(player.block_list[player.block_list.length - 1], label);
-      }
-      if (e.x > funch_frame.x && e.x < funch_frame.x + funch_frame.width && e.y > funch_frame.y && e.y < funch_frame.y + funch_frame.height) {
-        this.moveBlock(player.func_h.func);
-        player.func_h.func.push(new Block(funch_frame.x + 8, player.func_h.func.length * 20 + funch_frame.y + 4, "forStart"));
-        player.func_h.func[player.func_h.func.length - 1].loop_cnt = this.loop_cnt;
-        var label = addLabel(player.func_h.func[player.func_h.func.length - 1], String(player.func_h.func[player.func_h.func.length - 1].loop_cnt));
-        register_forBlock_eventListener(player.func_h.func[player.func_h.func.length - 1], player.func_h.func, player, stage, label);
-        stage.addChild(player.func_h.func[player.func_h.func.length - 1]);
-        stage.addChild(label);
-        register_loopCounter_eventListener(player.func_h.func[player.func_h.func.length - 1], label);
-      }
-      if (e.x > funcc_frame.x && e.x < funcc_frame.x + funcc_frame.width && e.y > funcc_frame.y && e.y < funcc_frame.y + funcc_frame.height) {
-        this.moveBlock(player.func_c.func);
-        player.func_c.func.push(new Block(funcc_frame.x + 8, player.func_c.func.length * 20 + funcc_frame.y + 4, "forStart"));
-        player.func_c.func[player.func_c.func.length - 1].loop_cnt = this.loop_cnt;
-        var label = addLabel(player.func_c.func[player.func_c.func.length - 1], String(player.func_c.func[player.func_c.func.length - 1].loop_cnt));
-        register_forBlock_eventListener(player.func_c.func[player.func_c.func.length - 1], player.func_c.func, player, stage, label);
-        stage.addChild(player.func_c.func[player.func_c.func.length - 1]);
-        stage.addChild(label);
-        register_loopCounter_eventListener(player.func_c.func[player.func_c.func.length - 1], label);
-      }
-      if (e.x > funcs_frame.x && e.x < funcs_frame.x + funcs_frame.width && e.y > funcs_frame.y && e.y < funcs_frame.y + funcs_frame.height) {
-        this.moveBlock(player.func_s.func);
-        player.func_s.func.push(new Block(funcs_frame.x + 8, player.func_s.func.length * 20 + funcs_frame.y + 4, "forStart"));
-        player.func_s.func[player.func_s.func.length - 1].loop_cnt = this.loop_cnt;
-        var label = addLabel(player.func_s.func[player.func_s.func.length - 1], String(player.func_s.func[player.func_s.func.length - 1].loop_cnt));
-        register_forBlock_eventListener(player.func_s.func[player.func_s.func.length - 1], player.func_s.func, player, stage, label);
-        stage.addChild(player.func_s.func[player.func_s.func.length -1]);
-        stage.addChild(label);
-        register_loopCounter_eventListener(player.func_s.func[player.func_s.func.length - 1], label);
-      }
-      if (e.x > funcd_frame.x && e.x < funcd_frame.x + funcd_frame.width && e.y > funcd_frame.y && e.y < funcd_frame.y + funcd_frame.height) {
-        this.moveBlock(player.func_d.func);
-        player.func_d.func.push(new Block(funcd_frame.x + 8, player.func_d.func.length * 20 + funcd_frame.y + 4, "forStart"));
-        player.func_d.func[player.func_d.func.length - 1].loop_cnt = this.loop_cnt;
-        var label = addLabel(player.func_d.func[player.func_d.func.length - 1], String(player.func_d.func[player.func_d.func.length - 1].loop_cnt));
-        register_forBlock_eventListener(player.func_d.func[player.func_d.func.length - 1], player.func_d.func, player, stage, label);
-        stage.addChild(player.func_d.func[player.func_d.func.length - 1]);
-        stage.addChild(label);
-        register_loopCounter_eventListener(player.func_d.func[player.func_d.func.length - 1], label);
-      }
-      this.x = 330;
-      this.y = 210;
-      loop.x = this.x + this.width - 6;
-      loop.y = this.y + this.height - 6;
-    });
-
-    loop.addEventListener("touchstart", function(e) {
-      if (player.forStart.loop_cnt < 10) {
-        player.forStart.loop_cnt++;
-      } else {
-        player.forStart.loop_cnt = 0;
-        this.x += 2;
-        this.width -= 2;
-      }
-      if (player.forStart.loop_cnt == 10) {
-        this.x -= 2;
-        this.width += 2;
-      }
-      this.text = String(player.forStart.loop_cnt);
-    });
-    */
-
     player.forEnd.addEventListener("touchend", function(e) {
       if (e.x > stack_frame.x && e.x < stack_frame.x + stack_frame.width && e.y > stack_frame.y && e.y < stack_frame.y + stack_frame.height 
         && this.checkForStart(player.block_list)) {
@@ -715,6 +641,7 @@ window.onload = function() {
       this.x = 330;
       this.y = 230;
     });
+    */
 
     return stage;
   }

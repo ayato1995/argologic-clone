@@ -11,11 +11,7 @@
     var string = null;
     var color = "silver";
 
-    if (type == "forStart") {
-      this.image = core.assets["../img/loop_start.png"];
-    } else if (type == "forEnd") {
-      this.image = core.assets["../img/loop_end.png"];
-    } else if (type == "play") {
+    if (type == "play") {
       this.image = core.assets["../img/play.png"];
       color = null;
     } else if (type == "copy") {
@@ -194,11 +190,11 @@
     var j = 1;
     while (true) {
       k++;
-      if (block[k].type == "forStart") {
+      if (block[k].type == "loop_start") {
         var req = this.forExecution(block, k, player, map, time, stage);
         time = req[0];
         k = req[1];
-      } else if (block[k].type == "forEnd") {
+      } else if (block[k].type == "loop_end") {
         if (j < loop) {
           k = i;
           j++;
