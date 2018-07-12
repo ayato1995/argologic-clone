@@ -106,18 +106,18 @@
         }
         i = k;
         time = this.play(player.func_s.func, player, stage, map, time);
-      } else if (block[i].type == "function_d") {
+      } else if (block[i].type == "function" && block[i].name == "diamond") {
       	var k = i;
         i++;
-        for (var j = player.func_d.length; i < block.length && j > 0; i++, j--) {
+        for (var j = player.func_d.arg_num; i < block.length && j > 0; i++, j--) {
           console.log("for " + block[i].type);
-          player.arg_d.push(block[i]);
+          player.func_d.arg.push(block[i]);
         }
-        if (player.func_d_arg.length != 0) {
-          block.splice(k + 1, player.func_d_arg.length);
+        if (player.func_d.arg_num != 0) {
+          block.splice(k + 1, player.func_d.arg_num);
         }
         i = k;
-        time = this.play(player.func_d, player, stage, map, time);
+        time = this.play(player.func_d.func, player, stage, map, time);
       } else if (block[i].type == "arg1") {
         var b = block[i];
         var order;

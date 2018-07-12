@@ -23,7 +23,8 @@
     this.func_c.register_move_eventListener();
     this.func_s = new Func_s(330, 110);
     this.func_s.register_move_eventListener();
-    this.funcd = new Block(330, 130, "function_d");
+    this.func_d = new Func_d(330, 130);
+    this.func_d.register_move_eventListener();
     this.arg1 = new Block(330, 150, "arg1");
     this.arg2 = new Block(330, 170, "arg2");
     this.arg3 = new Block(330, 190, "arg3");
@@ -42,11 +43,11 @@
     this.func_s = [];
     this.arg_s = [];
     this.func_s_arg = [];
-    */
     this.func_d = [];
     this.arg_d = [];
     this.func_d_arg = [];
     this.copy_list = [];
+    */
     this.maxCopy = 3;
     this.befor_block = null
   },
