@@ -25,9 +25,12 @@
     this.func_s.register_move_eventListener();
     this.func_d = new Func_d(330, 130);
     this.func_d.register_move_eventListener();
-    this.arg1 = new Block(330, 150, "arg1");
-    this.arg2 = new Block(330, 170, "arg2");
-    this.arg3 = new Block(330, 190, "arg3");
+    this.arg1 = new Arg(330, 150, 0);
+    this.arg1.register_move_eventListener();
+    this.arg2 = new Arg(330, 170, 1);
+    this.arg2.register_move_eventListener();
+    this.arg3 = new Arg(330, 190, 2);
+    this.arg3.register_move_eventListener();
     this.forStart = new Block(330, 210, "forStart");
     this.forEnd = new Block(330, 230, "forEnd");
     this.block_list = [];

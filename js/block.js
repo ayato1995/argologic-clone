@@ -11,21 +11,7 @@
     var string = null;
     var color = "silver";
 
-    if (type == "leftRotate") {
-      this.image = core.assets["../img/left.png"];
-    } else if (type == "rightRotate") {
-      this.image = core.assets["../img/right.png"];
-    } else if (type == "if") {
-      string = "もしも";
-    } else if (type == "function_h") {
-      this.image = core.assets["../img/heart.png"];
-    } else if (type == "function_c") {
-      this.image = core.assets["../img/clover.png"];
-    } else if (type == "function_s") {
-      this.image = core.assets["../img/spade.png"];
-    } else if (type == "function_d") {
-      this.image = core.assets["../img/diamond.png"];
-    } else if (type == "arg1") {
+    if (type == "arg1") {
       color = "tomato";
       this.func_name;
     } else if (type == "arg2") {
@@ -49,6 +35,7 @@
       color = null;
     }
 
+    /*
     this.label = new Label(string);
     this.label.x = this.x;
     this.label.y = this.y;
@@ -57,6 +44,7 @@
     this.loopCounter.x = this.x + this.width - 15;
     this.loopCounter.y = this.y;
     this.loopCounter.font = "6px 'MSゴシック'";
+    */
     this.backgroundColor = color;
   },
 
@@ -319,8 +307,6 @@
   
   moveBlock: function(n) {
     this.y = n * 20 + 31 + 4;
-    this.label.y = this.y;
-    this.loopCounter.y = this.y;
   },
 
   checkForStart: function(block_list) {

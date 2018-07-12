@@ -305,10 +305,12 @@ window.onload = function() {
     stack_frame.backgroundColor = "gray";
     stack_frame.x = 370;
     stack_frame.y = 31;
+    stack_frame.name = "stack";
     var funch_frame = new Sprite(32, 200);
     funch_frame.backgroundColor = "lightsteelblue";
     funch_frame.x = 412;
     funch_frame.y = 31;
+    funch_frame.name = "heart";
     var h_label = new Sprite(16, 16);
     h_label.image = core.assets["../img/heart.png"];
     h_label.x = funch_frame.x + 8;
@@ -317,6 +319,7 @@ window.onload = function() {
     funcc_frame.backgroundColor = "lightsteelblue";
     funcc_frame.x = 452;
     funcc_frame.y = 31;
+    funcc_frame.name = "clover";
     var c_label = new Sprite(16, 16);
     c_label.image = core.assets["../img/clover.png"];
     c_label.x = funcc_frame.x + 8;
@@ -325,6 +328,7 @@ window.onload = function() {
     funcs_frame.backgroundColor = "lightsteelblue";
     funcs_frame.x = 494;
     funcs_frame.y = 31;
+    funcs_frame.name = "spade";
     var s_label = new Sprite(16, 16);
     s_label.image = core.assets["../img/spade.png"];
     s_label.x = funcs_frame.x + 8;
@@ -333,6 +337,7 @@ window.onload = function() {
     funcd_frame.backgroundColor = "lightsteelblue";
     funcd_frame.x = 536;
     funcd_frame.y = 31;
+    funcd_frame.name = "diamond";
     var d_label = new Sprite(16, 16);
     d_label.image = core.assets["../img/diamond.png"];
     d_label.x = funcd_frame.x + 8;
@@ -518,6 +523,7 @@ window.onload = function() {
       }
     });
 
+    /*
     player.arg1.addEventListener("touchmove", function(e) {
       this.x = e.x;
       this.y = e.y;
@@ -531,7 +537,8 @@ window.onload = function() {
     player.arg3.addEventListener("touchmove", function(e) {
       this.x = e.x;
       this.y = e.y;
-    })
+    });
+    */
 
     player.forStart.addEventListener("touchmove", function(e) {
       this.x = e.x;
@@ -587,6 +594,21 @@ window.onload = function() {
     player.func_d.register_set_eventListener(player.func_s.func, funcs_frame, stage, player);
     player.func_d.register_set_eventListener(player.func_d.func, funcd_frame, stage, player);
 
+    player.arg1.register_set_eventListener(player.func_h.func, funch_frame, stage, player);
+    player.arg1.register_set_eventListener(player.func_c.func, funch_frame, stage, player);
+    player.arg1.register_set_eventListener(player.func_s.func, funch_frame, stage, player);
+    player.arg1.register_set_eventListener(player.func_d.func, funch_frame, stage, player);
+
+    player.arg2.register_set_eventListener(player.func_h.func, funch_frame, stage, player);
+    player.arg2.register_set_eventListener(player.func_c.func, funch_frame, stage, player);
+    player.arg2.register_set_eventListener(player.func_s.func, funch_frame, stage, player);
+    player.arg2.register_set_eventListener(player.func_d.func, funch_frame, stage, player);
+
+    player.arg2.register_set_eventListener(player.func_h.func, funch_frame, stage, player);
+    player.arg2.register_set_eventListener(player.func_c.func, funch_frame, stage, player);
+    player.arg2.register_set_eventListener(player.func_s.func, funch_frame, stage, player);
+    player.arg2.register_set_eventListener(player.func_d.func, funch_frame, stage, player);
+    /*
     player.arg1.addEventListener("touchend", function(e) {
       if (e.x > funch_frame.x && e.x < funch_frame.x + funch_frame.width && e.y > funch_frame.y && e.y < funch_frame.y + funch_frame.height) {
         this.moveBlock(player.func_h.func);
@@ -705,6 +727,7 @@ window.onload = function() {
       this.x = 330;
       this.y = 190;
     });
+    */
 
     player.forStart.addEventListener("touchend", function(e) {
       if (e.x > stack_frame.x && e.x < stack_frame.x + stack_frame.width && e.y > stack_frame.y && e.y < stack_frame.y + stack_frame.height) {

@@ -16,4 +16,4 @@ var Func_d = enchant.Class.create(Func, {
 		}
 		array.push(block);
 	}
-})
+});
