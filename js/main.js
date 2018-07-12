@@ -27,7 +27,7 @@ window.onload = function() {
       stage.clearFlag = false;
       game_set_image = core.assets["../img/end.png"];
     }
-    register_replay_eventListener(game_set_image, core.stageId, clear);
+    core.register_replay_eventListener(game_set_image, core.stageId, clear);
     scene.addChild(game_set_image);
     return scene;
   }
@@ -137,40 +137,6 @@ window.onload = function() {
     });
   }
 
-  register_func_block_eventListener = function(block, array, player, scene, args) {
-    block.addEventListener("touchstart", function() {
-      if (selectFlag) {
-        if (this.select) {
-          var i = searchBlock(block, player.copy_list);
-          player.copy_list.splice(i, player.copy_list.length - i);
-          i = searchBlock(block, array);
-          for (var j = i; j < array.length && j < i + 3; j++) {
-            array[j].select = false;
-            array[j].backgroundColor = "silver";
-          }
-        } else {
-          reset_block_color(scene.block_list);
-          reset_block_color(player.func_h.func);
-          reset_block_color(player.func_c.func);
-          reset_block_color(player.func_s.func);
-          reset_block_color(player.func_d.func);
-          player.copy_list = [];
-          var i = searchBlock(block, array);
-          for (var j = i; j < array.length && j < i + 3; j++) {
-            player.copy_list.push(array[j]);
-            array[j].select = true;
-            array[j].backgroundColor = "yellow";
-          }
-        }
-      } else {
-        scene.removeChild(this);
-        block_remove(array, this);
-        for (var i = args.length; i >= 0; i--) {
-        	scene.removeChild(args[i]);
-        } 
-      }
-    });
-  }
 /*
   searchBlock = function (block, array) {
     for (var i = 0; i < array.length; i++) {
@@ -179,34 +145,7 @@ window.onload = function() {
     return -1;
   }
   */
-
-  register_loopCounter_eventListener = function(block, label) {
-    label.addEventListener("touchstart", function() {
-      if (this.loop_cnt < 10) {
-        this.loop_cnt++;
-      } else {
-        this.loop_cnt = 0;
-        label.x += 2;
-        label.width -= 2;
-      }
-      if (this.loop_cnt == 10) {
-        label.x -= 2;
-        label.width += 2;
-      }
-      label.text = String(this.loop_cnt);
-    }.bind(block));
-
-    label.addEventListener("enterframe", function() {
-    	if (block.loop_cnt == 10) {
-    	  this.x = block.x + block.width - 8;
-    	} else {
-    	  this.x = block.x + block.width - 6;
-    	}
-    	this.y = block.y + block.height - 6;
-    });
-  }
-
-  register_replay_eventListener = function(img, id, flag) {
+  core.register_replay_eventListener = function(img, id, flag) {
   	img.addEventListener("touchstart", function() {
   	  core.popScene();
   	  core.popScene();
@@ -343,13 +282,13 @@ window.onload = function() {
     d_label.y = 10;
 
     var play = new Play(330, 300);
+    var select = new Select (330, 280);
     var exeCopy = new Block(stack_frame.x + 8, stack_frame.y + stack_frame.height + 10, "copy");
     var funchCopy = new Block(funch_frame.x + 8, funch_frame.y + funch_frame.height + 10, "copy");
     var funccCopy = new Block(funcc_frame.x + 8, funcc_frame.y + funcc_frame.height + 10, "copy");
     var funcsCopy = new Block(funcs_frame.x + 8, funcs_frame.y + funcs_frame.height + 10, "copy");
     var funcdCopy = new Block(funcd_frame.x + 8, funcd_frame.y + funcd_frame.height + 10, "copy");
-    var select = new Block(330, 280, "select");
-
+    
     var stage = new Scene();
     stage.id = stageId;
     stage.clearFlag = true;
@@ -378,22 +317,7 @@ window.onload = function() {
 
 
     play.register_play_eventListener(player, stage, map, goal);
-
-    select.addEventListener("touchstart", function(e) {
-      if (stage.selectFlag) {
-        stage.selectFlag = false;
-        reset_block_color(player.block_list);
-        reset_block_color(player.func_h.func);
-        reset_block_color(player.func_c.func);
-        reset_block_color(player.func_s.func);
-        reset_block_color(player.func_d.func);
-        this.backgroundColor = null;
-      } else {
-        stage.selectFlag = true;
-        this.backgroundColor = "yellow";
-      }
-      console.log(stage.selectFlag);
-    });
+    select.register_eventListener(stage, stack_frame, funch_frame, funcc_frame, funcs_frame, funcd_frame);
 
     exeCopy.addEventListener("touchstart", function(e) {
       if (player.copy_list.length != 0) {

@@ -8,18 +8,10 @@
     this.select = false;
     this.default_x = x;
     this.default_y = y;
-    var string = null;
-    var color = "silver";
 
     if (type == "copy") {
       this.image = core.assets["../img/copy.png"];
-      color = null;
-    } else if (type == "select") {
-      this.image = core.assets["../img/cut.png"];
-      color = null;
     }
-
-    this.backgroundColor = color;
   },
 
   remove: function() {
