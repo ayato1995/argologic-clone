@@ -32,17 +32,6 @@ window.onload = function() {
     return scene;
   }
 
-  block_remove = function(array, block) {
-    for (var i = 0; i < array.length; i++) {
-      if (array[i] == block) {
-        array.splice(i, 1);
-      }
-    }
-    for (var i = 0; i < array.length; i++) {
-      array[i].moveBlock(i);
-    }
-  }
-
   core.register_replay_eventListener = function(img, id, flag) {
   	img.addEventListener("touchstart", function() {
   	  core.popScene();
