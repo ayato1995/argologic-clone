@@ -10,7 +10,30 @@
     this.frame = dire;
     this.x = x;
     this.y = y;
-    this.blocks = [];
+    this.initialize_blocks();
+    this.block_list = [];
+    /*
+    this.func_h = [];
+    // blockを入れる
+    this.arg_h = [];
+    // 引数が何個あったか入れる
+    this.func_h_arg = [];
+    this.func_c = [];
+    this.arg_c = [];
+    this.func_c_arg = [];
+    this.func_s = [];
+    this.arg_s = [];
+    this.func_s_arg = [];
+    this.func_d = [];
+    this.arg_d = [];
+    this.func_d_arg = [];
+    this.copy_list = [];
+    */
+    this.maxCopy = 3;
+    this.befor_block = null
+  },
+
+  initialize_blocks: function() {
     this.up = new Up(330, 10);
     this.up.register_move_eventListener();
     this.left_rotate = new Left_rotate(330, 30);
@@ -35,43 +58,23 @@
     this.loop_start.register_move_eventListener();
     this.loop_end = new Loop_end(330, 230);
     this.loop_end.register_move_eventListener();
-    // this.forStart = new Block(330, 210, "forStart");
-    // this.forEnd = new Block(330, 230, "forEnd");
-    this.block_list = [];
-    /*
-    this.func_h = [];
-    // blockを入れる
-    this.arg_h = [];
-    // 引数が何個あったか入れる
-    this.func_h_arg = [];
-    this.func_c = [];
-    this.arg_c = [];
-    this.func_c_arg = [];
-    this.func_s = [];
-    this.arg_s = [];
-    this.func_s_arg = [];
-    this.func_d = [];
-    this.arg_d = [];
-    this.func_d_arg = [];
-    this.copy_list = [];
-    */
-    this.maxCopy = 3;
-    this.befor_block = null
   },
-  /*
-  initialize_blocks: function() {
-    this.blocks.push(new Up(330, 10));
-    this.blocks.push(new Left_rotate(330, 30));
-    this.blocks.push(new Right_rotate(330, 50));
-    this.blocks.push(new Func_h(330, 70));
-    this.blocks.push(new Func_c(330, 90));
-    this.blocks.push(new Func_s(330, 110));
-    this.blocks.push(new Func_d(330, 130));
-    this.blocks.push(new Arg1(330, 150));
-    this.blocks.push(new Arg2(330, 170));
-    this.blocks.push(new Arg3(330, 190));
+
+  push_block_stage: function(stage) {
+    stage.addChild(this.up);
+    stage.addChild(this.left_rotate);
+    stage.addChild(this.right_rotate);
+    stage.addChild(this.func_h);
+    stage.addChild(this.func_c);
+    stage.addChild(this.func_s);
+    stage.addChild(this.func_d);
+    stage.addChild(this.arg1);
+    stage.addChild(this.arg2);
+    stage.addChild(this.arg3);
+    stage.addChild(this.loop_start);
+    stage.addChild(this.loop_start.loop_label);
+    stage.addChild(this.loop_end);
   },
-  */
 
   toUp: function(map, stage) {
   	switch(this.frame) {

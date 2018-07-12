@@ -247,7 +247,6 @@ window.onload = function() {
 
   titleScene = function() {
   	var scene = new Scene();
-  	// scene.backgroundColor = "red";
   	var title = new Label("アルゴロジック クローン");
   	title.height = 16;
   	title.width = 166;
@@ -343,7 +342,7 @@ window.onload = function() {
     d_label.x = funcd_frame.x + 8;
     d_label.y = 10;
 
-    var play = new Block(330, 300, "play");
+    var play = new Play(330, 300);
     var exeCopy = new Block(stack_frame.x + 8, stack_frame.y + stack_frame.height + 10, "copy");
     var funchCopy = new Block(funch_frame.x + 8, funch_frame.y + funch_frame.height + 10, "copy");
     var funccCopy = new Block(funcc_frame.x + 8, funcc_frame.y + funcc_frame.height + 10, "copy");
@@ -351,12 +350,10 @@ window.onload = function() {
     var funcdCopy = new Block(funcd_frame.x + 8, funcd_frame.y + funcd_frame.height + 10, "copy");
     var select = new Block(330, 280, "select");
 
-    // var loop = addLabel(player.loop_start, String(player.loop_start.loop_cnt));
     var stage = new Scene();
     stage.id = stageId;
     stage.clearFlag = true;
     stage.selectFlag = false;
-    // stage.block_list = [];
 
     stage.addChild(map);
     stage.addChild(stack_frame);
@@ -370,20 +367,7 @@ window.onload = function() {
     stage.addChild(funcd_frame);
     stage.addChild(goal);
     stage.addChild(player);
-    stage.addChild(player.up);
-    stage.addChild(player.left_rotate);
-    stage.addChild(player.right_rotate);
-    stage.addChild(player.func_h);
-    stage.addChild(player.func_c);
-    stage.addChild(player.func_s);
-    stage.addChild(player.func_d);
-    stage.addChild(player.arg1);
-    stage.addChild(player.arg2);
-    stage.addChild(player.arg3);
-    stage.addChild(player.loop_start);
-    stage.addChild(player.loop_start.loop_label);
-    // stage.addChild(loop);
-    stage.addChild(player.loop_end);
+    player.push_block_stage(stage);
     stage.addChild(play);
     stage.addChild(exeCopy);
     stage.addChild(funchCopy);
@@ -392,27 +376,8 @@ window.onload = function() {
     stage.addChild(funcdCopy);
     stage.addChild(select);
 
-    play.addEventListener("touchstart", function(e) {
-      if(player.block_list.length != 0) {
-      	var time = this.play(player.block_list, player, stage, map, 0);
-        setTimeout(function() {
-          if (!stage.clearFlag) return;
-          stage.clearFlag = false;
-          if (player.before_block != null)
-            player.before_block.backgroundColor = "silver";
-          if (player.within(goal, 16)) {
-          	var scene = core.field(true, stage);
-            core.pushScene(scene);
-          } else {
-          	var scene = core.field(false, stage);
-            core.pushScene(scene);
-          }
-          for (i = 0; i < player.block_list.length; i++)
-            player.block_list[i].remove();
-        }, time);
-        player.block_list = [];
-      }
-    });
+
+    play.register_play_eventListener(player, stage, map, goal);
 
     select.addEventListener("touchstart", function(e) {
       if (stage.selectFlag) {
@@ -525,13 +490,6 @@ window.onload = function() {
       }
     });
 
-    /*
-    player.forEnd.addEventListener("touchmove", function(e) {
-      this.x = e.x;
-      this.y = e.y;
-    });
-    */
-
     player.up.register_set_eventListener(player.block_list, stack_frame, stage, player);
     player.up.register_set_eventListener(player.func_h.func, funch_frame, stage, player);
     player.up.register_set_eventListener(player.func_c.func, funcc_frame, stage, player);
@@ -600,48 +558,6 @@ window.onload = function() {
     player.loop_end.register_set_eventListener(player.func_c.func, funcc_frame, stage, player);
     player.loop_end.register_set_eventListener(player.func_s.func, funcs_frame, stage, player);
     player.loop_end.register_set_eventListener(player.func_d.func, funcd_frame, stage, player);
-
-    /*
-    player.forEnd.addEventListener("touchend", function(e) {
-      if (e.x > stack_frame.x && e.x < stack_frame.x + stack_frame.width && e.y > stack_frame.y && e.y < stack_frame.y + stack_frame.height 
-        && this.checkForStart(player.block_list)) {
-        this.moveBlock(player.block_list);
-        player.block_list.push(new Block(stack_frame.x + 8, player.block_list.length * 20 + stack_frame.y + 4, "forEnd"));
-        register_block_eventListener(player.block_list[player.block_list.length - 1], player.block_list, player, stage);
-        stage.addChild(player.block_list[player.block_list.length - 1]);
-      }
-      if (e.x > funch_frame.x && e.x < funch_frame.x + funch_frame.width && e.y > funch_frame.y && e.y < funch_frame.y + funch_frame.height
-        && this.checkForStart(player.func_h.func)) {
-        this.moveBlock(player.func_h.func);
-        player.func_h.func.push(new Block(funch_frame.x + 8, player.func_h.func.length * 20 + funch_frame.y + 4, "forEnd"));
-        register_block_eventListener(player.func_h.func[player.func_h.func.length - 1], player.func_h.func, player, stage);
-        stage.addChild(player.func_h.func[player.func_h.func.length - 1]);
-      }
-      if (e.x > funcc_frame.x && e.x < funcc_frame.x + funcc_frame.width && e.y > funcc_frame.y && e.y < funcc_frame.y + funcc_frame.height
-        && this.checkForStart(player.func_c.func)) {
-        this.moveBlock(player.func_c.func);
-        player.func_c.func.push(new Block(funcc_frame.x + 8, player.func_c.func.length * 20 + funcc_frame.y + 4, "forEnd"));
-        register_block_eventListener(player.func_c.func[player.func_c.func.length - 1], player.func_c.func, player, stage);
-        stage.addChild(player.func_c.func[player.func_c.func.length - 1]);
-      }
-      if (e.x > funcs_frame.x && e.x < funcs_frame.x + funcs_frame.width && e.y > funcs_frame.y && e.y < funcs_frame.y + funcs_frame.height
-        && this.checkForStart(player.func_s.func)) {
-        this.moveBlock(player.func_s.func);
-        player.func_s.func.push(new Block(funcs_frame.x + 8, player.func_s.func.length * 20 + funcs_frame.y + 4, "forEnd"));
-        register_block_eventListener(player.func_s.func[player.func_s.func.length - 1], player.func_s.func, player, stage);
-        stage.addChild(player.func_s.func[player.func_s.func.length -1]);
-      }
-      if (e.x > funcd_frame.x && e.x < funcd_frame.x + funcd_frame.width && e.y > funcd_frame.y && e.y < funcd_frame.y + funcd_frame.height
-        && this.checkForStart(player.func_d.func)) {
-        this.moveBlock(player.func_d.func);
-        player.func_d.func.push(new Block(funcd_frame.x + 8, player.func_d.func.length * 20 + funcd_frame.y + 4, "forEnd"));
-        register_block_eventListener(player.func_d.func[player.func_d.func.length - 1], player.func_d.func, player, stage);
-        stage.addChild(player.func_d.func[player.func_d.func.length - 1]);
-      }
-      this.x = 330;
-      this.y = 230;
-    });
-    */
 
     return stage;
   }
