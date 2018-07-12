@@ -27,8 +27,8 @@
     this.func_d = [];
     this.arg_d = [];
     this.func_d_arg = [];
-    this.copy_list = [];
     */
+    this.copy_list = [];
     this.maxCopy = 3;
     this.befor_block = null
   },

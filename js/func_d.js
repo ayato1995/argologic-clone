@@ -6,7 +6,6 @@ var Func_d = enchant.Class.create(Func, {
 	},
 
 	set_block: function(array, frame, stage, player) {
-		this.moveBlock(array.length);
 		var block = new Func_d(frame.x + 8, array.length * 20 + frame.y + 4);
 		var bs = block.expand_func_block(this.arg_num);
 		block.register_remove_eventListener(array, stage, player, bs);

@@ -1,17 +1,11 @@
 ﻿var Block = enchant.Class.create(enchant.Sprite, {
-  initialize: function(x, y, type) {
+  initialize: function(x, y) {
     enchant.Sprite.call(this, 16, 16);
-    this.type = type;
     this.x = x;
     this.y = y;
-    this.loop_cnt = 0;
     this.select = false;
     this.default_x = x;
     this.default_y = y;
-
-    if (type == "copy") {
-      this.image = core.assets["../img/copy.png"];
-    }
   },
 
   remove: function() {

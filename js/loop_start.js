@@ -93,7 +93,6 @@ var Loop_start = enchant.Class.create(Block, {
 	},
 
 	set_block: function(array, frame, stage, player) {
-		this.moveBlock(array.length);
 		var block = new Loop_start(frame.x + 8, array.length * 20 + frame.y + 4);
 		block.set_loop_cnt(this.loop_cnt);
 		block.register_remove_eventListener(array, stage, player);

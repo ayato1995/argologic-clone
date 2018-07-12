@@ -54,7 +54,6 @@ var Right_rotate = enchant.Class.create(Block, {
 	},
 
 	set_block: function(array, frame, stage, player) {
-		this.moveBlock(array.length);
 		var block = new Right_rotate(frame.x + 8, array.length * 20 + frame.y + 4);
 		block.register_remove_eventListener(array, stage, player);
 		stage.addChild(block);

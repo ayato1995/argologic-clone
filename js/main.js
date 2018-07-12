@@ -43,108 +43,6 @@ window.onload = function() {
     }
   }
 
-  register_block_eventListener = function(block, array, player, scene) {
-    block.addEventListener("touchstart", function() {
-      if (selectFlag) {
-        if (this.select) {
-          var i = searchBlock(block, player.copy_list);
-          player.copy_list.splice(i, player.copy_list.length - i);
-          i = searchBlock(block, array);
-          for (var j = i; j < array.length && j < i + 3; j++) {
-            array[j].select = false;
-            if (array[j].type == "arg1") {
-              array[j].backgroundColor = "tomato";
-            } else if (array[j].type == "arg2") {
-              array[j].backgroundColor = "deepskyblue";
-            } else if (array[j].type == "arg3") {
-              array[j].backgroundColor = "greenyellow";
-            } else {
-              array[j].backgroundColor = "silver";
-            }
-          }
-        } else {
-          reset_block_color(scene.block_list);
-          reset_block_color(player.func_h.func);
-          reset_block_color(player.func_c.func);
-          reset_block_color(player.func_s.func);
-          reset_block_color(player.func_d.func);
-          player.copy_list = [];
-          var i = searchBlock(block, array);
-          for (var j = i; j < array.length && j < i + 3; j++) {
-            player.copy_list.push(array[j]);
-            array[j].select = true;
-            array[j].backgroundColor = "yellow";
-          }
-        }
-      } else {
-        scene.removeChild(this);
-        block_remove(array, this);
-        if (this.type == "arg1" || this.type == "arg2" || this.type || "arg3") {
-          var i = 0;
-          if (this.func_name == "h") {
-          	for (; i < player.func_h.func_arg.length; i++)
-          	  if (player.func_h_arg[i] == this.type) {
-          	  	player.func_h_arg.splice(i, 1);
-          	  }
-          } else if (this.func_name == "c") {
-          	for (; i < player.func_c_arg.length; i++)
-          	  if (player.func_c_arg[i] == this.type) 
-          	  	player.func_c_arg.splice(i, 1);
-          } else if (this.func_name == "s") {
-          	for (; i < player.func_s_arg.length; i++)
-          	  if (player.func_s_arg[i] == this.type) 
-          	  	player.func_s_arg.splice(i, 1);
-          } else if (this.func_name == "d") {
-          	for (; i < player.func_d.arg_num; i++)
-          	  if (player.func_d_arg[i] == this.type) 
-          	  	player.func_d_arg.splice(i, 1);
-          }
-        }
-      }
-    });
-  }
-
-  register_forBlock_eventListener = function(block, array, player, scene, label) {
-    block.addEventListener("touchstart", function() {
-      if (selectFlag) {
-        if (this.select) {
-          reset_block_color(scene.block_list);
-          reset_block_color(player.func_h.func);
-          reset_block_color(player.func_c.func);
-          reset_block_color(player.func_s.func);
-          reset_block_color(player.func_d.func);
-          var i = searchBlock(block, player.copy_list);
-          player.copy_list.splice(i, player.copy_list.length - i);
-          i = searchBlock(block, array);
-          for (var j = i; j < array.length && j < i + 3; j++) {
-            array[j].select = false;
-            array[j].backgroundColor = "silver";
-          }
-        } else {
-          player.copy_list = [];
-          var i = searchBlock(block, array);
-          for (var j = i; j < array.length && j < i + 3; j++) {
-            player.copy_list.push(array[j]);
-            array[j].select = true;
-            array[j].backgroundColor = "yellow";
-          }
-        }
-      } else {
-        scene.removeChild(this);
-        block_remove(array, this);
-        scene.removeChild(label);
-      }
-    });
-  }
-
-/*
-  searchBlock = function (block, array) {
-    for (var i = 0; i < array.length; i++) {
-      if (array[i] == block) return i;
-    }
-    return -1;
-  }
-  */
   core.register_replay_eventListener = function(img, id, flag) {
   	img.addEventListener("touchstart", function() {
   	  core.popScene();
@@ -156,32 +54,6 @@ window.onload = function() {
   	    scene = createStage(id);
   	  core.pushScene(scene);
   	});
-  }
-
-  reset_block_color = function(array) {
-    for (var i = 0; i < array.length; i++) {
-      if (array[i].type == "arg1") {
-      	array[i].backgroundColor = "tomato";
-      } else if (array[i].type == "arg2") {
-      	array[i].backgroundColor = "deepskyblue";
-      } else if (array[i].type ==  "arg3") {
-      	array[i].backgroundColor = "greenyellow";
-      } else {
-        array[i].backgroundColor = "silver";
-      }
-    }
-  }
-
-  addLabel = function(block, text) {
-    var label = new Label(text);
-    label.x = block.x + block.width - 6;
-    label.y = block.y + block.height - 6;
-    label.backgroundColor = "white";
-    label.font = "6px 'MSゴシック'";
-
-    label.height = 6;
-    label.width = 6;
-    return label;
   }
 
   titleScene = function() {
@@ -283,11 +155,11 @@ window.onload = function() {
 
     var play = new Play(330, 300);
     var select = new Select (330, 280);
-    var exeCopy = new Block(stack_frame.x + 8, stack_frame.y + stack_frame.height + 10, "copy");
-    var funchCopy = new Block(funch_frame.x + 8, funch_frame.y + funch_frame.height + 10, "copy");
-    var funccCopy = new Block(funcc_frame.x + 8, funcc_frame.y + funcc_frame.height + 10, "copy");
-    var funcsCopy = new Block(funcs_frame.x + 8, funcs_frame.y + funcs_frame.height + 10, "copy");
-    var funcdCopy = new Block(funcd_frame.x + 8, funcd_frame.y + funcd_frame.height + 10, "copy");
+    var exe_copy = new Copy(stack_frame.x + 8, stack_frame.y + stack_frame.height + 10);
+    var h_copy = new Copy(funch_frame.x + 8, funch_frame.y + funch_frame.height + 10);
+    var c_copy = new Copy(funcc_frame.x + 8, funcc_frame.y + funcc_frame.height + 10);
+    var s_copy = new Copy(funcs_frame.x + 8, funcs_frame.y + funcs_frame.height + 10);
+    var d_copy = new Copy(funcd_frame.x + 8, funcd_frame.y + funcd_frame.height + 10);
     
     var stage = new Scene();
     stage.id = stageId;
@@ -308,111 +180,21 @@ window.onload = function() {
     stage.addChild(player);
     player.push_block_stage(stage);
     stage.addChild(play);
-    stage.addChild(exeCopy);
-    stage.addChild(funchCopy);
-    stage.addChild(funccCopy);
-    stage.addChild(funcsCopy);
-    stage.addChild(funcdCopy);
+    stage.addChild(exe_copy);
+    stage.addChild(h_copy);
+    stage.addChild(c_copy);
+    stage.addChild(s_copy);
+    stage.addChild(d_copy);
     stage.addChild(select);
 
-
+    console.log(exe_copy.register_eventListener);
     play.register_play_eventListener(player, stage, map, goal);
     select.register_eventListener(stage, stack_frame, funch_frame, funcc_frame, funcs_frame, funcd_frame);
-
-    exeCopy.addEventListener("touchstart", function(e) {
-      if (player.copy_list.length != 0) {
-        for (var i = 0; i < player.copy_list.length; i++) {
-          player.block_list.push(new Block(stack_frame.x + 8, player.block_list.length * 20 + stack_frame.y + 4, player.copy_list[i].type));
-          if (player.block_list[player.block_list.length  - 1].type == "loop_start") {
-            player.block_list[player.block_list.length - 1].loop_cnt = player.copy_list[i].loop_cnt;
-            var label = addLabel(player.block_list[player.block_list.length - 1], String(player.block_list[player.block_list.length - 1].loop_cnt));
-            register_forBlock_eventListener(player.block_list[player.block_list.length - 1], player.block_list, player, stage, label);
-            stage.addChild(player.block_list[player.block_list.length - 1]);
-            stage.addChild(label);
-          } else {
-            register_block_eventListener(player.block_list[player.block_list.length - 1], player.block_list, player, stage);
-            stage.addChild(player.block_list[player.block_list.length - 1]);
-            stage.addChild(player.block_list[player.block_list.length - 1].label);
-          }
-        }
-      }
-    });
-
-    funchCopy.addEventListener("touchstart", function(e) {
-      if (player.copy_list.length != 0) {
-        for (var i = 0; i < player.copy_list.length; i++) {
-          player.func_h.func.push(new Block(funch_frame.x + 8, player.func_h.func.length * 20 + funch_frame.y + 4, player.copy_list[i].type));
-          if (player.func_h.func[player.func_h.func.length - 1].type == "loop_start") {
-            player.func_h.func[player.func_h.func.length -1].loop_cnt = player.copy_list[i].loop_cnt;
-            var label = addLabel(player.func_h.func[player.func_h.func.length -1], String(player.func_h.func[player.func_h.func.length - 1].loop_cnt));
-            register_forBlock_eventListener(player.func_h.func[player.func_h.func.length - 1], player.func_h.func, player, stage, label);
-            stage.addChild(player.func_h.func[player.func_h.func.length - 1]);
-            stage.addChild(label);
-          } else {
-            register_block_eventListener(player.func_h.func[player.func_h.func.length - 1], player.func_h.func, player, stage);
-            stage.addChild(player.func_h.func[player.func_h.func.length - 1]);
-            stage.addChild(player.func_h.func[player.func_h.func.length - 1].label);
-          }
-        }
-      }
-    });
-
-    funccCopy.addEventListener("touchstart", function(e) {
-      if (player.copy_list.length != 0) {
-        for (var i = 0; i < player.copy_list.length; i++) {
-          player.func_c.func.push(new Block(funcc_frame.x + 8, player.func_c.func.length * 20 + funcc_frame.y + 4, player.copy_list[i].type));
-          if (player.func_c.func[player.func_c.func.length - 1].type == "loop_start") {
-            player.func_c.func[player.func_c.func.length -1].loop_cnt = player.copy_list[i].loop_cnt;
-            var label = addLabel(player.func_c.func[player.func_c.func.length -1], String(player.func_c.func[player.func_c.func.length - 1].loop_cnt));
-            register_forBlock_eventListener(player.func_c.func[player.func_c.func.length - 1], player.func_c.func, player, stage, label);
-            stage.addChild(player.func_c.func[player.func_c.func.length - 1]);
-            stage.addChild(label);
-          } else {
-            register_block_eventListener(player.func_c.func[player.func_c.func.length - 1], player.func_c.func, player, stage);
-            stage.addChild(player.func_c.func[player.func_c.func.length - 1]);
-            stage.addChild(player.func_c.func[player.func_c.func.length - 1].label);
-          }
-        }
-      }
-    });
-
-    funcsCopy.addEventListener("touchstart", function(e) {
-      if (player.copy_list.length != 0) {
-        for (var i = 0; i < player.copy_list.length; i++) {
-          player.func_s.func.push(new Block(funcs_frame.x + 8, player.func_s.func.length * 20 + funcs_frame.y + 4, player.copy_list[i].type));
-          if (player.func_s.func[player.func_s.func.length - 1].type == "loop_start") {
-            player.func_s.func[player.func_s.func.length -1].loop_cnt = player.copy_list[i].loop_cnt;
-            var label = addLabel(player.func_s.func[player.func_s.func.length -1], String(player.func_s.func[player.func_s.func.length - 1].loop_cnt));
-            register_forBlock_eventListener(player.func_s.func[player.func_s.func.length - 1], player.func_s.func, player, stage, label);
-            stage.addChild(player.func_s.func[player.func_s.func.length - 1]);
-            stage.addChild(label);
-          } else {
-            register_block_eventListener(player.func_s.func[player.func_s.func.length - 1], player.func_s.func, player, stage);
-            stage.addChild(player.func_s.func[player.func_s.func.length - 1]);
-            stage.addChild(player.func_s.func[player.func_s.func.length - 1].label);
-          }
-        }
-      }
-    });
-
-    funcdCopy.addEventListener("touchstart", function(e) {
-      if (player.copy_list.length != 0) {
-        for (var i = 0; i < player.copy_list.length; i++) {
-          player.func_d.func.push(new Block(funcd_frame.x + 8, player.func_d.func.length * 20 + funcd_frame.y + 4, player.copy_list[i].type));
-          if (player.func_d.func[player.func_d.func.length - 1].type == "loop_start") {
-            player.func_d.func[player.func_d.func.length -1].loop_cnt = player.copy_list[i].loop_cnt;
-            var label = addLabel(player.func_d.func[player.func_d.func.length -1], String(player.func_d.func[player.func_d.func.length - 1].loop_cnt));
-            register_forBlock_eventListener(player.func_d.func[player.func_d.func.length - 1], player.func_d.func, player, stage, label);
-            stage.addChild(player.func_d.func[player.func_d.func.length - 1]);
-            stage.addChild(label);
-          } else {
-            register_block_eventListener(player.func_d.func[player.func_d.func.length - 1], player.func_d.func, player, stage);
-            stage.addChild(player.func_d.func[player.func_d.func.length - 1]);
-            stage.addChild(player.func_d.func[player.func_d.func.length - 1].label);
-          }
-        }
-      }
-    });
+    exe_copy.register_eventListener(player, player.block_list, stack_frame, stage);
+    h_copy.register_eventListener(player, player.func_h.func, funch_frame, stage);
+    c_copy.register_eventListener(player, player.func_c.func, funcc_frame, stage);
+    s_copy.register_eventListener(player, player.func_s.func, funcs_frame, stage);
+    d_copy.register_eventListener(player, player.func_d.func, funcd_frame, stage);
 
     player.up.register_set_eventListener(player.block_list, stack_frame, stage, player);
     player.up.register_set_eventListener(player.func_h.func, funch_frame, stage, player);

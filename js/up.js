@@ -19,7 +19,7 @@ var Up = enchant.Class.create(Block, {
             			array[j].backgroundColor = array[j].default_color;
           			}
         		} else {
-          			player.reset_block_color();
+          			// player.reset_block_color();
           			player.copy_list.length = 0;
           			var i = this.searchBlock(array);
           			for (var j = i; j < array.length && j < i + 3; j++) {
@@ -54,10 +54,10 @@ var Up = enchant.Class.create(Block, {
   	},
 
   	set_block: function(array, frame, stage, player) {
-  		this.moveBlock(array.length);
   		var block = new Up(frame.x + 8, array.length * 20 + frame.y + 4);
   		block.register_remove_eventListener(array, stage, player);
   		stage.addChild(block);
   		array.push(block);
   	}
+
 });

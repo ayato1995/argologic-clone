@@ -3,7 +3,6 @@ var Select = enchant.Class.create(Block, {
 		Block.call(this, x, y);
 		this.type = "select";
 		this.image = core.assets["../img/cut.png"];
-		this.backgroundColor = null;
 	},
 
 	register_eventListener(stage, exe_frame, h_frame, c_frame, s_frame, d_frame) {
