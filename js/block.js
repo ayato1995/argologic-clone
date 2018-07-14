@@ -68,6 +68,10 @@
     return blocks;
   },
 
+  reset_backgroundColor: function() {
+    this.backgroundColor = this.default_color;
+  },
+
   register_expand_func_block_eventListener: function(arg, block) {
   	arg.addEventListener("enterframe", function() {
   	  this.x = block.x;
@@ -87,5 +91,14 @@
     for (var i = 0; i < array.length; i++) {
       array[i].moveBlock(i);
     }
+  },
+
+  reset_block_color: function(stage) {
+    stage.stack_frame.reset_blocks_backgroundColor();
+    stage.h_frame.reset_blocks_backgroundColor();
+    stage.c_frame.reset_blocks_backgroundColor();
+    stage.s_frame.reset_blocks_backgroundColor();
+    stage.d_frame.reset_blocks_backgroundColor();
   }
+
 });

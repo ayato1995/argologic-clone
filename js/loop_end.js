@@ -53,6 +53,14 @@ var Loop_end = enchant.Class.create(Block, {
 		});
 	},
 
+    register_all_set_eventListener: function(stack, h, c, s, d, stage, player) {
+      this.register_set_eventListener(stack.blocks, stack, stage, player);
+      this.register_set_eventListener(h.blocks, h, stage, player);
+      this.register_set_eventListener(c.blocks, c, stage, player);
+      this.register_set_eventListener(s.blocks, s, stage, player);
+      this.register_set_eventListener(d.blocks, d, stage, player);
+    },
+
 	set_block: function(array, frame, stage, player) {
 		var block = new Loop_end(frame.x + 8, array.length * 20 + frame.y + 4);
 		block.register_remove_eventListener(array, stage, player);

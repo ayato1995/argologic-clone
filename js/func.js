@@ -4,9 +4,11 @@ var Func = enchant.Class.create(Block, {
 		this.type = "function";
 		this.default_color = "silver";
 		this.backgroundColor = this.default_color;
+		/*
 		this.func = [];
 		this.arg = [];
 		this.arg_num = 0;
+		*/
 	},
 
 	register_remove_eventListener: function(array, stage, player, args) {
@@ -57,6 +59,14 @@ var Func = enchant.Class.create(Block, {
 			this.y = this.default_y;
 		});
 	},
+
+    register_all_set_eventListener: function(stack, h, c, s, d, stage, player) {
+      this.register_set_eventListener(stack.blocks, stack, stage, player);
+      this.register_set_eventListener(h.blocks, h, stage, player);
+      this.register_set_eventListener(c.blocks, c, stage, player);
+      this.register_set_eventListener(s.blocks, s, stage, player);
+      this.register_set_eventListener(d.blocks, d, stage, player);
+    },
 
 	expand_func_block: function(argNum) {
 		var blocks = [];

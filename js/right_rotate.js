@@ -52,6 +52,14 @@ var Right_rotate = enchant.Class.create(Block, {
 			this.y = this.default_y;
 		});
 	},
+	
+    register_all_set_eventListener: function(stack, h, c, s, d, stage, player) {
+      this.register_set_eventListener(stack.blocks, stack, stage, player);
+      this.register_set_eventListener(h.blocks, h, stage, player);
+      this.register_set_eventListener(c.blocks, c, stage, player);
+      this.register_set_eventListener(s.blocks, s, stage, player);
+      this.register_set_eventListener(d.blocks, d, stage, player);
+    },
 
 	set_block: function(array, frame, stage, player) {
 		var block = new Right_rotate(frame.x + 8, array.length * 20 + frame.y + 4);

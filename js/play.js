@@ -8,8 +8,10 @@ var Play = enchant.Class.create(Block, {
 
 	register_play_eventListener: function(player, stage, map, goal) {
 		this.addEventListener("touchend", function() {
-			if (player.block_list.length != 0) {
-				var time = this.play(player.block_list, player, stage, map, 0);
+			// if (player.block_list.length != 0) {
+			console.log(stage.stack_frame);
+			if (stage.stack_frame.blocks.length != 0) {
+				var time = this.play(stage.stack_frame.blocks, player, stage, map, 0);
 				setTimeout(function() {
 					if (!stage.clearFlag) return;
 					if (player.before_block != null)
@@ -21,10 +23,8 @@ var Play = enchant.Class.create(Block, {
 						var scene = core.field(false, stage);
 						core.pushScene(scene);
 					}
-					for (var i = 0; i < player.block_list.length; i++)
-						player.block_list[i].remove();
 				}, time);
-				player.block_list.length = 0;
+				stage.stack_frame.blocks.length = 0;
 			}
 		});
 	},

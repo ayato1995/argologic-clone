@@ -77,6 +77,21 @@
     stage.addChild(this.loop_end);
   },
 
+  set_block_eventListener: function(stack, h, c, s, d, stage, player) {
+    this.up.register_all_set_eventListener(stack, h, c, s, d, stage, player);
+    this.left_rotate.register_all_set_eventListener(stack, h, c, s, d, stage, player);
+    this.right_rotate.register_all_set_eventListener(stack, h, c, s, d, stage, player);
+    this.func_h.register_all_set_eventListener(stack, h, c, s, d, stage, player);
+    this.func_c.register_all_set_eventListener(stack, h, c, s, d, stage, player);
+    this.func_s.register_all_set_eventListener(stack, h, c, s, d, stage, player);
+    this.func_d.register_all_set_eventListener(stack, h, c, s, d, stage, player);
+    this.arg1.register_all_set_eventListener(stack, h, c, s, d, stage, player);
+    this.arg2.register_all_set_eventListener(stack, h, c, s, d, stage, player);
+    this.arg3.register_all_set_eventListener(stack, h, c, s, d, stage, player);
+    this.loop_start.register_all_set_eventListener(stack, h, c, s, d, stage, player);
+    this.loop_end.register_all_set_eventListener(stack, h, c, s, d, stage, player);
+  },
+
   toUp: function(map, stage) {
   	switch(this.frame) {
   	case 1:
@@ -180,13 +195,5 @@
       }
     }
     array.push(type);
-  },
-
-  reset_blocks_color: function() {
-    this.reset_block_color(this.block_list);
-    this.reset_block_color(this.func_h);
-    this.reset_block_color(this.func_c);
-    this.reset_block_color(this.func_s);
-    this.reset_block_color(this.func_d);
   }
 })
