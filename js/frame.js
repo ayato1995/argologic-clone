@@ -5,6 +5,9 @@ var Frame = enchant.Class.create(enchant.Sprite, {
 		this.y = y;
 		this.name = name;
 		this.backgroundColor = this.set_backgroundColor(name);
+		/*
+		this.blocks = new Array();
+		*/
 	},
 
 	set_backgroundColor: function(name) {
