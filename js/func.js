@@ -77,26 +77,26 @@ var Func = enchant.Class.create(Block, {
 		var blocks = [];
 		switch(argNum) {
 		case 1:
-			blocks.push(new Block(this.x, this.y + this.height, "arg1"));
+			blocks.push(new Arg(this.x, this.y + this.height, 0));
 			this.register_expand_func_block_eventListener(blocks[0], this);
 			blocks[0].height += 6;
 			break;
 		case 2:
-			blocks.push(new Block(this.x, this.y + this.height, "arg1"));
+			blocks.push(new Arg(this.x, this.y + this.height, 0));
 			this.register_expand_func_block_eventListener(blocks[0], this);
 			blocks[0].height += 6;
-			blocks.push(new Block(blocks[0].x, blocks[0].y + blocks[0].height, "arg2"));
+			blocks.push(new Arg(blocks[0].x, blocks[0].y + blocks[0].height, 1));
 			this.register_expand_func_block_eventListener(blocks[1], blocks[0]);
 			blocks[1].height += 4;
 			break;
 	  	case 3:
-	  		blocks.push(new Block(this.x, this.y + this.height, "arg1"));
+	  		blocks.push(new Arg(this.x, this.y + this.height, 0));
 	  		this.register_expand_func_block_eventListener(blocks[0], this);
 	  		blocks[0].height += 6;
-	  		blocks.push(new Block(blocks[0].x, blocks[0].y + blocks[0].height, "arg2"));
+	  		blocks.push(new Arg(blocks[0].x, blocks[0].y + blocks[0].height, 1));
 	  		this.register_expand_func_block_eventListener(blocks[1], blocks[0]);
 	  		blocks[1].height += 4;
-	  		blocks.push(new Block(blocks[1].x, blocks[1].y + blocks[1].height, "arg3"));
+	  		blocks.push(new Arg(blocks[1].x, blocks[1].y + blocks[1].height, 2));
 	  		this.register_expand_func_block_eventListener(blocks[2], blocks[1]);
 	  		blocks[2].height += 4;
 	  	}
