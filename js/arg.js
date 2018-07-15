@@ -46,7 +46,7 @@ var Arg = enchant.Class.create(Block, {
 	register_set_eventListener: function(array, frame, stage, player) {
 		this.addEventListener("touchend", function(e) {
 			if (e.x > frame.x && e.x < frame.x + frame.width
-				&& e.y > frame.y && e.y < frame.y + frame.height) {
+				&& e.y > frame.y && e.y < frame.y + frame.height && frame.check_arg(this)) {
 				this.set_block(array, frame, stage, player);
 			}
 			this.x = this.default_x;
@@ -57,7 +57,7 @@ var Arg = enchant.Class.create(Block, {
     register_all_set_eventListener: function(frames, stage, player) {
       this.register_set_eventListener(frames[0].blocks, frames[0], stage, player);
       this.register_set_eventListener(frames[1].blocks, frames[1], stage, player);
-      this.register_set_eventListener(frames[2].blocks, frames[2], player);
+      this.register_set_eventListener(frames[2].blocks, frames[2], stage, player);
       this.register_set_eventListener(frames[3].blocks, frames[3], stage, player);
       this.register_set_eventListener(frames[4].blocks, frames[4], stage, player);
     },

@@ -187,13 +187,4 @@
       return true;
     return false;
   },
-
-  arg_check: function(array, type) {
-    for (var i = 0; i < array.length; i++) {
-      if (array[i] == type) {
-        return;
-      }
-    }
-    array.push(type);
-  }
-})
+});

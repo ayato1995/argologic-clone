@@ -29,5 +29,11 @@ var Frame = enchant.Class.create(enchant.Sprite, {
 		for (var i = 0; i < this.blocks.length; i++) {
 			this.blocks[i].reset_backgroundColor();
 		}
-	}
+	},
+
+	check_arg: function(block) {
+		if (block.id <= this.kind_arg)
+			return true;
+		return false;
+	},
 })
