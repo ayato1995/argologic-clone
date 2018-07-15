@@ -4,14 +4,10 @@ var Func = enchant.Class.create(Block, {
 		this.type = "function";
 		this.default_color = "silver";
 		this.backgroundColor = this.default_color;
-		/*
-		this.func = [];
-		this.arg = [];
-		this.arg_num = 0;
-		*/
+		this.arg_area = null;
 	},
 
-	register_remove_eventListener: function(array, stage, player, args) {
+	register_remove_eventListener: function(array, stage, player) {
 		this.addEventListener("touchstart", function() {
 			if (stage.seletctFlag) {
 				if (this.select) {
@@ -35,8 +31,8 @@ var Func = enchant.Class.create(Block, {
 			} else {
 				stage.removeChild(this);
 				this.block_remove(array);
-				for (var i = 0; i < args.lenght; i++) {
-					stage.removeChild(arg[i]);
+				for (var i = 0; i < this.arg_area.length; i++) {
+					stage.removeChild(this.arg_area[i]);
 				}
 			}
 		})
