@@ -14,5 +14,5 @@ var Func_h = enchant.Class.create(Func, {
 			stage.addChild(bs[i]);
 		}
 		array.push(block);
-	},
+	}
 });

@@ -20,7 +20,7 @@ var Arg = enchant.Class.create(Block, {
 						array[i].backgroundColor = array[i].default_color;
 					}
 				} else {
-					player.reset_block_color();
+          			this.reset_block_color(stage.frames);
 					player.copy_list.length = 0;
 					var i = this.searchBlock(array);
 					for (var j = i; j < array.length && j < i + 3; j++) {
@@ -54,19 +54,19 @@ var Arg = enchant.Class.create(Block, {
 		})
 	},
 
-    register_all_set_eventListener: function(stack, h, c, s, d, stage, player) {
-      this.register_set_eventListener(stack.blocks, stack, stage, player);
-      this.register_set_eventListener(h.blocks, h, stage, player);
-      this.register_set_eventListener(c.blocks, c, stage, player);
-      this.register_set_eventListener(s.blocks, s, stage, player);
-      this.register_set_eventListener(d.blocks, d, stage, player);
+    register_all_set_eventListener: function(frames, stage, player) {
+      this.register_set_eventListener(frames[0].blocks, frames[0], stage, player);
+      this.register_set_eventListener(frames[1].blocks, frames[1], stage, player);
+      this.register_set_eventListener(frames[2].blocks, frames[2], player);
+      this.register_set_eventListener(frames[3].blocks, frames[3], stage, player);
+      this.register_set_eventListener(frames[4].blocks, frames[4], stage, player);
     },
 
 	set_block: function(array, frame, stage, player) {
 		var block = new Arg(frame.x + 8, array.length * 20 + frame.y + 4, this.id);
 		block.func_name = frame.name;
-		this.register_remove_eventListener(array, stage, player);
-		this.set_arg_type(frame);
+		block.register_remove_eventListener(array, stage, player);
+		block.set_arg_type(frame);
 		stage.addChild(block);
 		array.push(block);
 	},
@@ -87,6 +87,6 @@ var Arg = enchant.Class.create(Block, {
 	},
 
 	set_arg_type: function(frame) {
-		frame.arg_num = this.id;
+		frame.kind_arg = this.id + 1;
 	}
 })

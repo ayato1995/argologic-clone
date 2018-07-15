@@ -37,46 +37,8 @@
   	return false;
   },
 
-  expandFuncBlock: function(argNum) {
-  	var blocks = [];
-  	switch(argNum) {
-  	case 1:
-  	  blocks.push(new Block(this.x, this.y + this.height, "arg1"));
-  	  this.register_expand_func_block_eventListener(blocks[0], this);
-  	  blocks[0].height += 6;
-      break;
-  	case 2:
-  	  blocks.push(new Block(this.x, this.y + this.height, "arg1"));
-  	  this.register_expand_func_block_eventListener(blocks[0], this);
-  	  blocks[0].height += 6;
-  	  blocks.push(new Block(blocks[0].x, blocks[0].y + blocks[0].height, "arg2"));
-  	  this.register_expand_func_block_eventListener(blocks[1], blocks[0]);
-  	  blocks[1].height += 4;
-  	  break;
-  	case 3:
-  	  blocks.push(new Block(this.x, this.y + this.height, "arg1"));
-  	  this.register_expand_func_block_eventListener(blocks[0], this);
-  	  blocks[0].height += 6;
-  	  blocks.push(new Block(blocks[0].x, blocks[0].y + blocks[0].height, "arg2"));
-  	  this.register_expand_func_block_eventListener(blocks[1], blocks[0]);
-  	  blocks[1].height += 4;
-  	  blocks.push(new Block(blocks[1].x, blocks[1].y + blocks[1].height, "arg3"));
-  	  this.register_expand_func_block_eventListener(blocks[2], blocks[1]);
-  	  blocks[2].height += 4;
-  	}
-
-    return blocks;
-  },
-
   reset_backgroundColor: function() {
     this.backgroundColor = this.default_color;
-  },
-
-  register_expand_func_block_eventListener: function(arg, block) {
-  	arg.addEventListener("enterframe", function() {
-  	  this.x = block.x;
-  	  this.y = block.y + block.height;
-  	});
   },
 
   searchBlock: function(array) {
@@ -93,12 +55,12 @@
     }
   },
 
-  reset_block_color: function(stage) {
-    stage.stack_frame.reset_blocks_backgroundColor();
-    stage.h_frame.reset_blocks_backgroundColor();
-    stage.c_frame.reset_blocks_backgroundColor();
-    stage.s_frame.reset_blocks_backgroundColor();
-    stage.d_frame.reset_blocks_backgroundColor();
+  reset_block_color: function(frames) {
+    frames[0].reset_blocks_backgroundColor();
+    frames[1].reset_blocks_backgroundColor();
+    frames[2].reset_blocks_backgroundColor();
+    frames[3].reset_blocks_backgroundColor();
+    frames[4].reset_blocks_backgroundColor();
   }
 
 });

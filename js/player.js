@@ -77,19 +77,19 @@
     stage.addChild(this.loop_end);
   },
 
-  set_block_eventListener: function(stack, h, c, s, d, stage, player) {
-    this.up.register_all_set_eventListener(stack, h, c, s, d, stage, player);
-    this.left_rotate.register_all_set_eventListener(stack, h, c, s, d, stage, player);
-    this.right_rotate.register_all_set_eventListener(stack, h, c, s, d, stage, player);
-    this.func_h.register_all_set_eventListener(stack, h, c, s, d, stage, player);
-    this.func_c.register_all_set_eventListener(stack, h, c, s, d, stage, player);
-    this.func_s.register_all_set_eventListener(stack, h, c, s, d, stage, player);
-    this.func_d.register_all_set_eventListener(stack, h, c, s, d, stage, player);
-    this.arg1.register_all_set_eventListener(stack, h, c, s, d, stage, player);
-    this.arg2.register_all_set_eventListener(stack, h, c, s, d, stage, player);
-    this.arg3.register_all_set_eventListener(stack, h, c, s, d, stage, player);
-    this.loop_start.register_all_set_eventListener(stack, h, c, s, d, stage, player);
-    this.loop_end.register_all_set_eventListener(stack, h, c, s, d, stage, player);
+  set_block_eventListener: function(frames, stage, player) {
+    this.up.register_all_set_eventListener(frames, stage, player);
+    this.left_rotate.register_all_set_eventListener(frames, stage, player);
+    this.right_rotate.register_all_set_eventListener(frames, stage, player);
+    this.func_h.register_all_set_eventListener(frames, stage, player);
+    this.func_c.register_all_set_eventListener(frames, stage, player);
+    this.func_s.register_all_set_eventListener(frames, stage, player);
+    this.func_d.register_all_set_eventListener(frames, stage, player);
+    this.arg1.register_all_set_eventListener(frames, stage, player);
+    this.arg2.register_all_set_eventListener(frames, stage, player);
+    this.arg3.register_all_set_eventListener(frames, stage, player);
+    this.loop_start.register_all_set_eventListener(frames, stage, player);
+    this.loop_end.register_all_set_eventListener(frames, stage, player);
   },
 
   toUp: function(map, stage) {
