@@ -107,4 +107,13 @@ var Func = enchant.Class.create(Block, {
   			this.y = block.y + block.height;
   		});
 	},
+
+	set_arg: function(index, array, frame) {
+		var i = index;
+		i++;
+		for (var j = frame.kind_arg; i < array.length && j > 0; i++, j--)
+			this.set_arg_block(array[i]);
+		if (frame.kind_are != 0)
+			array.splice(index + 1, frame.kind_arg);
+	}
 })
