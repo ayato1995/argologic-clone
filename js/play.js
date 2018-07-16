@@ -13,8 +13,10 @@ var Play = enchant.Class.create(Block, {
 				var time = this.play(stage.frames[0].blocks, player, stage, map, 0);
 				setTimeout(function() {
 					if (!stage.clearFlag) return;
-					if (player.before_block != null)
-						player.before_block.backgroundColor = player.before_block.default_color;
+					for (var i = 0; i < this.block_stack.length; i++) {
+						var b = this.pop_block_stack();
+						b.backgroundColor = b.default_color;
+					}
 					if (player.within(goal, 16)) {
 						var scene = core.field(true, stage);
 						core.pushScene(scene);
@@ -22,7 +24,7 @@ var Play = enchant.Class.create(Block, {
 						var scene = core.field(false, stage);
 						core.pushScene(scene);
 					}
-				}, time);
+				}.bind(this), time);
 				stage.frames[0].blocks.length = 0;
 			}
 		});
@@ -64,7 +66,7 @@ var Play = enchant.Class.create(Block, {
 		        i--;
 		        time = this.forExecution(loop_list, 0, player, map, time, stage)[0];
 		    } else {
-		        setTimeout(this.execution, time, block[i], player, map, stage);
+		        setTimeout(this.execution, time, block[i], player, map, stage, this);
 		        time += interval;
 		    }
 		}
@@ -105,7 +107,7 @@ var Play = enchant.Class.create(Block, {
 		    console.log(order.type + " " + order.name);
 		    time = this.play_function(i, order, block, stage, player, map, time);
 		} else {
-		    setTimeout(this.execution, time, order, player, map, stage);
+		    setTimeout(this.execution, time, order, player, map, stage, this);
 		    time += interval;
 		}
 
@@ -141,7 +143,7 @@ var Play = enchant.Class.create(Block, {
 	      		} else if (block[k].type == "arg") {
 	      			time = this.play_arg(k, block, stage, player, map, time, args);
 	      		} else {
-		          	setTimeout(this.execution, time, block[k], player, map, stage);
+		          	setTimeout(this.execution, time, block[k], player, map, stage, this);
 		          	time += interval;
 		        }
 	      	}
@@ -150,10 +152,21 @@ var Play = enchant.Class.create(Block, {
 	    return time;
 	},
 
-	execution: function(block, player, map, stage) {
+	execution: function(block, player, map, stage, p) {
+		/*
 	    if (player.before_block != null)
 	    	player.before_block.backgroundColor = player.before_block.default_color;
 	    block.backgroundColor = "yellow";
+	    */
+	    if (p.block_stack.length > 0) {
+	    // if (this.block_stack.length != 0) {
+	    	var b = p.pop_block_stack;
+	    	b.backgroundColor = b.default_color;
+	    }
+	    block.backgroundColor = "red";
+	    p.push_block_stack(block);
+
+	    console.log(p.block_stack.length);
 	    switch(block.type) {
 	    case "up":
 	    	player.toUp(map, stage);
@@ -167,4 +180,12 @@ var Play = enchant.Class.create(Block, {
 	    }
 	    player.before_block = block;
 	},
+
+	push_block_stack: function(block) {
+		this.block_stack.push(block);
+	},
+
+	pop_block_stack: function() {
+		return this.block_stack.pop();
+	}
 });

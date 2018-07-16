@@ -12,25 +12,8 @@
     this.y = y;
     this.initialize_blocks();
     this.block_list = [];
-    /*
-    this.func_h = [];
-    // blockを入れる
-    this.arg_h = [];
-    // 引数が何個あったか入れる
-    this.func_h_arg = [];
-    this.func_c = [];
-    this.arg_c = [];
-    this.func_c_arg = [];
-    this.func_s = [];
-    this.arg_s = [];
-    this.func_s_arg = [];
-    this.func_d = [];
-    this.arg_d = [];
-    this.func_d_arg = [];
-    */
     this.copy_list = [];
     this.maxCopy = 3;
-    this.befor_block = null
   },
 
   initialize_blocks: function() {
