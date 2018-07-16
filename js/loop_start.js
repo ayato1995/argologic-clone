@@ -44,8 +44,6 @@ var Loop_start = enchant.Class.create(Block, {
 					}
 				}
 			} else {
-				console.log(this);
-				console.log(stage);
 				stage.removeChild(this.loop_label);
 				stage.removeChild(this);
 				this.block_remove(array);

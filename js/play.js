@@ -5,6 +5,7 @@ var Play = enchant.Class.create(Block, {
 		this.image = core.assets["../img/play.png"];
 		// 実行中のブロックをハイライトするため
 		this.block_stack = new Array();
+		this.call_stack = new Array();
 	},
 
 	register_play_eventListener: function(player, stage, map, goal) {
@@ -14,8 +15,10 @@ var Play = enchant.Class.create(Block, {
 				setTimeout(function() {
 					if (!stage.clearFlag) return;
 					for (var i = 0; i < this.block_stack.length; i++) {
-						var b = this.pop_block_stack();
-						b.backgroundColor = b.default_color;
+						this.pop_block_stack();
+					}
+					for (var i = 0; i < this.call_stack.length; i++) {
+						this.pop_func_stack();
 					}
 					if (player.within(goal, 16)) {
 						var scene = core.field(true, stage);
@@ -41,12 +44,12 @@ var Play = enchant.Class.create(Block, {
 	play: function(block, player, stage, map, t, args) {
 		var time = t;
     	var forStack = [];
-    	var stackCounter = 0;
     	var interval = 500;
 
     	for (var i = 0; i < block.length; i++) {
     		console.log("play " + block[i].type);
     		if (block[i].type == "function") {
+    			setTimeout(this.push_func_stack.bind(this), time, block[i]);
     			time = this.play_function(i, block[i], block, stage, player, map, time);
       		} else if (block[i].type == "arg") {
       			time = this.play_arg(i, block, stage, player, map, time, args);
@@ -56,10 +59,8 @@ var Play = enchant.Class.create(Block, {
 		          loop_list.push(block[i]);
 		          if (block[i].type == "forStart") {
 		            forStack.push(block[i]);
-		            stackCounter++;
 		          } else if (block[i].type == "forEnd") {
 		            forStack.pop();
-		            stackCounter--;
 		          }
 		          i++;
 		        } while (forStack.length > 0);
@@ -79,7 +80,6 @@ var Play = enchant.Class.create(Block, {
         	order.set_arg(i, block, stage.frames[1]);
         	time = this.play(stage.frames[1].blocks, player, stage, map, time, block[i].arg);
       	} else if (order.name == "clover") {
-      		console.log(block[i]);
       		order.set_arg(i, block, stage.frames[2]);
       		time = this.play(stage.frames[2].blocks, player, stage, map, time, block[i].arg);
       	} else if (order.name == "spead") {
@@ -89,6 +89,7 @@ var Play = enchant.Class.create(Block, {
       		order.set_arg(i, block, stage.frames[4]);
       		time = this.play(stage.frames[4].blocks, player, stage, map, time, block[i].arg);
       	}
+    	setTimeout(this.pop_func_stack.bind(this), time);
 
       	return time;
   	},
@@ -153,20 +154,10 @@ var Play = enchant.Class.create(Block, {
 	},
 
 	execution: function(block, player, map, stage, p) {
-		/*
-	    if (player.before_block != null)
-	    	player.before_block.backgroundColor = player.before_block.default_color;
-	    block.backgroundColor = "yellow";
-	    */
 	    if (p.block_stack.length > 0) {
-	    // if (this.block_stack.length != 0) {
-	    	var b = p.pop_block_stack;
-	    	b.backgroundColor = b.default_color;
+	    	p.pop_block_stack();
 	    }
-	    block.backgroundColor = "red";
 	    p.push_block_stack(block);
-
-	    console.log(p.block_stack.length);
 	    switch(block.type) {
 	    case "up":
 	    	player.toUp(map, stage);
@@ -182,10 +173,22 @@ var Play = enchant.Class.create(Block, {
 	},
 
 	push_block_stack: function(block) {
+		block.backgroundColor = "red";
 		this.block_stack.push(block);
 	},
 
+	push_func_stack: function(block) {
+		block.backgroundColor = "red";
+		this.call_stack.push(block);
+	},
+
 	pop_block_stack: function() {
-		return this.block_stack.pop();
+		var b = this.block_stack.pop();
+		b.backgroundColor = b.default_color;
+	},
+
+	pop_func_stack: function() {
+		var b = this.call_stack.pop();
+		b.backgroundColor = b.default_color;
 	}
 });
