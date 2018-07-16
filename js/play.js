@@ -3,12 +3,13 @@ var Play = enchant.Class.create(Block, {
 		Block.call(this, x, y);
 		this.type = "play";
 		this.image = core.assets["../img/play.png"];
-		this.backgroundColor = null;
+		// 実行中のブロックをハイライトするため
+		this.block_stack = new Array();
 	},
 
 	register_play_eventListener: function(player, stage, map, goal) {
 		this.addEventListener("touchend", function() {
-			if (stage.frames[0].blocks.length != 0) {
+			if (stage.frames[0].blocks.length != 0 && this.check_frames(stage.frames)) {
 				var time = this.play(stage.frames[0].blocks, player, stage, map, 0);
 				setTimeout(function() {
 					if (!stage.clearFlag) return;
@@ -25,6 +26,14 @@ var Play = enchant.Class.create(Block, {
 				stage.frames[0].blocks.length = 0;
 			}
 		});
+	},
+
+	check_frames: function(frames) {
+		for (var i = 0; i < frames.length; i++) {
+			if (!frames[i].check_frame())
+				return false;
+		}
+		return true;
 	},
 
 	play: function(block, player, stage, map, t) {

@@ -36,4 +36,9 @@ var Frame = enchant.Class.create(enchant.Sprite, {
 			return true;
 		return false;
 	},
+
+	/* 後で実装しないと行けない */
+	check_frame: function() {
+		return true;
+	}
 })

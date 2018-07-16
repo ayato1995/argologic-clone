@@ -5,6 +5,7 @@ var Func = enchant.Class.create(Block, {
 		this.default_color = "silver";
 		this.backgroundColor = this.default_color;
 		this.arg_area = null;
+		this.arg = new Array();
 	},
 
 	register_remove_eventListener: function(array, stage, player) {
@@ -65,8 +66,8 @@ var Func = enchant.Class.create(Block, {
     },
 
 
-	set_arg_block: function(block, frame) {
-		frame.arg.push(block);
+	set_arg_block: function(block) {
+		this.arg.push(block);
 	},
 
 	expand_func_block: function(argNum) {
