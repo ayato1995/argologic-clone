@@ -46,7 +46,20 @@ var Up = enchant.Class.create(Block, {
   		this.addEventListener("touchend", function(e) {
   			if (e.x > frame.x && e.x < frame.x + frame.width 
   				&& e.y > frame.y && e.y < frame.y + frame.height) {
-  				this.set_block(array, frame, stage, player);
+          if (frame.func_flag.length == 0)
+  				  this.set_block(array, frame, stage, player);
+          else {
+            console.log(frame.func_flag[frame.func_flag.length - 1]);
+            var i = this.search_func_block(array);
+            var kind = frame.func_flag.pop();
+            var b = this.set_arg_block(i + 1, array[i].arg, frame, stage, player);
+            kind--;
+            if (kind != 0) {
+              frame.func_flag.push(kind);
+              console.log(frame.func_flag[frame.func_flag.length - 1]);
+            }
+            b.scale(1 - (frame.func_flag.length + 1) * 0.1, 1 - (frame.func_flag.length + 1)* 0.1);
+          }
   			}
   			this.x = this.default_x;
   			this.y = this.default_y;
@@ -62,10 +75,19 @@ var Up = enchant.Class.create(Block, {
     },
 
   	set_block: function(array, frame, stage, player) {
-  		var block = new Up(frame.x + 8, array.length * 20 + frame.y + 4);
+  		var block = new Up(frame.x + 4, array.length * 20 + frame.y + 4);
   		block.register_remove_eventListener(array, stage, player);
   		stage.addChild(block);
   		array.push(block);
-  	}
+  	},
+
+    set_arg_block: function(length, array, frame, stage, player) {
+      console.log(array);
+      var block = new Up(frame.x + 4, length * 20 + frame.y+ 4);
+      block.register_remove_eventListener(array, stage, player);
+      stage.addChild(block);
+      array.push(block);
+      return block;
+    }
 
 });

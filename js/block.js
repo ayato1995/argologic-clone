@@ -61,6 +61,14 @@
     frames[2].reset_blocks_backgroundColor();
     frames[3].reset_blocks_backgroundColor();
     frames[4].reset_blocks_backgroundColor();
+  },
+
+  search_func_block: function(array) {
+    for (var i = array.length - 1; i >= 0; i--) {
+      if (array[i].type == "function")
+        return i;
+    }
+    return -1;
   }
 
 });

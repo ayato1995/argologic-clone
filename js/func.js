@@ -70,7 +70,7 @@ var Func = enchant.Class.create(Block, {
 		this.arg.push(block);
 	},
 
-	expand_func_block: function(argNum) {
+	expand_func_block: function(array, argNum) {
 		var blocks = [];
 		switch(argNum) {
 		case 1:
@@ -97,6 +97,12 @@ var Func = enchant.Class.create(Block, {
 	  		this.register_expand_func_block_eventListener(blocks[2], blocks[1]);
 	  		blocks[2].height += 4;
 	  	}
+
+	  	/*
+	  	for (var i = 0; i < blocks.length; i++) {
+	  		array.push(blocks[i]);
+	  	}
+	  	*/
 
 	    return blocks;
 	},

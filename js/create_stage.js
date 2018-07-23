@@ -21,25 +21,25 @@ createStage = function(stageId) {
 
     /* frame initialize */
     var stack_frame = new Frame(370, 31, "stack");
-    var h_frame = new Frame(412, 31, "heart");
+    var h_frame = new Frame(400, 31, "heart");
     var h_label = new Sprite(16, 16);
     h_label.image = core.assets["../img/heart.png"];
-    h_label.x = h_frame.x + 8;
+    h_label.x = h_frame.x + 4;
     h_label.y = 10;
-    var c_frame = new Frame(452, 31, "clover");
+    var c_frame = new Frame(430, 31, "clover");
     var c_label = new Sprite(16, 16);
     c_label.image = core.assets["../img/clover.png"];
-    c_label.x = c_frame.x + 8;
+    c_label.x = c_frame.x + 4;
     c_label.y = 10;
-    var s_frame = new Frame(494, 31, "spade");
+    var s_frame = new Frame(460, 31, "spade");
     var s_label = new Sprite(16, 16);
     s_label.image = core.assets["../img/spade.png"];
-    s_label.x = s_frame.x + 8;
+    s_label.x = s_frame.x + 4;
     s_label.y = 10;
-    var d_frame = new Frame(536, 31, "diamond");
+    var d_frame = new Frame(490, 31, "diamond");
     var d_label = new Sprite(16, 16);
     d_label.image = core.assets["../img/diamond.png"];
-    d_label.x = d_frame.x + 8;
+    d_label.x = d_frame.x + 4;
     d_label.y = 10;
 
     stage.frames.push(stack_frame);
@@ -50,11 +50,11 @@ createStage = function(stageId) {
 
     var play = new Play(330, 300);
     var select = new Select (330, 280);
-    var exe_copy = new Copy(stage.frames[0].x + 8, stage.frames[0].y + stage.frames[0].height + 10);
-    var h_copy = new Copy(stage.frames[1].x + 8, stage.frames[1].y + stage.frames[1].height + 10);
-    var c_copy = new Copy(stage.frames[2].x + 8, stage.frames[2].y + stage.frames[2].height + 10);
-    var s_copy = new Copy(stage.frames[3].x + 8, stage.frames[3].y + stage.frames[3].height + 10);
-    var d_copy = new Copy(stage.frames[4].x + 8, stage.frames[4].y + stage.frames[4].height + 10);
+    var exe_copy = new Copy(stage.frames[0].x + 4, stage.frames[0].y + stage.frames[0].height + 10);
+    var h_copy = new Copy(stage.frames[1].x + 4, stage.frames[1].y + stage.frames[1].height + 10);
+    var c_copy = new Copy(stage.frames[2].x + 4, stage.frames[2].y + stage.frames[2].height + 10);
+    var s_copy = new Copy(stage.frames[3].x + 4, stage.frames[3].y + stage.frames[3].height + 10);
+    var d_copy = new Copy(stage.frames[4].x + 4, stage.frames[4].y + stage.frames[4].height + 10);
 
     stage.addChild(map);
     stage.addChild(stage.frames[0]);

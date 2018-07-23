@@ -42,6 +42,7 @@ var Play = enchant.Class.create(Block, {
 	},
 
 	play: function(block, player, stage, map, t, args) {
+		console.log(block);
 		var time = t;
     	var forStack = [];
     	var interval = 500;

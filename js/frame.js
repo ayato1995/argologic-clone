@@ -1,6 +1,6 @@
 var Frame = enchant.Class.create(enchant.Sprite, {
 	initialize: function(x, y, name) {
-		enchant.Sprite.call(this, 32, 200);
+		enchant.Sprite.call(this, 24, 200);
 		this.x = x;
 		this.y = y;
 		this.name = name;
@@ -9,6 +9,7 @@ var Frame = enchant.Class.create(enchant.Sprite, {
 		this.arg = new Array();
 		this.kind_arg = 0;
 		this.id = this.set_id(name);
+		this.func_flag = new Array();
 	},
 
 	set_backgroundColor: function(name) {

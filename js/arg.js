@@ -63,7 +63,7 @@ var Arg = enchant.Class.create(Block, {
     },
 
 	set_block: function(array, frame, stage, player) {
-		var block = new Arg(frame.x + 8, array.length * 20 + frame.y + 4, this.id);
+		var block = new Arg(frame.x + 4, array.length * 20 + frame.y + 4, this.id);
 		block.func_name = frame.name;
 		block.register_remove_eventListener(array, stage, player, frame);
 		block.set_arg_type(frame);
