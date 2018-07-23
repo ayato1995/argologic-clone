@@ -9,7 +9,7 @@ var Frame = enchant.Class.create(enchant.Sprite, {
 		this.arg = new Array();
 		this.kind_arg = 0;
 		this.id = this.set_id(name);
-		this.func_flag = new Array();
+		this.nest = new Array();
 	},
 
 	set_backgroundColor: function(name) {
