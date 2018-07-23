@@ -30,7 +30,7 @@ var Up = enchant.Class.create(Block, {
         		}
       		} else {
             if (this.scaleX != 1) {
-              if (frame.nest[frame.nest.length - 1] != frame.kind) {
+              if (frame.nest[frame.nest.length - 1] != frame.kind_arg) {
                 frame.nest[frame.nest.length - 1]++;
               } else {
                 frame.nest.push(1);

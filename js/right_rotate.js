@@ -7,7 +7,7 @@ var Right_rotate = enchant.Class.create(Block, {
 		this.backgroundColor = this.default_color;
 	},
 
-	register_remove_eventListener: function(array, stage, player) {
+	register_remove_eventListener: function(array, frame, stage, player) {
 		this.addEventListener("touchend", function() {
 			if (stage.selectFlag) {
 				if (this.select) {
@@ -29,6 +29,13 @@ var Right_rotate = enchant.Class.create(Block, {
 					}
 				}
 			} else {
+				if (this.scaleX != 1) {
+					if (frame.nest[frame.nest.length - 1] != frame.kind_arg) {
+						frame.nest[frame.nest.length - 1]++;
+					} else {
+						frame.nest.push(1);
+					}
+				}
 				stage.removeChild(this);
 				this.block_remove(array);
 			}
@@ -46,7 +53,15 @@ var Right_rotate = enchant.Class.create(Block, {
 		this.addEventListener("touchend", function(e) {
 			if (e.x > frame.x && e.x < frame.x + frame.width
 				&& e.y > frame.y && e.y < frame.y + frame.height) {
-				this.set_block(array, frame, stage, player);
+				var b = this.set_block(array, frame, stage, player);
+				if (frame.nest.length != 0) {
+					b.scale(1 - frame.nest.length * 0.1, 1 - frame.nest.length * 0.1);
+					var kind = frame.nest.pop();
+					kind--;
+					if (kind != 0) {
+						frame.nest.push(kind);
+					}
+				}
 			}
 			this.x = this.default_x;
 			this.y = this.default_y;
@@ -63,8 +78,10 @@ var Right_rotate = enchant.Class.create(Block, {
 
 	set_block: function(array, frame, stage, player) {
 		var block = new Right_rotate(frame.x + 4, array.length * 20 + frame.y + 4);
-		block.register_remove_eventListener(array, stage, player);
+		block.register_remove_eventListener(array, frame, stage, player);
 		stage.addChild(block);
 		array.push(block);
+
+		return block;
 	}
 });
