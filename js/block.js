@@ -69,6 +69,15 @@
         return i;
     }
     return -1;
-  }
+  },
+
+  reset_scale: function(array, i, num) {
+    console.log(i + " " + num);
+    for (var j = i + 1; j < i + num + 1; j++) {
+      console.log(j);
+      array[j].scaleX += 0.1;
+      array[j].scaleY += 0.1;
+    }
+  },
 
 });

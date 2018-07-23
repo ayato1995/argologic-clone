@@ -8,7 +8,7 @@ var Func = enchant.Class.create(Block, {
 		this.arg = new Array();
 	},
 
-	register_remove_eventListener: function(array, stage, player) {
+	register_remove_eventListener: function(array, frame, stage, player) {
 		this.addEventListener("touchstart", function() {
 			if (stage.seletctFlag) {
 				if (this.select) {
@@ -30,7 +30,10 @@ var Func = enchant.Class.create(Block, {
 					}
 				}
 			} else {
+				frame.nest.pop();
 				stage.removeChild(this);
+				var i = this.searchBlock(array);
+				this.reset_scale(array, i, frame.kind_arg);
 				this.block_remove(array);
 				for (var i = 0; i < this.arg_area.length; i++) {
 					stage.removeChild(this.arg_area[i]);
@@ -97,12 +100,6 @@ var Func = enchant.Class.create(Block, {
 	  		this.register_expand_func_block_eventListener(blocks[2], blocks[1]);
 	  		blocks[2].height += 4;
 	  	}
-
-	  	/*
-	  	for (var i = 0; i < blocks.length; i++) {
-	  		array.push(blocks[i]);
-	  	}
-	  	*/
 
 	    return blocks;
 	},
