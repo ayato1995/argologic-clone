@@ -1,5 +1,6 @@
 enchant.js-builds-0.8.3-b/
 *.zip
 test.*
+*.svg
 
 .DS_Store
