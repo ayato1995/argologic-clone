@@ -38,7 +38,7 @@ window.onload = function() {
   	  var scene = null;
   	  if (flag)
   	    scene = titleScene();
-  	  else 
+  	  else
   	    scene = createStage(id);
   	  core.pushScene(scene);
   	});

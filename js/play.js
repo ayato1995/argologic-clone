@@ -42,7 +42,6 @@ var Play = enchant.Class.create(Block, {
 	},
 
 	play: function(block, player, stage, map, t, args) {
-		console.log(block);
 		var time = t;
     	var forStack = [];
     	var interval = 500;
@@ -54,13 +53,13 @@ var Play = enchant.Class.create(Block, {
     			time = this.play_function(i, block[i], block, stage, player, map, time);
       		} else if (block[i].type == "arg") {
       			time = this.play_arg(i, block, stage, player, map, time, args);
-		    } else if (block[i].type == "forStart") {
+		    } else if (block[i].type == "loop_start") {
 		        var loop_list = [];
 		        do {
 		          loop_list.push(block[i]);
-		          if (block[i].type == "forStart") {
+		          if (block[i].type == "loop_start") {
 		            forStack.push(block[i]);
-		          } else if (block[i].type == "forEnd") {
+		          } else if (block[i].type == "loop_end") {
 		            forStack.pop();
 		          }
 		          i++;
