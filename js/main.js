@@ -17,7 +17,7 @@ window.onload = function() {
   }
 
   core.field = function(clear, stage) {
-    var scene = new Scene();
+  	stage.play.reset_block_stack();
     var game_set_image = new Sprite(189, 97);
     if (clear && stage.clearFlag) {
       stage.clearFlag = false;
@@ -26,21 +26,20 @@ window.onload = function() {
       stage.clearFlag = false;
       game_set_image = core.assets["../img/end.png"];
     }
-    core.register_replay_eventListener(game_set_image, stage.id, clear);
-    scene.addChild(game_set_image);
-    return scene;
+    core.register_replay_eventListener(game_set_image, stage.id, clear, stage);
+    stage.addChild(game_set_image);
   }
 
-  core.register_replay_eventListener = function(img, id, flag) {
+  core.register_replay_eventListener = function(img, id, flag, stage) {
   	img.addEventListener("touchstart", function() {
-  	  core.popScene();
-  	  core.popScene();
+  	  stage.removeChild(this);
   	  var scene = null;
-  	  if (flag)
+  	  if (flag) {
   	    scene = titleScene();
-  	  else
-  	    scene = createStage(id);
-  	  core.pushScene(scene);
+  	    core.pushScene(scene);
+  	  } else {
+  	  	initialize_stage(stage);
+  	  }
   	});
   }
 

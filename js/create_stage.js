@@ -5,19 +5,19 @@ createStage = function(stageId) {
     stage.selectFlag = false;
     stage.frames = new Array();
 
-    var map = null;
+    stage.map = null;
     var map_img = core.assets["../img/map0.gif"];
     if (stageId == 1) {
-      map = addMap1(map_img);
+      stage.map = addMap1(map_img);
     } else if (stageId == 2) {
-      map = addMap2(map_img);
+      stage.map = addMap2(map_img);
     }
 
     /* goal initialize */
-    var goal = new Goal(map.goalX, map.goalY, core.assets["../img/goal.png"]);
+    var goal = new Goal(stage.map.goalX, stage.map.goalY, core.assets["../img/goal.png"]);
 
     /* player initialize */
-    var player = new Player(map.initializeX, map.initializeY, map.direction);
+    stage.player = new Player(stage.map.initializeX, stage.map.initializeY, stage.map.direction);
 
     /* frame initialize */
     var stack_frame = new Frame(370, 31, "stack");
@@ -48,15 +48,15 @@ createStage = function(stageId) {
     stage.frames.push(s_frame);
     stage.frames.push(d_frame);
 
-    var play = new Play(330, 300);
-    var select = new Select (330, 280);
-    var exe_copy = new Copy(stage.frames[0].x + 4, stage.frames[0].y + stage.frames[0].height + 10);
-    var h_copy = new Copy(stage.frames[1].x + 4, stage.frames[1].y + stage.frames[1].height + 10);
-    var c_copy = new Copy(stage.frames[2].x + 4, stage.frames[2].y + stage.frames[2].height + 10);
-    var s_copy = new Copy(stage.frames[3].x + 4, stage.frames[3].y + stage.frames[3].height + 10);
-    var d_copy = new Copy(stage.frames[4].x + 4, stage.frames[4].y + stage.frames[4].height + 10);
+    stage.play = new Play(330, 300);
+    stage.select = new Select (330, 280);
+    stage.exe_copy = new Copy(stage.frames[0].x + 4, stage.frames[0].y + stage.frames[0].height + 10);
+    stage.h_copy = new Copy(stage.frames[1].x + 4, stage.frames[1].y + stage.frames[1].height + 10);
+    stage.c_copy = new Copy(stage.frames[2].x + 4, stage.frames[2].y + stage.frames[2].height + 10);
+    stage.s_copy = new Copy(stage.frames[3].x + 4, stage.frames[3].y + stage.frames[3].height + 10);
+    stage.d_copy = new Copy(stage.frames[4].x + 4, stage.frames[4].y + stage.frames[4].height + 10);
 
-    stage.addChild(map);
+    stage.addChild(stage.map);
     stage.addChild(stage.frames[0]);
     stage.addChild(h_label);
     stage.addChild(stage.frames[1]);
@@ -67,24 +67,34 @@ createStage = function(stageId) {
     stage.addChild(d_label);
     stage.addChild(stage.frames[4]);
     stage.addChild(goal);
-    player.push_block_stage(stage);
-    stage.addChild(play);
-    stage.addChild(exe_copy);
-    stage.addChild(h_copy);
-    stage.addChild(c_copy);
-    stage.addChild(s_copy);
-    stage.addChild(d_copy);
-    stage.addChild(select);
+    stage.player.push_block_stage(stage);
+    stage.addChild(stage.play);
+    stage.addChild(stage.exe_copy);
+    stage.addChild(stage.h_copy);
+    stage.addChild(stage.c_copy);
+    stage.addChild(stage.s_copy);
+    stage.addChild(stage.d_copy);
+    stage.addChild(stage.select);
 
-    play.register_play_eventListener(player, stage, map, goal);
-    select.register_eventListener(stage, stage.frames);
-    exe_copy.register_eventListener(player, stage.frames[0].blocks, stage.frames[0], stage);
-    h_copy.register_eventListener(player, stage.frames[1].blocks, stage.frames[1], stage);
-    c_copy.register_eventListener(player, stage.frames[2].blocks, stage.frames[2], stage);
-    s_copy.register_eventListener(player, stage.frames[3].blocks, stage.frames[3], stage);
-    d_copy.register_eventListener(player, stage.frames[4].blocks, stage.frames[4], stage);
+    stage.play.register_play_eventListener(stage.player, stage, stage.map, goal);
+    stage.select.register_eventListener(stage, stage.frames);
+    stage.exe_copy.register_eventListener(stage.player, stage.frames[0].blocks, stage.frames[0], stage);
+    stage.h_copy.register_eventListener(stage.player, stage.frames[1].blocks, stage.frames[1], stage);
+    stage.c_copy.register_eventListener(stage.player, stage.frames[2].blocks, stage.frames[2], stage);
+    stage.s_copy.register_eventListener(stage.player, stage.frames[3].blocks, stage.frames[3], stage);
+    stage.d_copy.register_eventListener(stage.player, stage.frames[4].blocks, stage.frames[4], stage);
 
-    player.set_block_eventListener(stage.frames, stage, player);
+    stage.player.set_block_eventListener(stage.frames, stage, stage.player);
     
     return stage;
+}
+
+initialize_stage = function(stage) {
+	stage.play.reset_block_stack();
+	stage.clearFlag = true;
+    stage.selectFlag = false;
+  	stage.player.x = stage.map.initializeX;
+  	stage.player.y = stage.map.initializeY;
+  	stage.player.frame = stage.player.set_frame(stage.map.direction);
+  	stage.player.opacity = 100;
 }

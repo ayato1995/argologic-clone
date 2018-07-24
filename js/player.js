@@ -2,12 +2,7 @@
   initialize: function(x, y, direction) {
     enchant.Sprite.call(this, 32, 32);
     this.image = core.assets["../img/chara5.png"];
-    var dire = 1;
-    if (direction == "up") dire = 28;
-    else if (direction == "down") dire = 1;
-    else if (direction == "left") dire = 10;
-    else if (direction == "right") dire = 19;
-    this.frame = dire;
+    this.frame = this.set_frame(direction);
     this.x = x;
     this.y = y;
     this.initialize_blocks();
@@ -75,6 +70,15 @@
     this.loop_end.register_all_set_eventListener(frames, stage, player);
   },
 
+  set_frame: function(direction) {
+  	var dire = 1;
+  	if (direction == "up") dire = 28;
+    else if (direction == "down") dire = 1;
+    else if (direction == "left") dire = 10;
+    else if (direction == "right") dire = 19;
+    return dire;
+  },
+
   toUp: function(map, stage) {
   	switch(this.frame) {
   	case 1:
@@ -126,10 +130,9 @@
 
   decisionMap: function(map, stage, x, y) {
   	if (map.hitTest(x, y)) {
-  		stage.removeChild(this);
+  	  this.opacity = 0;
       stage.clearFlag = false;
-  		// core.pushScene(core.field(false, core.rootScene));
-      core.pushScene(core.field(false, stage));
+  	  core.field(false, stage);
   	}
   },
 

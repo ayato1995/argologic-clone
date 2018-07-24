@@ -14,21 +14,13 @@ var Play = enchant.Class.create(Block, {
 				var time = this.play(stage.frames[0].blocks, player, stage, map, 0);
 				setTimeout(function() {
 					if (!stage.clearFlag) return;
-					for (var i = 0; i < this.block_stack.length; i++) {
-						this.pop_block_stack();
-					}
-					for (var i = 0; i < this.call_stack.length; i++) {
-						this.pop_func_stack();
-					}
+					// this.reset_block_stack();
 					if (player.within(goal, 16)) {
-						var scene = core.field(true, stage);
-						core.pushScene(scene);
+						core.field(true, stage);
 					} else {
-						var scene = core.field(false, stage);
-						core.pushScene(scene);
+						core.field(false, stage);
 					}
 				}.bind(this), time);
-				stage.frames[0].blocks.length = 0;
 			}
 		});
 	},
@@ -190,5 +182,14 @@ var Play = enchant.Class.create(Block, {
 	pop_func_stack: function() {
 		var b = this.call_stack.pop();
 		b.backgroundColor = b.default_color;
-	}
+	},
+
+	reset_block_stack: function() {
+		for (var i = 0; i < this.block_stack.length; i++) {
+			this.pop_block_stack();
+		}
+		for (var i = 0; i < this.call_stack.length; i++) {
+			this.pop_func_stack();
+		}
+	},
 });
