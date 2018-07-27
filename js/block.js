@@ -80,4 +80,8 @@
     }
   },
 
+  output_log: function() {
+    return this.type + "\n";
+  },
+
 });

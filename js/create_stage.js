@@ -4,6 +4,10 @@ createStage = function(stageId) {
     stage.clearFlag = true;
     stage.selectFlag = false;
     stage.frames = new Array();
+    stage.log = "!!!!!!!!!! GAME START !!!!!!!!!!";
+    stage.log += "\n";
+    stage.log += "========= stage " + stage.id + " =========";
+    stage.log += "\n";
 
     stage.map = null;
     var map_img = core.assets["../img/map0.gif"];
@@ -11,6 +15,8 @@ createStage = function(stageId) {
       stage.map = addMap1(map_img);
     } else if (stageId == 2) {
       stage.map = addMap2(map_img);
+    } else if (stageId == 3) {
+      stage.map = addMap3(map_img);
     }
 
     /* goal initialize */
@@ -97,4 +103,5 @@ initialize_stage = function(stage) {
   	stage.player.y = stage.map.initializeY;
   	stage.player.frame = stage.player.set_frame(stage.map.direction);
   	stage.player.opacity = 100;
+    stage.log = "========= stage " + stage.id + " =========";
 }

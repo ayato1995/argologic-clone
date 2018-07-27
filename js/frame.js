@@ -48,5 +48,13 @@ var Frame = enchant.Class.create(enchant.Sprite, {
 		}
 		if (loop_cnt != 0) return false;
 		return true;
+	},
+
+	output_block: function() {
+		var log = "+++++++++++++ " + this.name + "+++++++++++++\n";
+		for (var i = 0; i < this.blocks.length; i++) {
+			log += this.blocks[i].output_log();
+		}
+		return log;
 	}
 })
