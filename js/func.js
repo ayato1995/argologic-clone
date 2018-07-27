@@ -10,11 +10,11 @@ var Func = enchant.Class.create(Block, {
 
 	register_remove_eventListener: function(array, frame, stage, player) {
 		this.addEventListener("touchstart", function() {
-			if (stage.seletctFlag) {
+			if (stage.selectFlag) {
 				if (this.select) {
 					var i = this.searchBlock(player.copy_list);
 					player.copy_list.splice(i, player.copy_list.length - 1);
-					i = this.searchBlock(block, array);
+					i = this.searchBlock(array);
 					for (var j = i; j < array.length && j < i + 3; j++) {
 						array[j].select = false;
 						array[j].backgroundColor = array[j].default_color;
