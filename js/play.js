@@ -14,7 +14,8 @@ var Play = enchant.Class.create(Block, {
 				for (var i = 0; i < stage.frames.length; i++) {
 					stage.log += stage.frames[i].output_block();
 				}
-				console.log(stage.log);
+				// console.log(stage.log);
+				write_log(stage.log);
 				var time = this.play(stage.frames[0].blocks, player, stage, map, 0);
 				setTimeout(function() {
 					if (!stage.clearFlag) return;
