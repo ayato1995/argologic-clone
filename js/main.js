@@ -35,6 +35,7 @@ window.onload = function() {
   	  stage.removeChild(this);
   	  var scene = null;
   	  if (flag) {
+        core.popScene();
   	    scene = titleScene();
   	    core.pushScene(scene);
   	  } else {
