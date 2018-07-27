@@ -8,7 +8,8 @@ var Func_h = enchant.Class.create(Func, {
 	set_block: function(array, frame, stage, player) {
 		var block = new Func_h(frame.x + 4, array.length * 20 + frame.y + 4);
 		block.arg_area = block.expand_func_block(array, stage.frames[1].kind_arg);
-		frame.nest.push(stage.frames[1].kind_arg);
+		if (block.arg_area.length != 0)
+			frame.nest.push(stage.frames[1].kind_arg);
 		block.register_remove_eventListener(array, stage.frames[1], stage, player);
 		stage.addChild(block);
 		for (var i = 0; i < block.arg_area.length; i++) {

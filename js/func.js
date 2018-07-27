@@ -30,7 +30,8 @@ var Func = enchant.Class.create(Block, {
 					}
 				}
 			} else {
-				frame.nest.pop();
+				if (this.arg_area.length != 0)
+					frame.nest.pop();
 				stage.removeChild(this);
 				var i = this.searchBlock(array);
 				this.reset_scale(array, i, frame.kind_arg);
