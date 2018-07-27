@@ -90,11 +90,11 @@ var Loop_start = enchant.Class.create(Block, {
 			} else {
 				this.loop_cnt = 1;
 				this.loop_label.x += 2;
-				this.loop_label.width += 2;
+				this.loop_label.width -= 2;
 			}
 			if (this.loop_cnt == 10) {
 				this.loop_label.x -= 2;
-				this.loop_label.width -= 2;
+				this.loop_label.width += 2;
 			}
 			this.loop_label.text = String(this.loop_cnt);
 		}.bind(this));
