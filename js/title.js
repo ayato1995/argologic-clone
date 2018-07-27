@@ -15,6 +15,11 @@ titleScene = function() {
   stage2.width = 112;
   stage2.x = (core.width * 3 / 4) - (stage2.width / 2);
   stage2.y = core.height / 2;
+  var stage3 = new Label("stage 3");
+  stage3.height = 16;
+  stage3.width = 112;
+  stage3.x = (core.width / 4) - (stage3.width / 2);
+  stage3.y = stage1.y + 20;
 
   stage1.addEventListener("touchstart", function() {
   	var stage = createStage(1);
@@ -26,11 +31,18 @@ titleScene = function() {
     var stage = createStage(2);
     core.popScene();
     core.pushScene(stage);
+  });
+
+  stage3.addEventListener("touchstart", function() {
+    var stage = createStage(3);
+    core.popScene();
+    core.pushScene(stage);
   })
 
   scene.addChild(title);
   scene.addChild(stage1);
   scene.addChild(stage2);
+  scene.addChild(stage3);
 
   return scene;
 }
