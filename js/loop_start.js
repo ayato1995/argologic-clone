@@ -112,5 +112,9 @@ var Loop_start = enchant.Class.create(Block, {
 	set_loop_cnt: function(cnt) {
 		this.loop_cnt = cnt;
 		this.loop_label.text = this.loop_cnt;
+	},
+
+	output_log: function() {
+		return this.type + " " + this.loop_cnt + "\n";
 	}
 });
