@@ -56,7 +56,7 @@ var Loop_end = enchant.Class.create(Block, {
     register_all_set_eventListener: function(frames, stage, player) {
       this.register_set_eventListener(frames[0].blocks, frames[0], stage, player);
       this.register_set_eventListener(frames[1].blocks, frames[1], stage, player);
-      this.register_set_eventListener(frames[2].blocks, frames[2], player);
+      this.register_set_eventListener(frames[2].blocks, frames[2], stage, player);
       this.register_set_eventListener(frames[3].blocks, frames[3], stage, player);
       this.register_set_eventListener(frames[4].blocks, frames[4], stage, player);
     },
