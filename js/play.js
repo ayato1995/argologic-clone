@@ -102,7 +102,6 @@ var Play = enchant.Class.create(Block, {
 			order = args[2];
 		}
 		if (order.type == "function") {
-		    console.log(order.type + " " + order.name);
 		    time = this.play_function(i, order, block, stage, player, map, time);
 		} else {
 		    setTimeout(this.execution, time, order, player, map, stage, this);
@@ -119,7 +118,6 @@ var Play = enchant.Class.create(Block, {
 	    }
 	    var loop = block[i].loop_cnt;
 	    var k = i;
-	    console.log("loop :" + loop);
 	    var j = 1;
 	    while (true) {
 	    	k++;
@@ -137,7 +135,7 @@ var Play = enchant.Class.create(Block, {
 	        	}
 	      	} else {
 	      		if (block[k].type == "function") {
-	      			time = this.play_function(k, block, stage, player, map, time);
+	      			time = this.play_function(k, block[k], block, stage, player, map, time);
 	      		} else if (block[k].type == "arg") {
 	      			time = this.play_arg(k, block, stage, player, map, time, args);
 	      		} else {
@@ -186,7 +184,8 @@ var Play = enchant.Class.create(Block, {
 
 	pop_func_stack: function() {
 		var b = this.call_stack.pop();
-		b.backgroundColor = b.default_color;
+		if (b != null)
+			b.backgroundColor = b.default_color;
 	},
 
 	reset_block_stack: function() {
