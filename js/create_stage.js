@@ -75,6 +75,7 @@ createStage = function(stageId) {
     stage.addChild(d_label);
     stage.addChild(stage.frames[4]);
     stage.addChild(goal);
+    stage.addChild(stage.player);
     stage.player.push_block_stage(stage);
     stage.addChild(stage.play);
     stage.addChild(stage.exe_copy);
@@ -101,6 +102,7 @@ initialize_stage = function(stage) {
 	stage.play.reset_block_stack();
 	stage.clearFlag = true;
     stage.selectFlag = false;
+    stage.player.push_block_stage(stage);
   	stage.player.x = stage.map.initializeX;
   	stage.player.y = stage.map.initializeY;
   	stage.player.frame = stage.player.set_frame(stage.map.direction);

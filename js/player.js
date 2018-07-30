@@ -39,7 +39,6 @@
   },
 
   push_block_stage: function(stage) {
-    stage.addChild(this);
     stage.addChild(this.up);
     stage.addChild(this.left_rotate);
     stage.addChild(this.right_rotate);
