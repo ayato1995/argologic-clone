@@ -1,8 +1,10 @@
 enchant();
+const WIDTH = 600;
+const HIGHT = 320; // 500
 
 window.onload = function() {
   var selectFlag = false;
-  core = new Core(600, 320);
+  core = new Core(WIDTH, HIGHT);
   core.fps = 60;
   core.preload("../img/chara5.png", "../img/map0.gif", "../img/goal.png", "../img/clear.png",
                "../img/end.png", "../img/up.png", "../img/left.png", "../img/right.png",
@@ -44,6 +46,6 @@ window.onload = function() {
   	});
   }
 
-  core.start();
-  // core.debug();
+  // core.start();
+  core.debug();
 };

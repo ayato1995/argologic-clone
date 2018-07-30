@@ -70,6 +70,7 @@ createStage = function(stageId) {
 }
 
 initialize_stage = function(stage) {
+    core.height -= 180;
 	stage.play.reset_block_stack();
     for (var i = 0; i < stage.frames.length; i++) {
         stage.frames[i].push_btn_stage(stage);

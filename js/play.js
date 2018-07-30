@@ -39,6 +39,7 @@ var Play = enchant.Class.create(Block, {
 	},
 
 	ready_play: function(block, player, stage, map, t, args) {
+		core.height += 180;
 		player.pop_block_stage(stage);
     	for (var i = 0; i < stage.frames.length; i++) {
     		stage.frames[i].pop_btn_stage(stage);

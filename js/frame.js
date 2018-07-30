@@ -62,18 +62,28 @@ var Frame = enchant.Class.create(enchant.Sprite, {
 
 	move_frame: function() {
 		this.x -= 40;
-		if (this.label != null)
+		this.y += this.height + 10;
+		if (this.label != null) {
 			this.label.x -= 40;
-		for (var i = 0; i < this.blocks.length; i++)
+			this.label.y += this.height + 10;
+		}
+		for (var i = 0; i < this.blocks.length; i++) {
 			this.blocks[i].x -= 40;
+			this.blocks[i].y += this.height + 10;
+		}
 	},
 
 	reset_frame: function() {
 		this.x += 40;
-		if (this.label != null)
+		this.y -= this.height + 10;
+		if (this.label != null) {
 			this.label.x += 40;
-		for (var i = 0; i < this.blocks.length; i++)
+			this.label.y -= this.height + 10;
+		}
+		for (var i = 0; i < this.blocks.length; i++) {
 			this.blocks[i].x += 40;
+			this.blocks[i].y -= this.height + 10;
+		}
 	},
 
 	reset_blocks_backgroundColor: function() {
