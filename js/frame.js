@@ -5,11 +5,31 @@ var Frame = enchant.Class.create(enchant.Sprite, {
 		this.y = y;
 		this.name = name;
 		this.backgroundColor = this.set_backgroundColor(name);
+		this.label = this.set_label(name);
+		this.copy_btn = new Copy(this.x + 4, this.y + this.height + 10);
 		this.blocks = new Array();
 		this.arg = new Array();
 		this.kind_arg = 0;
 		this.id = this.set_id(name);
 		this.nest = new Array();
+	},
+
+	set_label: function(name) {
+		if (name == "stack") return null;
+		var label = new Sprite(16, 16);
+		if (name == "heart") {
+			label.image = core.assets["../img/heart.png"];
+		} else if (name == "clover") {
+			label.image = core.assets["../img/clover.png"];
+		} else if (name == "spade") {
+			label.image = core.assets["../img/clover.png"];
+		} else if (name == "diamond") {
+			label.image = core.assets["../img/diamond.png"];
+		}
+		label.x = this.x + 4;
+		label.y = this.y - 21;
+
+		return label;
 	},
 
 	set_backgroundColor: function(name) {
@@ -24,6 +44,20 @@ var Frame = enchant.Class.create(enchant.Sprite, {
 		else if (name == "clover") return 2;
 		else if (name == "spade") return 3;
 		else if (name == "diamond") return 4;
+	},
+
+	push_label_btn_stage: function(stage) {
+		if (this.label != null)
+			stage.addChild(this.label);
+		this.push_btn_stage(stage);
+	},
+
+	push_btn_stage: function(stage) {
+		stage.addChild(this.copy_btn);
+	},
+
+	pop_btn_stage: function(stage) {
+		stage.removeChild(this.copy_btn);
 	},
 
 	reset_blocks_backgroundColor: function() {

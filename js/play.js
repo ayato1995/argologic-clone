@@ -44,6 +44,9 @@ var Play = enchant.Class.create(Block, {
     	var interval = 500;
 
     	player.pop_block_stage(stage);
+    	for (var i = 0; i < stage.frames.length; i++) {
+    		stage.frames[i].pop_btn_stage(stage);
+    	}
     	for (var i = 0; i < block.length; i++) {
     		console.log("play " + block[i].type);
     		if (block[i].type == "function") {
