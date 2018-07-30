@@ -60,6 +60,22 @@ var Frame = enchant.Class.create(enchant.Sprite, {
 		stage.removeChild(this.copy_btn);
 	},
 
+	move_frame: function() {
+		this.x -= 40;
+		if (this.label != null)
+			this.label.x -= 40;
+		for (var i = 0; i < this.blocks.length; i++)
+			this.blocks[i].x -= 40;
+	},
+
+	reset_frame: function() {
+		this.x += 40;
+		if (this.label != null)
+			this.label.x += 40;
+		for (var i = 0; i < this.blocks.length; i++)
+			this.blocks[i].x += 40;
+	},
+
 	reset_blocks_backgroundColor: function() {
 		for (var i = 0; i < this.blocks.length; i++) {
 			this.blocks[i].reset_backgroundColor();
