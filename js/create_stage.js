@@ -75,6 +75,8 @@ initialize_stage = function(stage) {
         stage.frames[i].push_btn_stage(stage);
         stage.frames[i].reset_frame();
     }
+    stage.addChild(stage.play);
+    stage.addChild(stage.select);
 	stage.clearFlag = true;
     stage.selectFlag = false;
     stage.player.push_block_stage(stage);

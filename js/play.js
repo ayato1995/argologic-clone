@@ -16,7 +16,7 @@ var Play = enchant.Class.create(Block, {
 				}
 				// console.log(stage.log);
 				write_log(stage.log);
-				var time = this.play(stage.frames[0].blocks, player, stage, map, 0);
+				var time = this.ready_play(stage.frames[0].blocks, player, stage, map, 0);
 				setTimeout(function() {
 					if (!stage.clearFlag) return;
 					// this.reset_block_stack();
@@ -38,16 +38,23 @@ var Play = enchant.Class.create(Block, {
 		return true;
 	},
 
+	ready_play: function(block, player, stage, map, t, args) {
+		player.pop_block_stage(stage);
+    	for (var i = 0; i < stage.frames.length; i++) {
+    		stage.frames[i].pop_btn_stage(stage);
+    		stage.frames[i].move_frame();
+    	}
+    	stage.removeChild(stage.play);
+    	stage.removeChild(stage.select);
+
+    	return this.play(block, player, stage, map, t, args);
+	},
+
 	play: function(block, player, stage, map, t, args) {
 		var time = t;
     	var forStack = [];
     	var interval = 500;
 
-    	player.pop_block_stage(stage);
-    	for (var i = 0; i < stage.frames.length; i++) {
-    		stage.frames[i].pop_btn_stage(stage);
-    		stage.frames[i].move_frame();
-    	}
     	for (var i = 0; i < block.length; i++) {
     		console.log("play " + block[i].type);
     		if (block[i].type == "function") {
