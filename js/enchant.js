@@ -5,7 +5,8 @@
  * Copyright UEI Corporation
  * Released under the MIT license.
  */
-
+const CORE_WIDTH = 600;
+const CORE_HEIGHT = 320;
 (function(window, undefined) {
 
 // ECMA-262 5th edition Functions
@@ -3553,10 +3554,12 @@ enchant.Map = enchant.Class.create(enchant.Entity, {
      * @private
      */
     updateBuffer: function() {
+        // console.log("updateBuffer");
         if (this._visible === undefined || this._visible) {
             var core = enchant.Core.instance;
             if (this._dirty || this._previousOffsetX == null) {
-                this.redraw(0, 0, core.width, core.height);
+                // this.redraw(0, 0, core.width, core.height);
+                this.redraw(0, 0, CORE_WIDTH, CORE_HEIGHT);
             } else if (this._offsetX !== this._previousOffsetX ||
                     this._offsetY !== this._previousOffsetY) {
                 if (this._tight) {
@@ -3564,10 +3567,16 @@ enchant.Map = enchant.Class.create(enchant.Entity, {
                     var y = -this._offsetY;
                     var px = -this._previousOffsetX;
                     var py = -this._previousOffsetY;
+                    /*
                     var w1 = x - px + core.width;
                     var w2 = px - x + core.width;
                     var h1 = y - py + core.height;
                     var h2 = py - y + core.height;
+                    */
+                    var w1 = x - px + CORE_WIDTH;
+                    var w2 = px - x + CORE_WIDTH;
+                    var h1 = y - py + CORE_HEIGHT;
+                    var h2 = py - y + CORE_HEIGHT;
                     if (w1 > this._tileWidth && w2 > this._tileWidth &&
                             h1 > this._tileHeight && h2 > this._tileHeight) {
                         var sx, sy, dx, dy, sw, sh;
@@ -3615,20 +3624,26 @@ enchant.Map = enchant.Class.create(enchant.Entity, {
                         }
 
                         if (dx === 0) {
-                            this.redraw(sw, 0, core.width - sw, core.height);
+                            // this.redraw(sw, 0, core.width - sw, core.height);
+                            this.redraw(sw, 0, CORE_WIDTH - sw, CORE_HEIGHT);
                         } else {
-                            this.redraw(0, 0, core.width - sw, core.height);
+                            // this.redraw(0, 0, core.width - sw, core.height);
+                            this.redraw(0, 0, CORE_WIDTH - sw, CORE_HEIGHT);
                         }
                         if (dy === 0) {
-                            this.redraw(0, sh, core.width, core.height - sh);
+                            // this.redraw(0, sh, core.width, core.height - sh);
+                            this.redraw(0, sh, CORE_WIDTH, CORE_HEIGHT - sh);
                         } else {
-                            this.redraw(0, 0, core.width, core.height - sh);
+                            // this.redraw(0, 0, core.width, core.height - sh);
+                            this.redraw(0, 0, CORE_WIDTH, CORE_HEIGHT - sh);
                         }
                     } else {
-                        this.redraw(0, 0, core.width, core.height);
+                        // this.redraw(0, 0, core.width, core.height);
+                        this.redraw(0, 0, CORE_WIDTH, CORE_HEIGHT);
                     }
                 } else {
-                    this.redraw(0, 0, core.width, core.height);
+                    // this.redraw(0, 0, core.width, core.height);
+                    this.redraw(0, 0, CORE_WIDTH, CORE_HEIGHT);
                 }
             }
             this._previousOffsetX = this._offsetX;
@@ -3642,7 +3657,8 @@ enchant.Map = enchant.Class.create(enchant.Entity, {
             ctx.save();
             ctx.setTransform(1, 0, 0, 1, 0, 0);
             var cvs = this._context.canvas;
-                ctx.drawImage(cvs, 0, 0, core.width, core.height);
+                //ctx.drawImage(cvs, 0, 0, core.width, core.height);
+                ctx.drawImage(cvs, 0, 0, CORE_WIDTH, CORE_HEIGHT);
             ctx.restore();
         }
     },
