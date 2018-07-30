@@ -55,6 +55,22 @@
     stage.addChild(this.loop_end);
   },
 
+  pop_block_stage: function(stage) {
+  	stage.removeChild(this.up);
+  	stage.removeChild(this.left_rotate);
+  	stage.removeChild(this.right_rotate);
+  	stage.removeChild(this.func_h);
+  	stage.removeChild(this.func_c);
+  	stage.removeChild(this.func_s);
+  	stage.removeChild(this.func_d);
+  	stage.removeChild(this.arg1);
+  	stage.removeChild(this.arg2);
+  	stage.removeChild(this.arg3);
+  	stage.removeChild(this.loop_start);
+  	stage.removeChild(this.loop_start.loop_label);
+  	stage.removeChild(this.loop_end);
+  },
+
   set_block_eventListener: function(frames, stage, player) {
     this.up.register_all_set_eventListener(frames, stage, player);
     this.left_rotate.register_all_set_eventListener(frames, stage, player);

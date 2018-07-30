@@ -43,6 +43,7 @@ var Play = enchant.Class.create(Block, {
     	var forStack = [];
     	var interval = 500;
 
+    	player.pop_block_stage(stage);
     	for (var i = 0; i < block.length; i++) {
     		console.log("play " + block[i].type);
     		if (block[i].type == "function") {
