@@ -37,13 +37,6 @@ var Arg = enchant.Class.create(Block, {
 		});
 	},
 
-	register_move_eventListener: function() {
-		this.addEventListener("touchmove", function(e) {
-			this.x = e.x;
-			this.y = e.y;
-		});
-	},
-
 	register_set_eventListener: function(array, frame, stage, player) {
 		this.addEventListener("touchend", function(e) {
 			if (e.x > frame.x && e.x < frame.x + frame.width

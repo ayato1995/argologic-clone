@@ -55,7 +55,7 @@ var Loop_start = enchant.Class.create(Block, {
 		this.addEventListener("touchmove", function(e) {
 			this.x = e.x;
 			this.y = e.y;
-			this.loop_label.x = this.x + this.width - 6;
+			this.loop_label.x = this.x + this.width - this.loop_label.width;
 			this.loop_label.y = this.y + this.height - 6;
 		})
 	},
@@ -70,51 +70,50 @@ var Loop_start = enchant.Class.create(Block, {
 			}
 			this.x = this.default_x;
 			this.y = this.default_y;
-			this.loop_label.x = this.x + this.width - 6;
+			this.loop_label.x = this.x + this.width - this.loop_label.width;
 			this.loop_label.y = this.y + this.height - 6;
 		});
 	},
-
-    register_all_set_eventListener: function(frames, stage, player) {
-      this.register_set_eventListener(frames[0].blocks, frames[0], stage, player);
-      this.register_set_eventListener(frames[1].blocks, frames[1], stage, player);
-      this.register_set_eventListener(frames[2].blocks, frames[2], stage, player);
-      this.register_set_eventListener(frames[3].blocks, frames[3], stage, player);
-      this.register_set_eventListener(frames[4].blocks, frames[4], stage, player);
-    },
 
 	register_loop_label_eventListener: function() {
 		this.loop_label.addEventListener("touchstart", function(e) {
 			if (this.loop_cnt < 10) {
 				this.loop_cnt++;
+				if (this.loop_cnt == 10) {
+					this.loop_label.width += 2;
+				}
 			} else {
 				this.loop_cnt = 1;
-				this.loop_label.x += 2;
 				this.loop_label.width -= 2;
 			}
-			if (this.loop_cnt == 10) {
-				this.loop_label.x -= 2;
-				this.loop_label.width += 2;
-			}
+			this.loop_label.x = this.x + this.width - this.loop_label.width;
 			this.loop_label.text = String(this.loop_cnt);
 		}.bind(this));
 	},
 
 	set_block: function(array, frame, stage, player) {
 		var block = new Loop_start(frame.x + 4, array.length * 20 + frame.y + 4);
-		block.set_loop_cnt(this.loop_cnt);
+		block.set_loop_cnt(this, block);
 		block.register_remove_eventListener(array, stage, player);
 		stage.addChild(block);
 		stage.addChild(block.loop_label);
 		array.push(block);
 	},
 
-	set_loop_cnt: function(cnt) {
-		this.loop_cnt = cnt;
+	set_loop_cnt: function(tblock, block) {
+		this.loop_cnt = tblock.loop_cnt;
+		this.loop_label.width = tblock.loop_label.width;
+		this.loop_label.x = block.x + block.width - this.loop_label.width;
 		this.loop_label.text = this.loop_cnt;
 	},
 
 	output_log: function() {
 		return this.type + " " + this.loop_cnt + "\n";
+	},
+
+	moveBlock: function(n) {
+		console.log("over wride");
+		this.y = n * 20 + 31 + 4;
+		this.loop_label.y = this.y + this.height - 6;
 	}
 });

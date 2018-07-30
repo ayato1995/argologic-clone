@@ -34,13 +34,6 @@ var Loop_end = enchant.Class.create(Block, {
 			}
 		});
 	},
-
-	register_move_eventListener: function() {
-		this.addEventListener("touchmove", function(e) {
-			this.x = e.x;
-			this.y = e.y;
-		});
-	},
 	
 	register_set_eventListener: function(array, frame, stage, player) {
 		this.addEventListener("touchend", function(e) {
@@ -52,14 +45,6 @@ var Loop_end = enchant.Class.create(Block, {
 			this.y = this.default_y;
 		});
 	},
-
-    register_all_set_eventListener: function(frames, stage, player) {
-      this.register_set_eventListener(frames[0].blocks, frames[0], stage, player);
-      this.register_set_eventListener(frames[1].blocks, frames[1], stage, player);
-      this.register_set_eventListener(frames[2].blocks, frames[2], stage, player);
-      this.register_set_eventListener(frames[3].blocks, frames[3], stage, player);
-      this.register_set_eventListener(frames[4].blocks, frames[4], stage, player);
-    },
 
 	set_block: function(array, frame, stage, player) {
 		var block = new Loop_end(frame.x + 4, array.length * 20 + frame.y + 4);
