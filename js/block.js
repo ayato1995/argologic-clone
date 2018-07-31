@@ -152,4 +152,9 @@
     return this.type + "\n";
   },
 
+  move_frame_block: function(frame) {
+    this.x = frame.x + 4;
+    this.y += frame.height + 10;
+  }
+
 });

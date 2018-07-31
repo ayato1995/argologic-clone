@@ -114,6 +114,7 @@ var Play = enchant.Class.create(Block, {
 		} else if (block[i].id == 2) {
 			order = args[2];
 		}
+		if (order == null) return time;
 		if (order.type == "function") {
 		    time = this.play_function(i, order, block, stage, player, map, time);
 		} else {

@@ -114,6 +114,14 @@ var Loop_start = enchant.Class.create(Block, {
 	moveBlock: function(n) {
 		console.log("over wride");
 		this.y = n * 20 + 31 + 4;
+		this.loop_label.x = this.x + this.width - this.loop_label.width;
 		this.loop_label.y = this.y + this.height - 6;
+	},
+
+	move_frame_block: function(frame) {
+		this.x = frame.x + 4;
+		this.y += frame.height + 10;
+		this.loop_label.x = this.x + this.width - this.loop_label.width;
+		this.loop_label.y = this.loop_label.y = this.y + this.height - 6;
 	}
 });

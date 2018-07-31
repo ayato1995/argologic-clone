@@ -1,8 +1,10 @@
 var Frame = enchant.Class.create(enchant.Sprite, {
 	initialize: function(x, y, name) {
 		enchant.Sprite.call(this, 24, 200);
-		this.x = x;
-		this.y = y;
+		this.default_x = x;
+		this.default_y = y;
+		this.x = this.default_x;
+		this.y = this.default_y;
 		this.name = name;
 		this.backgroundColor = this.set_backgroundColor(name);
 		this.label = this.set_label(name);
@@ -68,21 +70,20 @@ var Frame = enchant.Class.create(enchant.Sprite, {
 			this.label.y += this.height + 10;
 		}
 		for (var i = 0; i < this.blocks.length; i++) {
-			this.blocks[i].x -= 40;
-			this.blocks[i].y += this.height + 10;
+			this.blocks[i].move_frame_block(this);
 		}
 	},
 
 	reset_frame: function() {
-		this.x += 40;
-		this.y -= this.height + 10;
+		this.x = this.default_x;
+		this.y = this.default_y;
 		if (this.label != null) {
-			this.label.x += 40;
-			this.label.y -= this.height + 10;
+			this.label.x = this.x + 4;
+			this.label.y = this.y - 21;
 		}
 		for (var i = 0; i < this.blocks.length; i++) {
-			this.blocks[i].x += 40;
-			this.blocks[i].y -= this.height + 10;
+			this.blocks[i].x = this.x + 4;
+			this.blocks[i].moveBlock(i);
 		}
 	},
 
