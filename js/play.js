@@ -6,6 +6,7 @@ var Play = enchant.Class.create(Block, {
 		// 実行中のブロックをハイライトするため
 		this.block_stack = new Array();
 		this.call_stack = new Array();
+		this.exec_frames = new Array();
 	},
 
 	register_play_eventListener: function(player, stage, map, goal) {
@@ -48,6 +49,8 @@ var Play = enchant.Class.create(Block, {
     	stage.removeChild(stage.play);
     	stage.removeChild(stage.select);
 
+    	this.copy_frame(stage.frames[0], stage, player);
+    	
     	return this.play(block, player, stage, map, t, args);
 	},
 
@@ -210,4 +213,15 @@ var Play = enchant.Class.create(Block, {
 			this.pop_func_stack();
 		}
 	},
+
+	copy_frame: function(frame, stage, player) {
+		var f = new Frame(330 + this.exec_frames.length * 30, 31, frame.name);
+		stage.addChild(f);
+		for (var i = 0; i < frame.blocks.length; i++) {
+			console.log(frame.blocks[i].type);
+			frame.blocks[i].set_block(f.blocks, f, stage, player);
+		}
+		this.exec_frames.push(f);
+
+	}
 });

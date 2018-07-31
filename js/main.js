@@ -46,6 +46,6 @@ window.onload = function() {
   	});
   }
 
-  // core.start();
-  core.debug();
+  core.start();
+  // core.debug();
 };

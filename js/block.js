@@ -152,9 +152,13 @@
     return this.type + "\n";
   },
 
-  move_frame_block: function(frame) {
+  move_frame_block: function(frame, i) {
+    console.log(frame.y);
+    console.log(this.type);
     this.x = frame.x + 4;
-    this.y += frame.height + 10;
+    console.log(frame.y + 4 + i);
+    this.y = frame.y + 4 + i * 20;
+    // this.y = frame.y + i * 20 + 4;
   }
 
 });

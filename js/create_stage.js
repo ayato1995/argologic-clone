@@ -76,6 +76,14 @@ initialize_stage = function(stage) {
         stage.frames[i].push_btn_stage(stage);
         stage.frames[i].reset_frame();
     }
+    for (var i = 0; i < stage.play.exec_frames.length; i++) {
+        stage.removeChild(stage.play.exec_frames[i]);
+        for (var j = 0; j < stage.play.exec_frames[i].blocks.length; j++) {
+            stage.removeChild(stage.play.exec_frames[i].blocks[j]);
+        }
+        stage.play.exec_frames[i].blocks.length = 0;
+        stage.play.exec_frames.pop();
+    }
     stage.addChild(stage.play);
     stage.addChild(stage.select);
 	stage.clearFlag = true;

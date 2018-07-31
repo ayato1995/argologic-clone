@@ -64,13 +64,14 @@ var Frame = enchant.Class.create(enchant.Sprite, {
 
 	move_frame: function() {
 		this.x -= 40;
-		this.y += this.height + 10;
+		this.y += this.height + 40;
 		if (this.label != null) {
-			this.label.x -= 40;
-			this.label.y += this.height + 10;
+			this.label.x = this.x + 4;
+			this.label.y = this.y - 21;
 		}
 		for (var i = 0; i < this.blocks.length; i++) {
-			this.blocks[i].move_frame_block(this);
+			console.log(i);
+			this.blocks[i].move_frame_block(this, i);
 		}
 	},
 
