@@ -155,6 +155,10 @@
   move_frame_block: function(frame, i) {
     this.x = frame.x + 4;
     this.y = frame.y + 4 + i * 20;
+  },
+
+  remove_stage_block: function(stage) {
+    stage.removeChild(this);
   }
 
 });

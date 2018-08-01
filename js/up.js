@@ -14,5 +14,11 @@ var Up = enchant.Class.create(Block, {
     array.push(block);
 
     return block;
-  }
+  },
+
+  create_block: function(x, y, stage) {
+  	var order = new Up(x, y);
+  	stage.addChild(order);
+  	return order
+  }, 
 });

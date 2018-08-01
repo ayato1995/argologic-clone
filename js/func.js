@@ -107,12 +107,29 @@ var Func = enchant.Class.create(Block, {
   		});
 	},
 
-	set_arg: function(index, array, frame) {
+	set_arg: function(index, array, kind_arg) {
 		var i = index;
 		i++;
-		for (var j = frame.kind_arg; i < array.length && j > 0; i++, j--)
+		for (var j = kind_arg; i < array.length && j > 0; i++, j--) {
 			this.set_arg_block(array[i]);
-		if (frame.kind_are != 0)
-			array.splice(index + 1, frame.kind_arg);
-	}
+		}
+		if (kind_arg != 0)
+			array.splice(index + 1, kind_arg);
+	},
+
+	remove_stage_block: function(stage) {
+		if (this.arg.length != 0) {
+			for (var i = 0; i < this.arg.length; i++) {
+				stage.removeChild(this.arg[i]);
+			}
+			this.arg.length = 0;
+		}
+		if (this.arg_area.length != 0) {
+			for (var i = 0; i < this.arg_area.length; i++) {
+				stage.removeChild(this.arg_area[i]);
+			}
+			this.arg_area.length = 0;
+		}
+		stage.removeChild(this);
+	},
 })

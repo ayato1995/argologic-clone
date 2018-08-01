@@ -79,7 +79,7 @@ initialize_stage = function(stage) {
     for (var i = 0; i < stage.play.exec_frames.length; i++) {
         stage.removeChild(stage.play.exec_frames[i]);
         for (var j = 0; j < stage.play.exec_frames[i].blocks.length; j++) {
-            stage.removeChild(stage.play.exec_frames[i].blocks[j]);
+            stage.play.exec_frames[i].blocks[j].remove_stage_block(stage);
         }
         stage.play.exec_frames[i].blocks.length = 0;
         stage.play.exec_frames.pop();
