@@ -94,56 +94,57 @@
     return dire;
   },
 
-  toUp: function(map, stage) {
+  toUp: function(stage) {
   	switch(this.frame) {
   	case 1:
-  		this.moveDown(map, stage);
+  		this.moveDown(stage);
   		break;
   	case 10:
-  		this.moveLeft(map, stage);
+  		this.moveLeft(stage);
   		break;
   	case 19:
-  		this.moveRight(map, stage);
+  		this.moveRight(stage);
   		break;
   	case 28:
-  		this.moveUp(map, stage);
+  		this.moveUp(stage);
   		break;
   	}
   },
 
-  moveUp: function(map, stage) {
+  moveUp: function(stage) {
   	var y = this.y;
     while (y - this.y < 16) {
       this.y -= 4;
     }
-    this.decisionMap(map, stage, this.x + 16, this.y + 16);
+    this.decisionMap(stage, this.x + 16, this.y + 16);
   },
 
-  moveDown: function(map, stage) {
+  moveDown: function(stage) {
   	var y = this.y;
   	while(this.y - y < 16) {
   		this.y += 4;
   	}
-  	this.decisionMap(map, stage,this.x + 16, this.y + 16);
+  	this.decisionMap(stage, this.x + 16, this.y + 16);
   },
 
-  moveLeft: function(map, stage) {
+  moveLeft: function(stage) {
   	var x = this.x;
   	while (x - this.x < 16) {
   		this.x -= 4;
   	}
-  	this.decisionMap(map, stage, this.x + 16, this.y + 16);
+  	this.decisionMap(stage, this.x + 16, this.y + 16);
   },
 
-  moveRight: function(map, stage) {
+  moveRight: function(stage) {
   	var x = this.x;
   	while(this.x - x < 16) {
   		this.x += 4;
   	}
-  	this.decisionMap(map, stage, this.x + 16, this.y + 16);
+  	this.decisionMap(stage, this.x + 16, this.y + 16);
   },
 
-  decisionMap: function(map, stage, x, y) {
+  decisionMap: function(stage, x, y) {
+    var map = stage.map;
   	if (map.hitTest(x, y)) {
   	  this.opacity = 0;
       stage.clearFlag = false;

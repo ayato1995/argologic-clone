@@ -22,7 +22,7 @@ createStage = function(stageId) {
     }
 
     /* goal initialize */
-    var goal = new Goal(stage.map.goalX, stage.map.goalY, core.assets["../img/goal.png"]);
+    stage.goal = new Goal(stage.map.goalX, stage.map.goalY, core.assets["../img/goal.png"]);
 
     /* player initialize */
     stage.player = new Player(stage.map.initializeX, stage.map.initializeY, stage.map.direction);
@@ -52,13 +52,13 @@ createStage = function(stageId) {
     for (var i = 0; i < stage.frames.length; i++) {
         stage.frames[i].push_label_btn_stage(stage);
     }
-    stage.addChild(goal);
+    stage.addChild(stage.goal);
     stage.addChild(stage.player);
     stage.player.push_block_stage(stage);
     stage.addChild(stage.play);
     stage.addChild(stage.select);
 
-    stage.play.register_play_eventListener(stage.player, stage, stage.map, goal);
+    stage.play.register_play_eventListener(stage.player, stage, stage.map, stage.goal);
     stage.select.register_eventListener(stage, stage.frames);
     for (var i = 0; i < stage.frames.length; i++) {
         stage.frames[i].copy_btn.register_eventListener(stage.player, stage.frames[i].blocks, stage.frames[i], stage);

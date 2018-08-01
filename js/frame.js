@@ -10,6 +10,8 @@ var Frame = enchant.Class.create(enchant.Sprite, {
 		this.label = this.set_label(name);
 		this.copy_btn = new Copy(this.x + 4, this.y + this.height + 10);
 		this.blocks = new Array();
+		/* instraction pointer */
+		this.ip = 0;
 		this.arg = new Array();
 		this.kind_arg = 0;
 		this.id = this.set_id(name);
@@ -70,7 +72,6 @@ var Frame = enchant.Class.create(enchant.Sprite, {
 			this.label.y = this.y - 21;
 		}
 		for (var i = 0; i < this.blocks.length; i++) {
-			console.log(i);
 			this.blocks[i].move_frame_block(this, i);
 		}
 	},

@@ -7,6 +7,8 @@ var Play = enchant.Class.create(Block, {
 		this.block_stack = new Array();
 		this.call_stack = new Array();
 		this.exec_frames = new Array();
+		/* interval of order */
+		this.interval = 500;
 	},
 
 	register_play_eventListener: function(player, stage, map, goal) {
@@ -17,7 +19,9 @@ var Play = enchant.Class.create(Block, {
 				}
 				// console.log(stage.log);
 				write_log(stage.log);
-				var time = this.ready_play(stage.frames[0].blocks, player, stage, map, 0);
+				// var time = this.ready_play(stage.frames[0].blocks, player, stage, map, 0);
+				this.ready_play(stage.frames[0].blocks, player, stage);
+				/*
 				setTimeout(function() {
 					if (!stage.clearFlag) return;
 					// this.reset_block_stack();
@@ -27,6 +31,7 @@ var Play = enchant.Class.create(Block, {
 						core.field(false, stage);
 					}
 				}.bind(this), time);
+				*/
 			}
 		});
 	},
@@ -39,7 +44,7 @@ var Play = enchant.Class.create(Block, {
 		return true;
 	},
 
-	ready_play: function(block, player, stage, map, t, args) {
+	ready_play: function(block, player, stage) {
 		core.height += 180;
 		player.pop_block_stage(stage);
     	for (var i = 0; i < stage.frames.length; i++) {
@@ -51,10 +56,11 @@ var Play = enchant.Class.create(Block, {
 
     	this.copy_frame(stage.frames[0], stage, player);
     	
-    	// return this.play(block, player, stage, map, t, args);
-    	return this.play(this.exec_frames[0].blocks, player, stage, map, t, args);
+    	// return this.play(this.exec_frames[0].blocks, player, stage, map, t, args);
+    	this.play(this.exec_frames[0], player, stage, null);
 	},
 
+	/*
 	play: function(block, player, stage, map, t, args) {
 		var time = t;
     	var forStack = [];
@@ -85,24 +91,55 @@ var Play = enchant.Class.create(Block, {
 		        time += interval;
 		    }
 		}
+		// stage.removeChild(this.exec_frames.pop());
 
 		return time;
+  	},*/
+  	play: function(frame, player, stage, args) {
+  		console.log(frame.ip);
+  		if (frame.ip >= frame.blocks.length) {
+  			this.judge_goal(player, stage);
+  			return;
+  		}
+  		var order = frame.blocks[frame.ip];
+  		var type = order.type;
+  		if (type == "function") {
+  		} else if (type == "arg") {
+  		} else if (type == "loop_start") {
+  		} else {
+  			console.log(type);
+  			this.execution(order, player, stage);
+  			frame.ip++;
+  		}
+  		setTimeout(this.play.bind(this), this.interval, frame, player, stage, args);
+  	},
+
+  	judge_goal: function(player, stage) {
+  		if (! stage.clearFlag) return;
+  		if (player.within(stage.goal, 16))
+  			core.field(true, stage);
+  		else
+  			core.field(false, stage);
   	},
 
   	play_function: function(i, order, block, stage, player, map, time) {
   		if (order.name == "heart") {
         	order.set_arg(i, block, stage.frames[1]);
-        	time = this.play(stage.frames[1].blocks, player, stage, map, time, block[i].arg);
+        	this.copy_frame(stage.frames[1], stage, player);
       	} else if (order.name == "clover") {
       		order.set_arg(i, block, stage.frames[2]);
-      		time = this.play(stage.frames[2].blocks, player, stage, map, time, block[i].arg);
+        	this.copy_frame(stage.frames[2], stage, player);
+      		// time = this.play(stage.frames[2].blocks, player, stage, map, time, block[i].arg);
       	} else if (order.name == "spead") {
       		order.set_arg(i, block, stage.frames[3]);
-      		time = this.play(stage.frames[3].blocks, player, stage, map, time, block[i].arg);
+        	this.copy_frame(stage.frames[3], stage, player);
+      		// time = this.play(stage.frames[3].blocks, player, stage, map, time, block[i].arg);
       	} else if (order.name == "diamond") {
       		order.set_arg(i, block, stage.frames[4]);
-      		time = this.play(stage.frames[4].blocks, player, stage, map, time, block[i].arg);
+        	this.copy_frame(stage.frames[4], stage, player);
+      		// time = this.play(stage.frames[4].blocks, player, stage, map, time, block[i].arg);
       	}
+        time = this.play(this.exec_frames[this.exec_frames.length - 1].blocks, player, stage, map, time, block[i].arg);
     	setTimeout(this.pop_func_stack.bind(this), time);
 
       	return time;
@@ -166,20 +203,20 @@ var Play = enchant.Class.create(Block, {
 	    return time;
 	},
 
-	execution: function(block, player, map, stage, p) {
-	    if (p.block_stack.length > 0) {
-	    	p.pop_block_stack();
+	execution: function(block, player, stage) {
+	    if (this.block_stack.length > 0) {
+	    	this.pop_block_stack();
 	    }
-	    p.push_block_stack(block);
+	    this.push_block_stack(block);
 	    switch(block.type) {
 	    case "up":
-	    	player.toUp(map, stage);
+	    	player.toUp(stage);
 	    	break;
 	    case "left_rotate":
-	    	player.toLeftRotate(map);
+	    	player.toLeftRotate();
 	    	break;
 	    case "right_rotate":
-	    	player.toRightRotate(map);
+	    	player.toRightRotate();
 	    	break;
 	    }
 	    player.before_block = block;
@@ -219,10 +256,8 @@ var Play = enchant.Class.create(Block, {
 		var f = new Frame(330 + this.exec_frames.length * 30, 31, frame.name);
 		stage.addChild(f);
 		for (var i = 0; i < frame.blocks.length; i++) {
-			console.log(frame.blocks[i].type);
 			frame.blocks[i].set_block(f.blocks, f, stage, player);
 		}
 		this.exec_frames.push(f);
-
-	}
+	},
 });
