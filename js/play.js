@@ -51,7 +51,8 @@ var Play = enchant.Class.create(Block, {
 
     	this.copy_frame(stage.frames[0], stage, player);
     	
-    	return this.play(block, player, stage, map, t, args);
+    	// return this.play(block, player, stage, map, t, args);
+    	return this.play(this.exec_frames[0].blocks, player, stage, map, t, args);
 	},
 
 	play: function(block, player, stage, map, t, args) {
