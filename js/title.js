@@ -1,5 +1,6 @@
 titleScene = function() {
   var scene = new Scene();
+  core.height = 320;
   var title = new Label("アルゴロジック クローン");
   title.height = 16;
   title.width = 166;

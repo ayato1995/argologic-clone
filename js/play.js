@@ -7,8 +7,12 @@ var Play = enchant.Class.create(Block, {
 		this.block_stack = new Array();
 		this.call_stack = new Array();
 		this.exec_frames = new Array();
+		this.frame_id = 0;
 		/* interval of order */
 		this.interval = 500;
+		/* loop variable */
+		this.start_ip = new Array();
+		this.counter = new Array();
 	},
 
 	register_play_eventListener: function(player, stage, map, goal) {
@@ -17,21 +21,8 @@ var Play = enchant.Class.create(Block, {
 				for (var i = 0; i < stage.frames.length; i++) {
 					stage.log += stage.frames[i].output_block();
 				}
-				// console.log(stage.log);
 				write_log(stage.log);
-				// var time = this.ready_play(stage.frames[0].blocks, player, stage, map, 0);
 				this.ready_play(stage.frames[0].blocks, player, stage);
-				/*
-				setTimeout(function() {
-					if (!stage.clearFlag) return;
-					// this.reset_block_stack();
-					if (player.within(goal, 16)) {
-						core.field(true, stage);
-					} else {
-						core.field(false, stage);
-					}
-				}.bind(this), time);
-				*/
 			}
 		});
 	},
@@ -53,11 +44,8 @@ var Play = enchant.Class.create(Block, {
     	}
     	stage.removeChild(stage.play);
     	stage.removeChild(stage.select);
-
-    	this.copy_frame(stage.frames[0], stage, player);
-    	
-    	// return this.play(this.exec_frames[0].blocks, player, stage, map, t, args);
-    	this.play(this.exec_frames[0], player, stage, null);
+    	this.copy_frame(stage.frames[0], stage, player);    	
+    	this.play(player, stage, null);
 	},
 
 	/*
@@ -95,23 +83,40 @@ var Play = enchant.Class.create(Block, {
 
 		return time;
   	},*/
-  	play: function(frame, player, stage, args) {
-  		console.log(frame.ip);
+  	play: function(player, stage, args) {
+  		var frame = this.exec_frames[this.frame_id];
   		if (frame.ip >= frame.blocks.length) {
-  			this.judge_goal(player, stage);
-  			return;
-  		}
-  		var order = frame.blocks[frame.ip];
-  		var type = order.type;
-  		if (type == "function") {
-  		} else if (type == "arg") {
-  		} else if (type == "loop_start") {
+  			if (frame.name == "stack") {
+	  			this.judge_goal(player, stage);
+  				return;
+  			} else {
+  				var func = this.exec_frames.pop();
+  				func.remove_blocks(stage);
+  				stage.removeChild(func);
+  				this.frame_id--;
+  				var frame = this.exec_frames[this.frame_id];
+  				var order = frame.blocks[frame.ip];
+  				order.backgroundColor = order.default_color;
+  				frame.ip++;
+  			}
   		} else {
-  			console.log(type);
-  			this.execution(order, player, stage);
-  			frame.ip++;
-  		}
-  		setTimeout(this.play.bind(this), this.interval, frame, player, stage, args);
+	  		var order = frame.blocks[frame.ip];
+			var type = order.type;
+			if (type == "function") {
+				this.copy_function(order, stage, player);
+			} else if (type == "arg") {
+				frame.ip++;
+			} else if (type == "loop_start") {
+				this.loop_start(frame.ip, order);
+				frame.ip++;
+			} else if (type == "loop_end") {
+				this.loop_end(frame.ip, order, frame);
+			} else {
+				this.execution(order, player, stage);
+				frame.ip++;
+			}
+		}
+  		setTimeout(this.play.bind(this), this.interval, player, stage, args);
   	},
 
   	judge_goal: function(player, stage) {
@@ -122,6 +127,7 @@ var Play = enchant.Class.create(Block, {
   			core.field(false, stage);
   	},
 
+  	/*
   	play_function: function(i, order, block, stage, player, map, time) {
   		if (order.name == "heart") {
         	order.set_arg(i, block, stage.frames[1]);
@@ -165,7 +171,6 @@ var Play = enchant.Class.create(Block, {
 
 		return time;
   	},
-
 	forExecution: function(block, i, player, map, time, stage) {
 	  	var interval = 500;
 	    if (block.length == 0) {
@@ -201,6 +206,44 @@ var Play = enchant.Class.create(Block, {
 	    }
 
 	    return time;
+	},
+	*/
+	copy_function: function(order, stage, player) {
+		order.backgroundColor = "red";
+		var id = 0;
+		var name = order.name;
+		if (name == "heart")
+			id = 1;
+		else if (name == "clover")
+			id = 2;
+		else if (name == "spead")
+			id = 3;
+		else if (name == "diamond")
+			id = 4;
+		var base_frame = stage.frames[id];
+		this.copy_frame(base_frame, stage, player);
+		var origin_frame = this.exec_frames[this.frame_id];
+		if (base_frame.kind_arg != 0) {
+			origin_frame.kind_arg = origin_frame.kind_arg;
+		}
+	},
+
+	loop_start: function(ip, order) {
+		this.start_ip.push(ip + 1);
+		this.counter.push(order.loop_cnt);
+	},
+
+	loop_end: function(ip, order, frame) {
+		var cnt = this.counter.pop();
+		var ip = this.start_ip.pop();
+		cnt--;
+		if (cnt == 0) {
+			frame.ip++;
+			return;
+		}
+		frame.ip = ip;
+		this.start_ip.push(ip);
+		this.counter.push(cnt);
 	},
 
 	execution: function(block, player, stage) {
@@ -259,5 +302,6 @@ var Play = enchant.Class.create(Block, {
 			frame.blocks[i].set_block(f.blocks, f, stage, player);
 		}
 		this.exec_frames.push(f);
+		this.frame_id = this.exec_frames.length - 1;
 	},
 });
