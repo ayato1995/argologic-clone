@@ -123,7 +123,9 @@ var Play = enchant.Class.create(Block, {
 				if (o.type == "arg") {
 					console.log(order.arg[i].type);
 					stage.removeChild(origin_frame.blocks[j]);
+					console.log(o.x + " " + o.y);
 					origin_frame.blocks[j] = order.arg[i].create_block(o.x, o.y, stage);
+					console.log(origin_frame.blocks[j]);
 				}
 			}
 		}

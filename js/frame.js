@@ -26,7 +26,7 @@ var Frame = enchant.Class.create(enchant.Sprite, {
 		} else if (name == "clover") {
 			label.image = core.assets["../img/clover.png"];
 		} else if (name == "spade") {
-			label.image = core.assets["../img/clover.png"];
+			label.image = core.assets["../img/spade.png"];
 		} else if (name == "diamond") {
 			label.image = core.assets["../img/diamond.png"];
 		}

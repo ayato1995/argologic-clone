@@ -14,5 +14,11 @@ var Left_rotate = enchant.Class.create(Block, {
 		array.push(block);
 
 		return block;
-	}
+	},
+
+	create_block: function(x, y, stage) {
+		var order = new Left_rotate(x, y);
+		stage.addChild(order);
+		return order;
+	},
 });
