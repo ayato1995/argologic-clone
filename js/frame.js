@@ -116,6 +116,10 @@ var Frame = enchant.Class.create(enchant.Sprite, {
 				loop_cnt--;
 		}
 		if (loop_cnt != 0) return false;
+		if (this.nest.length != 0) {
+			console.log("nest.length = " + this.nest.length);
+			return false;
+		}
 		return true;
 	},
 
