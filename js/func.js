@@ -36,10 +36,13 @@ var Func = enchant.Class.create(Block, {
 					} else {
 						frame.nest.push(1);
 					}
+				} else if (this.arg_area.length != 0) {
+					frame.nest.pop();
 				}
 				stage.log += "delete " + this.type + " " + frame.name + "\n";
 				stage.removeChild(this);
 				var i = this.searchBlock(array);
+				this.reset_scale(array, i, this.arg_area.length);
 				this.block_remove(array);
 				for (var i = 0; i < this.arg_area.length; i++) {
 					stage.removeChild(this.arg_area[i]);
@@ -57,6 +60,7 @@ var Func = enchant.Class.create(Block, {
 				if (b != null) {
 					if (b.arg_area.length == 0 && frame.nest.length != 0) {
 						b.arg_flag = true;
+						b.scale(1 - (frame.nest.length) * 0.1, 1 - (frame.nest.length) * 0.1);
 						var kind = frame.nest.pop();
 						kind--;
 						if (kind != 0)
