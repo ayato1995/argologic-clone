@@ -55,7 +55,7 @@
 
   register_remove_eventListener: function(old_array, new_array, old_frame, new_frame, stage, player) {
     this.addEventListener("touchend", function(e) {
-      if (!stage.play_flag) return;
+      if (stage.play_flag) return;
       if (stage.selectFlag) return;
       if (e.x > new_frame.x && e.x < new_frame.x + new_frame.width
           && e.y > new_frame.y && e.y < new_frame.y + new_frame.height) {
