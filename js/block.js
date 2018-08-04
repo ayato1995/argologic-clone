@@ -10,46 +10,81 @@
   },
 
   register_all_set_eventListener: function(frames, stage, player) {
-    this.register_set_eventListener(frames[0].blocks, frames[0], stage, player);
-    this.register_set_eventListener(frames[1].blocks, frames[1], stage, player);
-    this.register_set_eventListener(frames[2].blocks, frames[2], stage, player);
-    this.register_set_eventListener(frames[3].blocks, frames[3], stage, player);
-    this.register_set_eventListener(frames[4].blocks, frames[4], stage, player);
+    for (var i = 0; i < frames.length; i++) {
+      this.register_set_eventListener(frames[i].blocks, frames[i], stage, player);
+    }
   },
 
-  register_remove_eventListener: function(array, frame, stage, player) {
+  register_new_block_eventListener: function(array, frame, stage, player) {
+    this.register_select_eventListener(array, frame, stage, player);
+    this.register_all_remove_eventListener(array, frame, stage, player);
+    this.register_move_eventListener();
+  },
+
+  register_all_remove_eventListener: function(array, frame, stage, player) {
+    for (var i = 0; i < stage.frames.length; i++) {
+      if (frame == stage.frames[i]) continue;
+      this.register_remove_eventListener(array, stage.frames[i].blocks, frame, stage.frames[i], stage, player);
+    }
+  },
+
+  register_select_eventListener: function(array, frame, stage, player) {
     this.addEventListener("touchend", function() {
       if (stage.play_flag) return;
-      if (stage.selectFlag) {
-        if (this.select) {
-          var i = this.searchBlock(player.copy_list);
-          player.copy_list.splice(i, player.copy_list.length - i);
-          i = this.searchBlock(array);
-          for (var j = i; j < array.length && j < i + 3; j++) {
-            array[j].select = false;
-            array[j].backgroundColor = array[j].default_color;
-          }
-        } else {
-          this.reset_block_color(stage.frames);
-          player.copy_list.length = 0;
-          var i = this.searchBlock(array);
-          for (var j = i; j < array.length && j < i + 3; j++) {
-            player.copy_list.push(array[j]);
-            array[j].select = true;
-            array[j].backgroundColor = "yellow";
-          }
+      if (!stage.selectFlag) return;
+      if (this.select) {
+        var i = this.searchBlock(player.copy_list);
+        player.copy_list.splice(i, player.copy_list.length - i);
+        i = this.searchBlock(array);
+        for (var j = i; j < array.length && j < i + 3; j++) {
+          array[j].select = false;
+          array[j].backgroundColor = array[j].default_color;
         }
       } else {
+        this.reset_block_color(stage.frames);
+        player.copy_list.length = 0;
+        var i = this.searchBlock(array);
+        for (var j = i; j < array.length && j < i + 3; j++) {
+          player.copy_list.push(array[j]);
+          array[j].select = true;
+          array[j].backgroundColor = "yellow";
+        }
+      }
+    });
+  },
+
+  register_remove_eventListener: function(old_array, new_array, old_frame, new_frame, stage, player) {
+    this.addEventListener("touchend", function(e) {
+      if (!stage.play_flag) return;
+      if (stage.selectFlag) return;
+      if (e.x > new_frame.x && e.x < new_frame.x + new_frame.width
+          && e.y > new_frame.y && e.y < new_frame.y + new_frame.height) {
+        stage.log += "insert " + this.type + " " + new_frame.name + "\n";
+        var b = this.set_block(new_array, new_frame, stage, player);
+        if (new_frame.nest.length != 0) {
+          b.arg_frag = true;
+          b.scale(1 - (new_frame.nest.length) * 0.1, 1 - (new_frame.nest.length) * 0.1);
+          var kind = frame.nest.pop();
+          kind--;
+          if (kind != 0)
+            new_frame.nest.push(kind);
+        }
+      }
+      if (e.x > old_frame.x && e.x < old_frame.x + old_frame.width
+          && e.y > old_frame.y && e.y < old_frame.y + old_frame.height) {
+        this.x = this.default_x;
+        this.y = this.default_y;
+      } else {
         if (this.arg_frag) {
-          if (frame.nest.length != 0) {
-            frame.nest[frame.nest.length - 1]++;
+          if (old_frame.nest.length != 0) {
+            old_frame.nest[old_frame.nest.length - 1]++;
           } else {
-            frame.nest.push(1);
+            old_frame.nest.push(1);
           }
         }
-        stage.log += "delete " + this.type + " " + frame.name + "\n";
+        stage.log += "delete " + this.type + " " + old_frame.name + "\n";
         stage.removeChild(this);
-        this.block_remove(array);
+        this.block_remove(old_array);
       }
     });
   },
@@ -129,11 +164,9 @@
   },
 
   reset_block_color: function(frames) {
-    frames[0].reset_blocks_backgroundColor();
-    frames[1].reset_blocks_backgroundColor();
-    frames[2].reset_blocks_backgroundColor();
-    frames[3].reset_blocks_backgroundColor();
-    frames[4].reset_blocks_backgroundColor();
+    for (var i = 0; i < frames.length; i++) {
+      frames[i].reset_blocks_backgroundColor();
+    }
   },
 
   search_func_block: function(array) {
