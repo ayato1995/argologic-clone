@@ -20,6 +20,8 @@ createStage = function(stageId) {
       stage.map = addMap3(map_img);
     } else if (stageId == 4) {
       stage.map = addMap4(map_img);
+    } else if (stageId == 5) {
+      stage.map = addMap5(map_img);
     }
 
     /* goal initialize */
