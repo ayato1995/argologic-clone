@@ -52,10 +52,11 @@ var Func = enchant.Class.create(Block, {
 					}
 				}
 			}
-			if (e.x > old_frame.x && e.x < old_frame.frame.x + old_frame.width
+			if (e.x > old_frame.x && e.x < old_frame.x + old_frame.width
 				&& e.y > old_frame.y && e.y < old_frame.y + old_frame.height) {
 				this.x = this.default_x;
 				this.y = this.default_y;
+				console.log("tetetet");
 			} else {
 				if (this.arg_flag) {
 					if (old_frame.nest.length != 0) {
