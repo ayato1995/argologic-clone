@@ -35,8 +35,24 @@ var Loop_end = enchant.Class.create(Block, {
 	register_all_remove_eventListener: function(array, frame, stage, player) {
 		for (var i = 0; i < stage.frames.length; i++) {
 			if (frame == stage.frames[i]) continue;
-			this.register_remove_eventListener(stage.frames[i].blocks, stage.frames[i], stage, player);
+			this.register_move_insert_eventListener(stage.frames[i].blocks, stage.frames[i], stage, player);
 		}
+		this.register_remove_eventListener(array, frame, stage, player);
+	},
+
+	register_move_insert_eventListener: function(array, frame, stage, player) {
+		this.addEventListener("touchend", function(e) {
+			if (stage.play_flag) return;
+			if (stage.selectFlag) return;
+			if (e.x > frame.x && e.x < frame.x + frame.width &&
+				e.y > frame.y && e.y < frame.y + frame.height && this.check_loop_stack(frame)) {
+				stage.log += "insert " + this.type + " " + frame.name + "\n";
+				this.set_block(array, frame, stage, player);
+			}
+		});
+	},
+
+	register_remove_eventListener: function(array, frame, stage, player) {
 		this.addEventListener("touchend", function(e) {
 			if (e.x > frame.x && e.x < frame.x + frame.width
 				&& e.y > frame.y && e.y < frame.y + frame.height) {
@@ -46,18 +62,6 @@ var Loop_end = enchant.Class.create(Block, {
 				stage.log += "delete " + this.type + " " + frame.name + "\n";
 				stage.removeChild(this);
 				this.block_remove(array);
-			}
-		});
-	},
-
-	register_remove_eventListener: function(array, frame, stage, player) {
-		this.addEventListener("touchend", function(e) {
-			if (stage.play_flag) return;
-			if (stage.selectFlag) return;
-			if (e.x > frame.x && e.x < frame.x + frame.width &&
-				e.y > frame.y && e.y < frame.y + frame.height && this.check_loop_stack(frame)) {
-				stage.log += "insert " + this.type + " " + frame.name + "\n";
-				this.set_block(array, frame, stage, player);
 			}
 		});
 	},
