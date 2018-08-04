@@ -83,6 +83,7 @@ var Arg = enchant.Class.create(Block, {
 	},
 
 	set_arg_type: function(frame) {
-		frame.kind_arg = this.id + 1;
+		if (frame.kind_arg < this.id + 1)
+			frame.kind_arg = this.id + 1;
 	}
 })
