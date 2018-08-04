@@ -20,6 +20,8 @@ window.onload = function() {
 
   core.field = function(clear, stage) {
   	stage.play.reset_block_stack();
+    stage.log += clear + "\n";
+    write_log(stage.log);
     var game_set_image = new Sprite(189, 97);
     if (clear && stage.clearFlag) {
       stage.clearFlag = false;

@@ -93,5 +93,5 @@ initialize_stage = function(stage) {
   	stage.player.y = stage.map.initializeY;
   	stage.player.frame = stage.player.set_frame(stage.map.direction);
   	stage.player.opacity = 100;
-    stage.log = "========= stage " + stage.id + " =========";
+    stage.log = "stage" + stage.id + "\n";
 }

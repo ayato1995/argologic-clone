@@ -18,10 +18,10 @@ var Play = enchant.Class.create(Block, {
 	register_play_eventListener: function(player, stage, map, goal) {
 		this.addEventListener("touchend", function() {
 			if (stage.frames[0].blocks.length != 0 && this.check_frames(stage.frames)) {
+				stage.log += "play\n";
 				for (var i = 0; i < stage.frames.length; i++) {
 					stage.log += stage.frames[i].output_block();
 				}
-				write_log(stage.log);
 				this.ready_play(stage.frames[0].blocks, player, stage);
 			}
 		});

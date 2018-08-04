@@ -44,6 +44,7 @@ var Loop_start = enchant.Class.create(Block, {
 					}
 				}
 			} else {
+				stage.log += "delete " + this.type + " " + frame.name + "\n";
 				stage.removeChild(this.loop_label);
 				stage.removeChild(this);
 				this.block_remove(array);
@@ -65,8 +66,10 @@ var Loop_start = enchant.Class.create(Block, {
 			if (e.x > frame.x && e.x < frame.x + frame.width &&
 				e.y > frame.y && e.y < frame.y + frame.height) {
 				console.log(frame.nest.length + " " + frame.nest[frame.nest.length - 1]);
-				if (frame.nest.length == 0 || frame.nest[frame.nest.length - 1] == 0)
+				if (frame.nest.length == 0 || frame.nest[frame.nest.length - 1] == 0) {
+					stage.log += "insert " + this.type + " " + frame.name + "\n";
 					this.set_block(array, frame, stage, player);
+				}
 			}
 			this.x = this.default_x;
 			this.y = this.default_y;

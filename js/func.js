@@ -37,6 +37,7 @@ var Func = enchant.Class.create(Block, {
 				} else {
 					fram.nest.push(1);
 				}
+				stage.log += "delete " + this.type + " " + frame.name + "\n";
 				stage.removeChild(this);
 				var i = this.searchBlock(array);
 				this.reset_scale(array, i, frame.kind_arg);
@@ -52,6 +53,7 @@ var Func = enchant.Class.create(Block, {
 		this.addEventListener("touchend", function(e) {
 			if (e.x > frame.x && e.x < frame.x + frame.width
 				&& e.y > frame.y && e.y < frame.y + frame.height) {
+				stage.log += "insert " + this.type + " " + frame.name + "\n";
 				var b = this.set_block(array, frame, stage, player);
 				if (frame.nest.length != 0) {
 					var kind = frame.nest.pop();

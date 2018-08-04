@@ -45,6 +45,7 @@
             frame.nest.push(1);
           }
         }
+        stage.log += "delete " + this.type + " " + frame.name + "\n";
         stage.removeChild(this);
         this.block_remove(array);
       }
@@ -62,6 +63,7 @@
     this.addEventListener("touchend", function(e) {
       if (e.x > frame.x && e.x < frame.x + frame.width
           && e.y > frame.y && e.y < frame.y + frame.height) {
+        stage.log += "insert " + this.type + " " + frame.name + "\n";
         var b = this.set_block(array, frame, stage, player);
         if (frame.nest.length != 0) {
           b.scale(1 - (frame.nest.length) * 0.1, 1 - (frame.nest.length) * 0.1);
