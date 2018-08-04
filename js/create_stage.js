@@ -83,7 +83,6 @@ initialize_stage = function(stage) {
             stage.play.exec_frames[i].blocks[j].remove_stage_block(stage);
         }
         stage.play.exec_frames[i].blocks.length = 0;
-        // stage.play.exec_frames.pop();
     }
     stage.play.exec_frames.length = 0;
     stage.addChild(stage.play);

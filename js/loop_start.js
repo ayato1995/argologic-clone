@@ -65,7 +65,6 @@ var Loop_start = enchant.Class.create(Block, {
 		this.addEventListener("touchend", function(e) {
 			if (e.x > frame.x && e.x < frame.x + frame.width &&
 				e.y > frame.y && e.y < frame.y + frame.height) {
-				console.log(frame.nest.length + " " + frame.nest[frame.nest.length - 1]);
 				if (frame.nest.length == 0 || frame.nest[frame.nest.length - 1] == 0) {
 					stage.log += "insert " + this.type + " " + frame.name + "\n";
 					this.set_block(array, frame, stage, player);

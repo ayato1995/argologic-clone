@@ -55,7 +55,7 @@ var Func = enchant.Class.create(Block, {
 				&& e.y > frame.y && e.y < frame.y + frame.height) {
 				stage.log += "insert " + this.type + " " + frame.name + "\n";
 				var b = this.set_block(array, frame, stage, player);
-				if (frame.nest.length != 0) {
+				if (b.arg_area.length == 0 && frame.nest.length != 0) {
 					var kind = frame.nest.pop();
 					kind--;
 					if (kind != 0)
