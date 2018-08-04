@@ -67,9 +67,8 @@ var Func = enchant.Class.create(Block, {
 					old_frame.nest.pop();
 				}
 				stage.log += "delete " + this.type + " " + old_frame.name + "\n";
+				this.reset_scale(old_array, this.arg_area.length);
 				stage.removeChild(this);
-				var i = this.searchBlock(old_array);
-				this.reset_scale(old_array, i, this.arg_area.length);
 				this.block_remove(old_array);
 				for (var i = 0; i < this.arg_area.length; i++) {
 					stage.removeChild(this.arg_area[i]);

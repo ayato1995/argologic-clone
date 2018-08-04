@@ -64,7 +64,7 @@
         if (new_frame.nest.length != 0) {
           b.arg_frag = true;
           b.scale(1 - (new_frame.nest.length) * 0.1, 1 - (new_frame.nest.length) * 0.1);
-          var kind = frame.nest.pop();
+          var kind = new_frame.nest.pop();
           kind--;
           if (kind != 0)
             new_frame.nest.push(kind);
@@ -157,10 +157,12 @@
 
   block_remove: function(array) {
     var i = this.searchBlock(array);
+    if (i == -1) return false;
     array.splice(i, 1);
     for (var i = 0; i < array.length; i++) {
       array[i].moveBlock(i);
     }
+    return true;
   },
 
   reset_block_color: function(frames) {
@@ -177,12 +179,15 @@
     return -1;
   },
 
-  reset_scale: function(array, i, num) {
+  reset_scale: function(array, num) {
+    var i = this.searchBlock(array);
+    if (i == -1) return false;
     for (var j = i + 1; j < i + num + 1 && j < array.length; j++) {
       array[j].scaleX += 0.1;
       array[j].scaleY += 0.1;
       array[j].arg_frag = false;
     }
+    return true;
   },
 
   output_log: function() {
