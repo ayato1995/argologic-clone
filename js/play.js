@@ -82,7 +82,10 @@ var Play = enchant.Class.create(Block, {
 				frame.ip++;
 			}
 		}
-  		setTimeout(this.play.bind(this), this.interval, player, stage, args);
+		if (!stage.clearFlag)
+			return;
+		else
+			setTimeout(this.play.bind(this), this.interval, player, stage, args);
   	},
 
   	judge_goal: function(player, stage) {
