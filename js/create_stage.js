@@ -1,6 +1,7 @@
 createStage = function(stageId) {    
     var stage = new Scene();
     stage.id = stageId;
+    stage.play_flag = false;
     stage.clearFlag = true;
     stage.selectFlag = false;
     stage.frames = new Array();
@@ -72,6 +73,7 @@ createStage = function(stageId) {
 initialize_stage = function(stage) {
     core.height = 320;
 	stage.play.reset_block_stack();
+    stage.play_flag = false;
     for (var i = 0; i < stage.frames.length; i++) {
         stage.frames[i].push_btn_stage(stage);
         stage.frames[i].reset_frame();

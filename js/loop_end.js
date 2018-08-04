@@ -9,6 +9,7 @@ var Loop_end = enchant.Class.create(Block, {
 
 	register_remove_eventListener: function(array, stage, player) {
 		this.addEventListener("touchend", function() {
+			if (stage.play_flag) return;
 			if (stage.selectFlag) {
 				if (this.select) {
 					var i = this.searchBlock(player.copy_list);

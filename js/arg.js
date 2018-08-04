@@ -10,6 +10,7 @@ var Arg = enchant.Class.create(Block, {
 
 	register_remove_eventListener: function(array, stage, player, frame) {
 		this.addEventListener("touchstart", function() {
+			if (stage.play_flag) return;
 			if (stage.selectFlag) {
 				if (this.select) {
 					var i = this.searchBlock(player.copy_list);
