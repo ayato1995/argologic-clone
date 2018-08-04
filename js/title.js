@@ -12,6 +12,7 @@ titleScene = function() {
   var stage3 = new Title_label(stage1.y + 30, 3, "stage 3");
   var stage4 = new Title_label(stage2.y + 30, 4, "stage 4");
   var stage5 = new Title_label(stage3.y + 30, 5, "stage 5");
+  var stage6 = new Title_label(stage4.y + 30, 6, "stage 6");
 
   scene.addChild(title);
   scene.addChild(stage1);
@@ -19,6 +20,7 @@ titleScene = function() {
   scene.addChild(stage3);
   scene.addChild(stage4);
   scene.addChild(stage5);
+  scene.addChild(stage6);
 
   return scene;
 }
