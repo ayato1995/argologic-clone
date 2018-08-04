@@ -40,7 +40,7 @@ var Loop_end = enchant.Class.create(Block, {
 	register_set_eventListener: function(array, frame, stage, player) {
 		this.addEventListener("touchend", function(e) {
 			if (e.x > frame.x && e.x < frame.x + frame.width &&
-				e.y > frame.y && e.y < frame.y + frame.height && this.check_loop_start(array)) {
+				e.y > frame.y && e.y < frame.y + frame.height && this.check_loop_stack(frame)) {
 				stage.log += "insert " + this.type + " " + frame.name + "\n";
 				this.set_block(array, frame, stage, player);
 			}
@@ -56,10 +56,8 @@ var Loop_end = enchant.Class.create(Block, {
 		array.push(block);
 	},
 
-	check_loop_start: function(array) {
-		for (var i = 0; i < array.length; i++) {
-			if (array[i].type == "loop_start") return true;
-		}
-		return false;
-	}
-})
+	check_loop_stack: function(frame) {
+		if (frame.loop_stack.length == 0) return false;
+		return true;
+	},
+});

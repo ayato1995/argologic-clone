@@ -10,6 +10,7 @@ var Frame = enchant.Class.create(enchant.Sprite, {
 		this.label = this.set_label(name);
 		this.copy_btn = new Copy(this.x + 4, this.y + this.height + 10);
 		this.blocks = new Array();
+		this.loop_stack = new Array();
 		/* instraction pointer */
 		this.ip = 0;
 		this.arg = new Array();

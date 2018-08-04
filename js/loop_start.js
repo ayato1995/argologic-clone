@@ -68,6 +68,7 @@ var Loop_start = enchant.Class.create(Block, {
 				e.y > frame.y && e.y < frame.y + frame.height) {
 				if (frame.nest.length == 0 || frame.nest[frame.nest.length - 1] == 0) {
 					stage.log += "insert " + this.type + " " + frame.name + "\n";
+					frame.loop_stack.push(this.type);
 					this.set_block(array, frame, stage, player);
 				}
 			}
