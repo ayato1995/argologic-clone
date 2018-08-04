@@ -6,6 +6,7 @@
     this.select = false;
     this.default_x = x;
     this.default_y = y;
+    this.arg_frag = false;
   },
 
   register_all_set_eventListener: function(frames, stage, player) {
@@ -38,8 +39,8 @@
           }
         }
       } else {
-        if (this.scaleX != 1) {
-          if (frame.nest[frame.nest.length - 1] != frame.kind_arg) {
+        if (this.arg_frag) {
+          if (frame.nest.length != 0) {
             frame.nest[frame.nest.length - 1]++;
           } else {
             frame.nest.push(1);
@@ -66,6 +67,7 @@
         stage.log += "insert " + this.type + " " + frame.name + "\n";
         var b = this.set_block(array, frame, stage, player);
         if (frame.nest.length != 0) {
+          b.arg_frag = true;
           b.scale(1 - (frame.nest.length) * 0.1, 1 - (frame.nest.length) * 0.1);
           var kind = frame.nest.pop();
           kind--;

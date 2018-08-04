@@ -30,23 +30,22 @@ var Func = enchant.Class.create(Block, {
 					}
 				}
 			} else {
-				if (this.arg_area.length != 0)
-					frame.nest.pop();
-				if (frame.nest[frame.nest.length - 1] != frame.kind_arg) {
-					frame.nest[frame.nest.length - 1]++;
-				} else {
-					fram.nest.push(1);
+				if (this.arg_flag) {
+					if (frame.nest.length != 0) {
+						frame.nest[frame.nest.length - 1]++;
+					} else {
+						frame.nest.push(1);
+					}
 				}
 				stage.log += "delete " + this.type + " " + frame.name + "\n";
 				stage.removeChild(this);
 				var i = this.searchBlock(array);
-				this.reset_scale(array, i, frame.kind_arg);
 				this.block_remove(array);
 				for (var i = 0; i < this.arg_area.length; i++) {
 					stage.removeChild(this.arg_area[i]);
 				}
 			}
-		})
+		});
 	},
 
 	register_set_eventListener: function(array, frame, stage, player) {
@@ -55,11 +54,14 @@ var Func = enchant.Class.create(Block, {
 				&& e.y > frame.y && e.y < frame.y + frame.height) {
 				stage.log += "insert " + this.type + " " + frame.name + "\n";
 				var b = this.set_block(array, frame, stage, player);
-				if (b.arg_area.length == 0 && frame.nest.length != 0) {
-					var kind = frame.nest.pop();
-					kind--;
-					if (kind != 0)
-						frame.nest.push(kind);
+				if (b != null) {
+					if (b.arg_area.length == 0 && frame.nest.length != 0) {
+						b.arg_flag = true;
+						var kind = frame.nest.pop();
+						kind--;
+						if (kind != 0)
+							frame.nest.push(kind);
+					}
 				}
 			}
 			this.x = this.default_x;
