@@ -24,8 +24,9 @@
   register_all_remove_eventListener: function(array, frame, stage, player) {
     for (var i = 0; i < stage.frames.length; i++) {
       if (frame == stage.frames[i]) continue;
-      this.register_remove_eventListener(array, stage.frames[i].blocks, frame, stage.frames[i], stage, player);
+      this.register_move_insert_eventListener(stage.frames[i].blocks, stage.frames[i], stage, player);
     }
+    this.register_remove_eventListener(array, frame, stage, player);
   },
 
   register_select_eventListener: function(array, frame, stage, player) {
@@ -53,38 +54,43 @@
     });
   },
 
-  register_remove_eventListener: function(old_array, new_array, old_frame, new_frame, stage, player) {
+  register_move_insert_eventListener: function(array, frame, stage, player) {
     this.addEventListener("touchend", function(e) {
       if (stage.play_flag) return;
       if (stage.selectFlag) return;
-      if (e.x > new_frame.x && e.x < new_frame.x + new_frame.width
-          && e.y > new_frame.y && e.y < new_frame.y + new_frame.height) {
-        stage.log += "insert " + this.type + " " + new_frame.name + "\n";
-        var b = this.set_block(new_array, new_frame, stage, player);
-        if (new_frame.nest.length != 0) {
+      if (e.x > frame.x && e.x < frame.x + frame.width
+          && e.y > frame.y && e.y < frame.y + frame.height) {
+        stage.log += "insert " + this.type + " " + frame.name + "\n";
+        var b = this.set_block(array, frame, stage, player);
+        if (frame.nest.length != 0) {
           b.arg_frag = true;
-          b.scale(1 - (new_frame.nest.length) * 0.1, 1 - (new_frame.nest.length) * 0.1);
-          var kind = new_frame.nest.pop();
+          b.scale(1 - (frame.nest.length) * 0.1, 1 - (frame.nest.length) * 0.1);
+          var kind = frame.nest.pop();
           kind--;
           if (kind != 0)
-            new_frame.nest.push(kind);
+            frame.nest.push(kind);
         }
       }
-      if (e.x > old_frame.x && e.x < old_frame.x + old_frame.width
-          && e.y > old_frame.y && e.y < old_frame.y + old_frame.height) {
+    });
+  },
+
+  register_remove_eventListener: function(array, frame, stage, player) {
+    this.addEventListener("touchend", function(e) {
+      if (e.x > frame.x && e.x < frame.x + frame.width
+          && e.y > frame.y && e.y < frame.y + frame.height) {
         this.x = this.default_x;
         this.y = this.default_y;
       } else {
         if (this.arg_frag) {
-          if (old_frame.nest.length != 0) {
-            old_frame.nest[old_frame.nest.length - 1]++;
+          if (frame.nest.length != 0) {
+            frame.nest[frame.nest.length - 1]++;
           } else {
-            old_frame.nest.push(1);
+            frame.nest.push(1);
           }
         }
-        stage.log += "delete " + this.type + " " + old_frame.name + "\n";
+        stage.log += "delete " + this.type + " " + frame.name + "\n";
         stage.removeChild(this);
-        this.block_remove(old_array);
+        this.block_remove(array);
       }
     });
   },
