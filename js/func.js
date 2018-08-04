@@ -8,43 +8,69 @@ var Func = enchant.Class.create(Block, {
 		this.arg = new Array();
 	},
 
-	register_remove_eventListener: function(array, frame, stage, player) {
+	register_select_eventListener: function(array, frame, stage, player) {
 		this.addEventListener("touchstart", function() {
 			if (stage.play_flag) return;
-			if (stage.selectFlag) {
-				if (this.select) {
-					var i = this.searchBlock(player.copy_list);
-					player.copy_list.splice(i, player.copy_list.length - 1);
-					i = this.searchBlock(array);
-					for (var j = i; j < array.length && j < i + 3; j++) {
-						array[j].select = false;
-						array[j].backgroundColor = array[j].default_color;
-					}
-				} else {
-          			this.reset_block_color(stage.frames);
-					player.copy_list.length = 0;
-					var i = this.searchBlock(array);
-					for (var j = i; j < array.length && j < i + 3; j++) {
-						player.copy_list.push(array[j]);
-						array[j].select = true;
-						array[j].backgroundColor = "yellow";
-					}
+			if (!stage.selectFlag) return;
+			if (this.select) {
+				var i = this.searchBlock(player.copy_list);
+				player.copy_list.splice(i, player.copy_list.length - 1);
+				i = this.searchBlock(array);
+				for (var j = i; j < array.length && j < i + 3; j++) {
+					array[j].select = false;
+					array[j].backgroundColor = array[j].default_color;
 				}
 			} else {
+      			this.reset_block_color(stage.frames);
+				player.copy_list.length = 0;
+				var i = this.searchBlock(array);
+				for (var j = i; j < array.length && j < i + 3; j++) {
+					player.copy_list.push(array[j]);
+					array[j].select = true;
+					array[j].backgroundColor = "yellow";
+				}
+			}
+		});
+	},
+	
+	register_remove_eventListener: function(old_array, new_array, old_frame, new_frame, stage, player) {
+		this.addEventListener("touchend", function(e) {
+			if (stage.play_flag) return;
+			if (stage.selectFlag) return;
+			if (e.x > new_frame.x && e.x < new_frame.x + new_frame.width
+				&& e.y > new_frame.y && e.y < new_frame.y + new_frame.height) {
+				stage.log += "insert " + this.type + " " + new_frame.name + "\n";
+				var b = this.set_block(new_array, new_frame, stage, player);
+				if (b != null) {
+					if (b.arg_area.length == 0 && new_frame.nest.length != 0) {
+						b.arg_flag = true;
+						b.scale(1 - (new_frame.nest.length) * 0.1, 1 - (new_frame.nest.length) * 0.1);
+						var kind = new_frame.nest.pop();
+						kind--;
+						if (kind != 0)
+							new_frame.nest.push(kind);
+					}
+				}
+			}
+			if (e.x > old_frame.x && e.x < old_frame.frame.x + old_frame.width
+				&& e.y > old_frame.y && e.y < old_frame.y + old_frame.height) {
+				this.x = this.default_x;
+				this.y = this.default_y;
+			} else {
 				if (this.arg_flag) {
-					if (frame.nest.length != 0) {
-						frame.nest[frame.nest.length - 1]++;
+					if (old_frame.nest.length != 0) {
+						old_frame.nest[old_frame.nest.length - 1]++;
 					} else {
-						frame.nest.push(1);
+						old_frame.nest.push(1);
 					}
 				} else if (this.arg_area.length != 0) {
-					frame.nest.pop();
+					old_frame.nest.pop();
 				}
-				stage.log += "delete " + this.type + " " + frame.name + "\n";
+				stage.log += "delete " + this.type + " " + old_frame.name + "\n";
 				stage.removeChild(this);
-				var i = this.searchBlock(array);
-				this.reset_scale(array, i, this.arg_area.length);
-				this.block_remove(array);
+				var i = this.searchBlock(old_array);
+				this.reset_scale(old_array, i, this.arg_area.length);
+				this.block_remove(old_array);
 				for (var i = 0; i < this.arg_area.length; i++) {
 					stage.removeChild(this.arg_area[i]);
 				}
