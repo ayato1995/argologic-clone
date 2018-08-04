@@ -33,17 +33,14 @@ var Arg = enchant.Class.create(Block, {
 		});
 	},
 
-	register_remove_eventListener: function(old_array, new_array, old_frame, new_frame, stage, player) {
+	register_move_insert_eventListener: function(array, frame, stage, player) {
 		this.addEventListener("touchend", function(e) {
 			if (stage.play_flag) return;
 			if (stage.selectFlag) return;
-			if (e.x > new_frame.x && e.x < new_frame.x + new_frame.width
-				&& e.y > new_frame.y && e.y < new_frame.y + new_frame.height && new_frame.check_arg(this)) {
-				stage.log += "insert " + this.type + " " + new_frame.name + "\n";
-				this.set_block(new_array, new_frame, stage, player);
-			} else {
-				this.x = this.default_x;
-				this.y = this.default_y;
+			if (e.x > frame.x && e.x < frame.x + frame.width
+				&& e.y > frame.y && e.y < frame.y + frame.height && frame.check_arg(this)) {
+				stage.log += "insert " + this.type + " " + frame.name + "\n";
+				this.set_block(array, frame, stage, player);
 			}
 		});
 	},
@@ -69,8 +66,12 @@ var Arg = enchant.Class.create(Block, {
     register_all_remove_eventListener: function(array, frame, stage, player) {
     	for (var i = 1; i < stage.frames.length; i++) {
     		if (frame == stage.frames[i]) continue;
-    		this.register_remove_eventListener(array, stage.frames[i].blocks, frame, stage.frames[i], stage, player);
+    		this.register_move_insert_eventListener(stage.frames[i].blocks, stage.frames[i], stage, player);
     	}
+    	this.register_remove_eventListener(array, frame, stage, player);
+    },
+
+    register_remove_eventListener: function(array, frame, stage, player) {
     	this.addEventListener("touchend", function(e) {
 			if (e.x > frame.x && e.x < frame.x + frame.width
 				&& e.y > frame.y && e.y < frame.y + frame.height) {
