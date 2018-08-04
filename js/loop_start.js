@@ -22,7 +22,7 @@ var Loop_start = enchant.Class.create(Block, {
 		return label;
 	},
 
-	register_remove_eventListener: function(array, stage, player) {
+	register_remove_eventListener: function(array, frame, stage, player) {
 		this.addEventListener("touchstart", function() {
 			if (stage.play_flag) return;
 			if (stage.selectFlag) {
@@ -98,7 +98,7 @@ var Loop_start = enchant.Class.create(Block, {
 	set_block: function(array, frame, stage, player) {
 		var block = new Loop_start(frame.x + 4, array.length * 20 + frame.y + 4);
 		block.set_loop_cnt(this, block);
-		block.register_remove_eventListener(array, stage, player);
+		block.register_remove_eventListener(array, frame, stage, player);
 		stage.addChild(block);
 		stage.addChild(block.loop_label);
 		array.push(block);

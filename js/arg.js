@@ -8,7 +8,7 @@ var Arg = enchant.Class.create(Block, {
 		this.backgroundColor = this.default_color;
 	},
 
-	register_remove_eventListener: function(array, stage, player, frame) {
+	register_remove_eventListener: function(array, frame, stage, player) {
 		this.addEventListener("touchstart", function() {
 			if (stage.play_flag) return;
 			if (stage.selectFlag) {
@@ -61,7 +61,7 @@ var Arg = enchant.Class.create(Block, {
 	set_block: function(array, frame, stage, player) {
 		var block = new Arg(frame.x + 4, array.length * 20 + frame.y + 4, this.id);
 		block.func_name = frame.name;
-		block.register_remove_eventListener(array, stage, player, frame);
+		block.register_remove_eventListener(array, frame, stage, player);
 		block.set_arg_type(frame);
 		stage.addChild(block);
 		array.push(block);
