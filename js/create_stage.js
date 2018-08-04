@@ -13,19 +13,26 @@ createStage = function(stageId) {
     stage.map = null;
     var map_img = core.assets["../img/map0.gif"];
     if (stageId == 1) {
-      stage.map = addMap1(map_img);
-    } else if (stageId == 2) {
-      stage.map = addMap2(map_img);
-    } else if (stageId == 3) {
-      stage.map = addMap3(map_img);
-    } else if (stageId == 4) {
-      stage.map = addMap4(map_img);
-    } else if (stageId == 5) {
+      // stage.map = addMap1(map_img);
       stage.map = addMap5(map_img);
-    } else if (stageId == 6) {
+    } else if (stageId == 2) {
+      // stage.map = addMap2(map_img);
+      stage.map = addMap1(map_img);
+    } else if (stageId == 3) {
+      // stage.map = addMap3(map_img);
+      stage.map = addMap2(map_img);
+    } else if (stageId == 4) {
+      // stage.map = addMap4(map_img);
       stage.map = addMap6(map_img);
-    } else if (stageId == 7) {
+    } else if (stageId == 5) {
+      // stage.map = addMap5(map_img);
       stage.map = addMap7(map_img);
+    } else if (stageId == 6) {
+      // stage.map = addMap6(map_img);
+      stage.map = addMap4(map_img);
+    } else if (stageId == 7) {
+      // stage.map = addMap7(map_img);
+      stage.map = addMap3(map_img);
     }
 
     /* goal initialize */
