@@ -124,5 +124,10 @@ var Loop_start = enchant.Class.create(Block, {
 		this.y = frame.y + 4 + i * 20;
 		this.loop_label.x = this.x + this.width - this.loop_label.width;
 		this.loop_label.y = this.loop_label.y = this.y + this.height - 6;
+	},
+
+	remove_stage_block: function(stage) {
+		stage.removeChild(this.loop_label);
+		stage.removeChild(this);
 	}
 });
