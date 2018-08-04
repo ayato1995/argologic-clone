@@ -78,12 +78,14 @@ initialize_stage = function(stage) {
     }
     for (var i = 0; i < stage.play.exec_frames.length; i++) {
         stage.removeChild(stage.play.exec_frames[i]);
+        stage.removeChild(stage.play.exec_frames[i].label);
         for (var j = 0; j < stage.play.exec_frames[i].blocks.length; j++) {
             stage.play.exec_frames[i].blocks[j].remove_stage_block(stage);
         }
         stage.play.exec_frames[i].blocks.length = 0;
-        stage.play.exec_frames.pop();
+        // stage.play.exec_frames.pop();
     }
+    stage.play.exec_frames.length = 0;
     stage.addChild(stage.play);
     stage.addChild(stage.select);
 	stage.clearFlag = true;
