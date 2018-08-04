@@ -4,9 +4,9 @@ createStage = function(stageId) {
     stage.clearFlag = true;
     stage.selectFlag = false;
     stage.frames = new Array();
-    stage.log = "!!!!!!!!!! GAME START !!!!!!!!!!";
+    stage.log = "GAME START";
     stage.log += "\n";
-    stage.log += "========= stage " + stage.id + " =========";
+    stage.log += "stage" + stage.id;
     stage.log += "\n";
 
     stage.map = null;
