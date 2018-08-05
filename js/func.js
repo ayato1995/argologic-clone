@@ -35,6 +35,7 @@ var Func = enchant.Class.create(Block, {
 
 	register_all_remove_eventListener: function(array, frame, stage, player) {
 		for (var i = 0; i < stage.frames.length; i++) {
+			 if (stage.frames[i] == frame) continue;
 			this.register_move_insert_eventListener(stage.frames[i].blocks, stage.frames[i], stage, player);
 		}
 		this.register_remove_eventListener(array, frame, stage, player);
