@@ -160,8 +160,9 @@ var Func = enchant.Class.create(Block, {
 		for (var j = kind_arg; i < array.length && j > 0; i++, j--) {
 			this.set_arg_block(array[i]);
 		}
-		if (kind_arg != 0)
+		if (kind_arg != 0) {
 			array.splice(index + 1, kind_arg);
+		}
 	},
 
 	remove_stage_block: function(stage) {

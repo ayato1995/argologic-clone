@@ -85,6 +85,12 @@ var Loop_end = enchant.Class.create(Block, {
 		array.push(block);
 	},
 
+	create_block: function(x, y, stage) {
+		var order = new Loop_end(x, y);
+		stage.addChild(order);
+		return order;
+	},
+
 	check_loop_stack: function(frame) {
 		if (frame.loop_stack.length == 0) return false;
 		return true;

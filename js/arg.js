@@ -95,6 +95,13 @@ var Arg = enchant.Class.create(Block, {
 		array.push(block);
 	},
 
+	create_block: function(x, y, stage) {
+		var order = new Arg(x, y, this.id);
+		order.func_name = this.func_name;
+		stage.addChild(order);
+		return order;
+	},
+
 	set_default_color: function(id) {
 		switch(id) {
 		case 0:

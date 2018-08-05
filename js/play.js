@@ -126,7 +126,8 @@ var Play = enchant.Class.create(Block, {
 				var o = origin_frame.blocks[j];
 				if (o.type == "arg" && o.id == i) {
 					stage.removeChild(origin_frame.blocks[j]);
-					origin_frame.blocks[j] = order.arg[i].create_block(o.x, o.y, stage);
+					var b = order.arg[i].create_block(o.x, o.y, stage);
+					origin_frame.blocks[j] = b;
 				}
 			}
 		}
@@ -203,7 +204,9 @@ var Play = enchant.Class.create(Block, {
 		var f = new Frame(330 + this.exec_frames.length * 30, 31, frame.name);
 		stage.addChild(f);
 		for (var i = 0; i < frame.blocks.length; i++) {
-			frame.blocks[i].set_block(f.blocks, f, stage, player);
+			var order = frame.blocks[i];
+			var o = order.create_block(f.x + 4, f.blocks.length * 20 + f.y + 4, stage);
+			f.blocks.push(o);
 		}
 		this.exec_frames.push(f);
 		this.frame_id = this.exec_frames.length - 1;

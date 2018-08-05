@@ -6,7 +6,7 @@ var Func_h = enchant.Class.create(Func, {
 	},
 
 	set_block: function(array, frame, stage, player) {
-		var block = new Func_h(frame.x + 4, array.length * 20 + frame.y + 4);
+		var block = new Func_h(frame.x + 4, array.length * 20 + frame.y + 4);\
 		block.arg_area = block.expand_func_block(array, stage.frames[1].kind_arg);
 		if (frame.nest.length != 0 && block.arg_area.length != 0)
 			return null;
@@ -22,7 +22,7 @@ var Func_h = enchant.Class.create(Func, {
 		return block;
 	},
 
-	craete_block: function(x, y, stage) {
+	create_block: function(x, y, stage) {
 		var order = new Func_h(x, y);
 		var frame = stage.frames[1];
 		order.arg_area = order.expand_func_block(null, frame.kind_arg);

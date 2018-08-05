@@ -138,6 +138,14 @@ var Loop_start = enchant.Class.create(Block, {
 		array.push(block);
 	},
 
+	create_block: function(x, y, stage) {
+		var order = new Loop_start(x, y);
+		order.set_loop_cnt(this, order);
+		stage.addChild(order);
+		stage.addChild(order.loop_label);
+		return order;
+	},
+
 	set_loop_cnt: function(tblock, block) {
 		this.loop_cnt = tblock.loop_cnt;
 		this.loop_label.width = tblock.loop_label.width;

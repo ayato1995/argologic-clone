@@ -22,7 +22,7 @@ var Func_d = enchant.Class.create(Func, {
 		return block;
 	},
 
-	crate_block: function(x, y, stage) {
+	create_block: function(x, y, stage) {
 		var order = new Func_d(x, y);
 		var frame = stage.frames[4];
 		order.arg_area = order.expand_func_block(null, frame.kind_arg);
