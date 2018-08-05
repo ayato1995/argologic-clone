@@ -77,7 +77,7 @@ var Play = enchant.Class.create(Block, {
 				this.loop_start(frame.ip, order);
 				frame.ip++;
 			} else if (type == "loop_end") {
-				this.loop_end(frame.ip, order, frame);
+				this.loop_end(order, frame);
 			} else {
 				this.execution(order, player, stage);
 				frame.ip++;
@@ -115,7 +115,7 @@ var Play = enchant.Class.create(Block, {
 		stage.addChild(origin_frame.label);
 		if (base_frame.kind_arg != 0) {
 		    origin_frame.kind_arg = base_frame.kind_arg;
-			order.set_arg(frame.ip, frame.blocks, this.exec_frames[this.frame_id].kind_arg);
+			order.set_arg(frame, frame.blocks, this.exec_frames[this.frame_id].kind_arg);
 			this.change_arg(order, base_frame, origin_frame, stage);
 		}
 	},
@@ -138,16 +138,16 @@ var Play = enchant.Class.create(Block, {
 		this.counter.push(order.loop_cnt);
 	},
 
-	loop_end: function(ip, order, frame) {
+	loop_end: function(order, frame) {
 		var cnt = this.counter.pop();
-		var ip = this.start_ip.pop();
+		var i = this.start_ip.pop();
 		cnt--;
 		if (cnt == 0) {
 			frame.ip++;
 			return;
 		}
-		frame.ip = ip;
-		this.start_ip.push(ip);
+		frame.ip = i;
+		this.start_ip.push(i);
 		this.counter.push(cnt);
 	},
 

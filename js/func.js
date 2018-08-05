@@ -154,14 +154,14 @@ var Func = enchant.Class.create(Block, {
   		});
 	},
 
-	set_arg: function(index, array, kind_arg) {
-		var i = index;
+	set_arg: function(frame, array, kind_arg) {
+		var i = frame.ip;
 		i++;
 		for (var j = kind_arg; i < array.length && j > 0; i++, j--) {
 			this.set_arg_block(array[i]);
 		}
 		if (kind_arg != 0) {
-			array.splice(index + 1, kind_arg);
+			frame.ip += kind_arg;
 		}
 	},
 
