@@ -59,7 +59,6 @@ var Arg = enchant.Class.create(Block, {
 
     register_all_set_eventListener: function(frames, stage, player) {
     	for (var i = 1; i < frames.length; i++) {
-    		if (stage.frames[i] == frmae) continue;
     		this.register_set_eventListener(frames[i].blocks, frames[i], stage, player);
     	}
     },
