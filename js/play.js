@@ -3,9 +3,8 @@ var Play = enchant.Class.create(Block, {
 		Block.call(this, x, y);
 		this.type = "play";
 		this.image = core.assets["../img/play.png"];
-		// 実行中のブロックをハイライトするため
-		this.block_stack = new Array();
-		this.call_stack = new Array();
+		// To highlight execution block
+		this.exec_block = new Array();
 		this.exec_frames = new Array();
 		this.frame_id = 0;
 		/* interval of order */
@@ -56,6 +55,7 @@ var Play = enchant.Class.create(Block, {
 	  			this.judge_goal(player, stage);
   				return;
   			} else {
+  				this.pop_exec_block();
   				var func = this.exec_frames.pop();
   				func.remove_blocks(stage);
   				stage.removeChild(func.label);
@@ -67,7 +67,9 @@ var Play = enchant.Class.create(Block, {
   				frame.ip++;
   			}
   		} else {
+  			this.limit_pop_exec_block();
 	  		var order = frame.blocks[frame.ip];
+	  		this.push_exec_block(order);
 			var type = order.type;
 			if (type == "function") {
 				this.copy_function(order, stage, player, frame);
@@ -152,10 +154,6 @@ var Play = enchant.Class.create(Block, {
 	},
 
 	execution: function(block, player, stage) {
-	    if (this.block_stack.length > 0) {
-	    	this.pop_block_stack();
-	    }
-	    this.push_block_stack(block);
 	    switch(block.type) {
 	    case "up":
 	    	player.toUp(stage);
@@ -170,34 +168,32 @@ var Play = enchant.Class.create(Block, {
 	    player.before_block = block;
 	},
 
-	push_block_stack: function(block) {
+	push_exec_block: function(block) {
 		block.backgroundColor = "red";
-		this.block_stack.push(block);
+		this.exec_block.push(block);
 	},
 
-	push_func_stack: function(block) {
-		block.backgroundColor = "red";
-		this.call_stack.push(block);
+	limit_pop_exec_block: function() {
+		var b = this.exec_block.pop();
+		if (b != null) {
+			if (b.type == "function")
+				this.exec_block.push(b);
+			else
+				b.backgroundColor = b.default_color;
+		}
 	},
 
-	pop_block_stack: function() {
-		var b = this.block_stack.pop();
-		b.backgroundColor = b.default_color;
-	},
-
-	pop_func_stack: function() {
-		var b = this.call_stack.pop();
+	pop_exec_block: function() {
+		var b = this.exec_block.pop();
 		if (b != null)
 			b.backgroundColor = b.default_color;
 	},
 
 	reset_block_stack: function() {
-		for (var i = 0; i < this.block_stack.length; i++) {
-			this.pop_block_stack();
+		for (var i = 0; i < this.exec_block.length; i++) {
+			this.exec_block[i].backgroundColor = this.exec_block[i].default_color;
 		}
-		for (var i = 0; i < this.call_stack.length; i++) {
-			this.pop_func_stack();
-		}
+		this.exec_block.length = 0;
 	},
 
 	copy_frame: function(frame, stage, player) {
