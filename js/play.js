@@ -136,8 +136,11 @@ var Play = enchant.Class.create(Block, {
 	},
 
 	loop_start: function(ip, order) {
-		this.start_ip.push(ip + 1);
-		this.counter.push(order.loop_cnt);
+		if (!order.set_flag) {
+			order.set_flag = true;
+			this.start_ip.push(ip);
+			this.counter.push(order.loop_cnt);
+		}
 	},
 
 	loop_end: function(order, frame) {

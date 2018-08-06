@@ -7,6 +7,7 @@ var Loop_start = enchant.Class.create(Block, {
 		this.backgroundColor = this.default_color;
 		this.loop_cnt = 1;
 		this.loop_label = this.initialize_label(String(this.loop_cnt));
+		this.set_flag = false;
 		this.register_loop_label_eventListener();
 	},
 
