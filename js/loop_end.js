@@ -1,7 +1,6 @@
 var Loop_end = enchant.Class.create(Block, {
 	initialize: function(x, y) {
-		Block.call(this, x, y);
-		this.type = "loop_end";
+		Block.call(this, "loop_end", x, y);
 		this.image = core.assets["../img/loop_end.png"];
 		this.default_color = "silver";
 		this.backgroundColor = this.default_color;

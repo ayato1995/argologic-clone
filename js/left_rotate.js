@@ -1,7 +1,6 @@
 var Left_rotate = enchant.Class.create(Block, {
 	initialize: function(x, y) {
-		Block.call(this, x, y);
-		this.type = "left_rotate";
+		Block.call(this, "left_rotate", x, y);
 		this.image = core.assets["../img/left.png"];
 		this.default_color = "silver";
 		this.backgroundColor = this.default_color;

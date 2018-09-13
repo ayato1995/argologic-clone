@@ -1,7 +1,6 @@
 var Copy = enchant.Class.create(Block, {
 	initialize: function(x, y) {
-		Block.call(this, x, y);
-		this.type = "copy";
+		Block.call(this, "copy", x, y);
 		this.image = core.assets["../img/copy.png"];
 	},
 

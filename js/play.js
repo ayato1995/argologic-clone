@@ -1,7 +1,6 @@
 var Play = enchant.Class.create(Block, {
 	initialize: function(x, y) {
-		Block.call(this, x, y);
-		this.type = "play";
+		Block.call(this, "play", x, y);
 		this.image = core.assets["../img/play.png"];
 		// To highlight execution block
 		this.exec_block = new Array();
@@ -51,44 +50,34 @@ var Play = enchant.Class.create(Block, {
   	play: function(player, stage, args) {
   		var frame = this.exec_frames[this.frame_id];
   		if (frame.ip >= frame.blocks.length) {
-  			if (frame.name == "stack") {
-	  			this.judge_goal(player, stage);
+  			if (this.frame_end(player, stage, frame))
   				return;
-  			} else {
-  				this.pop_exec_block();
-  				var func = this.exec_frames.pop();
-  				func.remove_blocks(stage);
-  				stage.removeChild(func.label);
-  				stage.removeChild(func);
-  				this.frame_id--;
-  				var frame = this.exec_frames[this.frame_id];
-  				var order = frame.blocks[frame.ip];
-  				order.backgroundColor = order.default_color;
-  				frame.ip++;
-  			}
   		} else {
-  			this.limit_pop_exec_block();
-	  		var order = frame.blocks[frame.ip];
-	  		this.push_exec_block(order);
-			var type = order.type;
-			if (type == "function") {
-				this.copy_function(order, stage, player, frame);
-			} else if (type == "arg") {
-				frame.ip++;
-			} else if (type == "loop_start") {
-				this.loop_start(frame.ip, order);
-				frame.ip++;
-			} else if (type == "loop_end") {
-				this.loop_end(order, frame);
-			} else {
-				this.execution(order, player, stage);
-				frame.ip++;
-			}
+  			this.block_validation(player, stage, frame);
 		}
 		if (!stage.clearFlag)
 			return;
 		else
 			setTimeout(this.play.bind(this), this.interval, player, stage, args);
+  	},
+
+  	frame_end: function(player, stage, frame) {
+  		if (frame.name == "stack") {
+			this.judge_goal(player, stage);
+			return true;
+		} else {
+			this.pop_exec_block();
+			var func = this.exec_frames.pop();
+			func.remove_blocks(stage);
+			stage.removeChild(func.label);
+			stage.removeChild(func);
+			this.frame_id--;
+			var frame = this.exec_frames[this.frame_id];
+			var order = frame.blocks[frame.ip];
+			order.backgroundColor = order.default_color;
+			frame.ip++;
+			return false;
+		}
   	},
 
   	judge_goal: function(player, stage) {
@@ -97,6 +86,26 @@ var Play = enchant.Class.create(Block, {
   			core.field(true, stage);
   		else
   			core.field(false, stage);
+  	},
+
+  	block_validation: function(player, stage, frame) {
+		this.limit_pop_exec_block();
+  		var order = frame.blocks[frame.ip];
+  		this.push_exec_block(order);
+		var type = order.type;
+		if (type == "function") {
+			this.copy_function(order, stage, player, frame);
+		} else if (type == "arg") {
+			frame.ip++;
+		} else if (type == "loop_start") {
+			this.loop_start(frame.ip, order);
+			frame.ip++;
+		} else if (type == "loop_end") {
+			this.loop_end(order, frame);
+		} else {
+			this.execution(order, player, stage);
+			frame.ip++;
+		}
   	},
 
 	copy_function: function(order, stage, player, frame) {

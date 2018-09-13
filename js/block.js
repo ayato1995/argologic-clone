@@ -1,6 +1,7 @@
 ﻿var Block = enchant.Class.create(enchant.Sprite, {
-  initialize: function(x, y) {
+  initialize: function(type, x, y) {
     enchant.Sprite.call(this, 16, 16);
+    this.type = type;
     this.x = x;
     this.y = y;
     this.select = false;

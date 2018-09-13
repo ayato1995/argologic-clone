@@ -1,7 +1,6 @@
 var Arg = enchant.Class.create(Block, {
 	initialize: function(x, y, id) {
-		Block.call(this, x, y);
-		this.type = "arg";
+		Block.call(this, "arg", x, y);
 		this.func_name = null;
 		this.id = id;
 		this.default_color = this.set_default_color(this.id);

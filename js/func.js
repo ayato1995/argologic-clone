@@ -1,10 +1,10 @@
 var Func = enchant.Class.create(Block, {
 	initialize: function(x, y) {
-		Block.call(this, x, y);
-		this.type = "function";
+		Block.call(this, "function", x, y);
 		this.default_color = "silver";
 		this.backgroundColor = this.default_color;
 		this.arg_area = null;
+		this.time = 10;
 		this.arg = new Array();
 	},
 
