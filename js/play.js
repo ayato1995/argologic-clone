@@ -112,6 +112,7 @@ var Play = enchant.Class.create(Block, {
 			this.copy_function(order, stage, player, frame);
 		} else if (type == "arg") {
 			frame.ip++;
+			console.log("worning: arg");
 		} else if (type == "loop_start") {
 			this.loop_start(frame.ip, order);
 			frame.ip++;
@@ -125,16 +126,7 @@ var Play = enchant.Class.create(Block, {
 
 	copy_function: function(order, stage, player, frame) {
 		order.backgroundColor = "red";
-		var id = 0;
-		var name = order.name;
-		if (name == "heart")
-			id = 1;
-		else if (name == "clover")
-			id = 2;
-		else if (name == "spead")
-			id = 3;
-		else if (name == "diamond")
-			id = 4;
+		var id = order.id;
 		var base_frame = stage.frames[id];
 		this.copy_frame(base_frame, stage, player);
 		var origin_frame = this.exec_frames[this.frame_id];
@@ -202,12 +194,11 @@ var Play = enchant.Class.create(Block, {
 
 	limit_pop_exec_block: function() {
 		var b = this.exec_block.pop();
-		if (b != null) {
-			if (b.type == "function")
-				this.exec_block.push(b);
-			else
-				b.backgroundColor = b.default_color;
-		}
+		if (b == null) return;
+		if (b.type == "function")
+			this.exec_block.push(b);
+		else
+			b.backgroundColor = b.default_color;
 	},
 
 	pop_exec_block: function() {

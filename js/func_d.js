@@ -2,6 +2,7 @@ var Func_d = enchant.Class.create(Func, {
 	initialize: function(x, y) {
 		Func.call(this, x, y);
 		this.name = "diamond";
+		this.id = 4;
 		this.image = core.assets["../img/diamond.png"];
 	},
 
