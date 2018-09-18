@@ -88,8 +88,7 @@ var Play = enchant.Class.create(Block, {
 			stage.removeChild(func);
 			this.frame_id--;
 			var frame = this.exec_frames[this.frame_id];
-			var order = frame.blocks[frame.ip];
-			order.backgroundColor = order.default_color;
+			this.pop_exec_block();
 			frame.ip++;
 			return false;
 		}
