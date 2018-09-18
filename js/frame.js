@@ -97,8 +97,9 @@ var Frame = enchant.Class.create(enchant.Sprite, {
 	},
 
 	remove_blocks: function(stage) {
-		for (var i = 0; i < this.blocks.length; i++)
-			stage.removeChild(this.blocks[i]);
+		for (var i = 0; i < this.blocks.length; i++) {
+			this.blocks[i].remove_stage_block(stage);
+		}
 		this.blocks.length = 0;
 	},
 

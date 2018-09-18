@@ -1,7 +1,6 @@
 var Select = enchant.Class.create(Block, {
 	initialize: function(x, y) {
-		Block.call(this, x, y);
-		this.type = "select";
+		Block.call(this, "select", x, y);
 		this.image = core.assets["../img/cut.png"];
 	},
 

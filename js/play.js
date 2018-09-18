@@ -43,10 +43,12 @@ var Play = enchant.Class.create(Block, {
     	}
     	stage.removeChild(stage.play);
     	stage.removeChild(stage.select);
-    	this.copy_frame(stage.frames[0], stage, player);    	
+    	this.copy_frame(stage.frames[0], stage, player); 
+    	this.frame_id = 0;   	
     	this.play(player, stage, null);
 	},
 
+	/*
   	play: function(player, stage, args) {
   		var frame = this.exec_frames[this.frame_id];
   		if (frame.ip >= frame.blocks.length) {
@@ -59,6 +61,19 @@ var Play = enchant.Class.create(Block, {
 			return;
 		else
 			setTimeout(this.play.bind(this), this.interval, player, stage, args);
+  	},
+  	*/
+
+  	play: function(player, stage, args) {
+  		var frame = this.exec_frames[this.frame_id];
+  		if (frame.ip >= frame.blocks.length) {
+  			if (this.frame_end(player, stage, frame)) return;
+  		} else {
+  			this.block_validation(player, stage, frame);
+  		}
+  		if (!stage.clearFlag) return;
+  		else
+  			setTimeout(this.play.bind(this), this.interval, player, stage, args);
   	},
 
   	frame_end: function(player, stage, frame) {
@@ -81,7 +96,7 @@ var Play = enchant.Class.create(Block, {
   	},
 
   	judge_goal: function(player, stage) {
-  		if (! stage.clearFlag) return;
+  		if (!stage.clearFlag) return;
   		if (player.within(stage.goal, 16))
   			core.field(true, stage);
   		else
