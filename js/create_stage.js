@@ -54,8 +54,8 @@ createStage = function(stageId) {
     stage.frames.push(s_frame);
     stage.frames.push(d_frame);
 
+    // stage.select = new Select (330, 280);
     stage.play = new Play(330, 300);
-    stage.select = new Select (330, 280);
 
     stage.addChild(stage.map);
     stage.addChild(stage.frames[0]);
@@ -70,13 +70,15 @@ createStage = function(stageId) {
     stage.addChild(stage.player);
     stage.player.push_block_stage(stage);
     stage.addChild(stage.play);
-    stage.addChild(stage.select);
+    // stage.addChild(stage.select);
 
     stage.play.register_play_eventListener(stage.player, stage, stage.map, stage.goal);
-    stage.select.register_eventListener(stage, stage.frames);
+    // stage.select.register_eventListener(stage, stage.frames);
+    /*
     for (var i = 0; i < stage.frames.length; i++) {
         stage.frames[i].copy_btn.register_eventListener(stage.player, stage.frames[i].blocks, stage.frames[i], stage);
     }
+    */
 
     stage.player.set_block_eventListener(stage.frames, stage, stage.player);
     
@@ -101,7 +103,7 @@ initialize_stage = function(stage) {
     }
     stage.play.exec_frames.length = 0;
     stage.addChild(stage.play);
-    stage.addChild(stage.select);
+    // stage.addChild(stage.select);
 	stage.clearFlag = true;
     stage.selectFlag = false;
     stage.player.push_block_stage(stage);

@@ -48,22 +48,6 @@ var Play = enchant.Class.create(Block, {
     	this.play(player, stage, null);
 	},
 
-	/*
-  	play: function(player, stage, args) {
-  		var frame = this.exec_frames[this.frame_id];
-  		if (frame.ip >= frame.blocks.length) {
-  			if (this.frame_end(player, stage, frame))
-  				return;
-  		} else {
-  			this.block_validation(player, stage, frame);
-		}
-		if (!stage.clearFlag)
-			return;
-		else
-			setTimeout(this.play.bind(this), this.interval, player, stage, args);
-  	},
-  	*/
-
   	play: function(player, stage, args) {
   		var frame = this.exec_frames[this.frame_id];
   		if (frame.ip >= frame.blocks.length) {

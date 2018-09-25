@@ -17,7 +17,7 @@
   },
 
   register_new_block_eventListener: function(array, frame, stage, player) {
-    this.register_select_eventListener(array, frame, stage, player);
+    // this.register_select_eventListener(array, frame, stage, player);
     this.register_all_remove_eventListener(array, frame, stage, player);
     this.register_move_eventListener();
   },
@@ -29,7 +29,7 @@
     }
     this.register_remove_eventListener(array, frame, stage, player);
   },
-
+  /*
   register_select_eventListener: function(array, frame, stage, player) {
     this.addEventListener("touchend", function() {
       if (stage.play_flag) return;
@@ -54,6 +54,7 @@
       }
     });
   },
+  */
 
   register_move_insert_eventListener: function(array, frame, stage, player) {
     this.addEventListener("touchend", function(e) {

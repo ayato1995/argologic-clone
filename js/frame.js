@@ -8,7 +8,7 @@ var Frame = enchant.Class.create(enchant.Sprite, {
 		this.name = name;
 		this.backgroundColor = this.set_backgroundColor(name);
 		this.label = this.set_label(name);
-		this.copy_btn = new Copy(this.x + 4, this.y + this.height + 10);
+		// this.copy_btn = new Copy(this.x + 4, this.y + this.height + 10);
 		this.blocks = new Array();
 		this.loop_stack = new Array();
 		/* instraction pointer */
@@ -58,11 +58,11 @@ var Frame = enchant.Class.create(enchant.Sprite, {
 	},
 
 	push_btn_stage: function(stage) {
-		stage.addChild(this.copy_btn);
+		// stage.addChild(this.copy_btn);
 	},
 
 	pop_btn_stage: function(stage) {
-		stage.removeChild(this.copy_btn);
+		// stage.removeChild(this.copy_btn);
 	},
 
 	move_frame: function() {

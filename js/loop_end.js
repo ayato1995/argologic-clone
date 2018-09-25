@@ -5,7 +5,7 @@ var Loop_end = enchant.Class.create(Block, {
 		this.default_color = "silver";
 		this.backgroundColor = this.default_color;
 	},
-
+	/*
 	register_select_eventListener: function(array, frame, stage, player) {
 		this.addEventListener("touchend", function() {
 			if (stage.play_flag) return;
@@ -30,6 +30,7 @@ var Loop_end = enchant.Class.create(Block, {
 			}
 		});
 	},
+	*/
 
 	register_all_remove_eventListener: function(array, frame, stage, player) {
 		for (var i = 0; i < stage.frames.length; i++) {

@@ -21,7 +21,7 @@ var Loop_start = enchant.Class.create(Block, {
 
 		return label;
 	},
-
+	/*
 	register_select_eventListener: function(array, frame, stage, player) {
 		this.addEventListener("touchstart", function() {
 			if (stage.play_flag) return;
@@ -46,7 +46,7 @@ var Loop_start = enchant.Class.create(Block, {
 			}
 		});
 	},
-
+	*/
 	register_all_remove_eventListener: function(array, frame, stage, player) {
 		for (var i = 0; i < stage.frames.length; i++) {
 			if (frame == stage.frames[i]) continue;

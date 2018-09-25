@@ -6,7 +6,7 @@ var Arg = enchant.Class.create(Block, {
 		this.default_color = this.set_default_color(this.id);
 		this.backgroundColor = this.default_color;
 	},
-
+	/*
 	register_select_eventListener: function(array, frame, stage, player) {
 		this.addEventListener("touchstart", function() {
 			if (stage.play_flag) return;
@@ -31,6 +31,7 @@ var Arg = enchant.Class.create(Block, {
 			}
 		});
 	},
+	*/
 
 	register_move_insert_eventListener: function(array, frame, stage, player) {
 		this.addEventListener("touchend", function(e) {
